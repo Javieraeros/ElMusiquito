@@ -23,5 +23,4 @@ public interface Cliente {
 	public void setCorreoe(String correoe);
 	public void setDireccion(String direccion);
 	public void setCompras(Vector<Instrumentos> compras);
-
 }

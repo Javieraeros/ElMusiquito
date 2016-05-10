@@ -13,8 +13,7 @@ package interfaces;
 
 import enums.FamiliaSaxo;
 
-public interface Saxofon extends Viento, Cuerda {  //Comentar Asun se puede extender más de una
-												   //una interfaz, preguntar si hacer.
+public interface Saxofon extends Viento {
 	public FamiliaSaxo getFamilia();
 	public String getBoquillaSaxo();
 	public String getMaterial();
