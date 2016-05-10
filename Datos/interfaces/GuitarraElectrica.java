@@ -21,5 +21,4 @@ public interface GuitarraElectrica {
 	public void setPastillas(Pastilla[] pastillas);
 	public void setPuenteFlotante(boolean puenteFlotante);
 	public void setControles(int controles);
-	
 }
