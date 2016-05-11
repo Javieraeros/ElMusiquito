@@ -37,29 +37,55 @@ public class ClienteImplTest {
 		assertEquals(esperado,javi);
 	}
 
-	@Test
-	public void testGetCompras() {
-		fail("Not yet implemented");
-	}
+	
 
-	@Test
+	@Test(expected=IllegalArgumentException.class)
 	public void testSetCorreoe() {
-		fail("Not yet implemented");
+		Vector<InstrumentoImpl> vector=new Vector<InstrumentoImpl>(5,0);
+		InstrumentoImpl saxo=new InstrumentoImpl();
+		InstrumentoImpl violin=new InstrumentoImpl();
+		vector.addElement(saxo);
+		vector.addElement(violin);
+		ClienteImpl javi=new ClienteImpl(47428157,"Javi","Ruiz","Rodríguez",
+										 "pajarrurrogmail.com","Mi casa",vector);
+		javi.setCorreoe("@gmail.com");
 	}
 
 	@Test
 	public void testSetDireccion() {
-		fail("Not yet implemented");
+		Vector<InstrumentoImpl> vector=new Vector<InstrumentoImpl>(5,0);
+		InstrumentoImpl saxo=new InstrumentoImpl();
+		InstrumentoImpl violin=new InstrumentoImpl();
+		vector.addElement(saxo);
+		vector.addElement(violin);
+		ClienteImpl javi=new ClienteImpl(47428157,"Javi","Ruiz","Rodríguez",
+										 "pajarrurrogmail.com","Mi casa",vector);
+		javi.setDireccion("mi casaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 	}
 
 	@Test
 	public void testSetCompras() {
-		fail("Not yet implemented");
+		Vector<InstrumentoImpl> vector=new Vector<InstrumentoImpl>(5,0);
+		InstrumentoImpl saxo=new InstrumentoImpl();
+		InstrumentoImpl violin=new InstrumentoImpl();
+		vector.addElement(saxo);
+		vector.addElement(violin);
+		ClienteImpl javi=new ClienteImpl(47428157,"Javi","Ruiz","Rodríguez",
+										 "pajarrurrogmail.com","Mi casa",vector);
+		
+		Vector<InstrumentoImpl> v=new Vector<InstrumentoImpl>(5,0);
+		InstrumentoImpl violonchelo=new InstrumentoImpl();
+		InstrumentoImpl viopolin=new InstrumentoImpl();
+		vector.addElement(violonchelo);
+		vector.addElement(viopolin);
+		javi.setCompras(v);
+		assertEquals(v,javi.getCompras());
 	}
 
 	@Test
 	public void testCorreoeValido() {
-		fail("Not yet implemented");
+		ClienteImpl defecto=new ClienteImpl();
+		assertFalse(defecto.correoeValido("javi@.com"));
 	}
 
 }

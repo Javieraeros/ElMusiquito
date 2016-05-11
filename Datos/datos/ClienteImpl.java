@@ -122,7 +122,7 @@ public class ClienteImpl extends PersonaImpl implements Cliente {
 			//Si hay al menos una letra (i>0) y un @
 			if(i>0 && aux[i]=='@'){
 				for(int j=i;j<aux.length;j++){
-					if(j>i && aux[j]=='.'){
+					if(j>i+1 && aux[j]=='.'){
 						valido=true;
 					}
 				}
