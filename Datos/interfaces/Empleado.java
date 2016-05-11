@@ -22,5 +22,5 @@ public interface Empleado {
 	
 	public void setCuentaCorriente(String cuenta) throws IllegalArgumentException;
 	public void setSueldo(double sueldo) throws IllegalArgumentException;
-	public short setTienda(short tienda);
+	public void setTienda(short tienda);
 }

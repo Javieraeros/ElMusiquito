@@ -18,7 +18,7 @@ public interface GuitarraElectrica {
 	public int getControles();
 	
 	public void setTipo(String tipo);
-	public void setPastillas(Pastilla[] pastillas);
+	public void setPastillas(Pastilla[] pastillas);//Máximo 3 pastillas!!!
 	public void setPuenteFlotante(boolean puenteFlotante);
 	public void setControles(int controles);
 }

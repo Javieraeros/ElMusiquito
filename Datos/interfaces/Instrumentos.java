@@ -19,11 +19,11 @@ import enums.Marca;
 
 public interface Instrumentos {
 	public int getId();
-	public int getIdComapartido();
+	public int getIdCompartido();
 	public String getNombre();
 	public Marca getMarca();
 	public String getModelo();
-	public Double getPrecioVenta();
+	public double getPrecioVenta();
 	public String getDescripcion();
 	
 	public void setNombre(String nombre);
