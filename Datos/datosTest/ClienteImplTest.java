@@ -5,19 +5,36 @@ import static org.junit.Assert.*;
 import java.util.Vector;
 
 import org.junit.Test;
+import datos.*;
 
 public class ClienteImplTest {
 
 	@Test
 	public void testToString() {
-		Vector<Instrumentos> v=new Vector(5,0);
-		ClienteImpl javi=new Clienteimpl(47428157,"Javi","Ruiz","Rodríguez",
-										 "pajarrurro@gmail.com","Mi casa",)
+		Vector<InstrumentoImpl> vector=new Vector<InstrumentoImpl>(5,0);
+		
+		InstrumentoImpl saxo=new InstrumentoImpl();
+		InstrumentoImpl violin=new InstrumentoImpl();
+		vector.addElement(saxo);
+		vector.addElement(violin);
+		ClienteImpl javi=new ClienteImpl(47428157,"Javi","Ruiz","Rodríguez",
+										 "pajarrurro@gmail.com","Mi casa",vector);
+		String esperado="47428157 Javi Ruiz Rodríguez pajarrurro@gmail.com Mi casa";
+		assertEquals(esperado,javi.toString());
 	}
 
 	@Test
 	public void testClienteImpl() {
-		fail("Not yet implemented");
+		Vector<InstrumentoImpl> vector=new Vector<InstrumentoImpl>(5,0);
+		InstrumentoImpl saxo=new InstrumentoImpl();
+		InstrumentoImpl violin=new InstrumentoImpl();
+		vector.addElement(saxo);
+		vector.addElement(violin);
+		ClienteImpl javi=new ClienteImpl(47428157,"Javi","Ruiz","Rodríguez",
+										 "pajarrurrogmail.com","Mi casa",vector);
+		ClienteImpl esperado=new ClienteImpl(47428157,"Javi","Ruiz","Rodríguez",
+				 "defecto@defecto.com","Mi casa",vector);
+		assertEquals(esperado,javi);
 	}
 
 	@Test

@@ -14,25 +14,25 @@ package datos;
 import java.util.Vector;
 
 import interfaces.Cliente;
-import interfaces.Instrumentos;
 
 public class ClienteImpl extends PersonaImpl implements Cliente {
 
 	private static final long serialVersionUID = 1L;
 	private String correoe;
 	private String direccion;
-	private Vector<Instrumentos> compras;
+	private Vector<InstrumentoImpl> compras;
 	
 	
 	public ClienteImpl() {
 		super();
 		this.correoe="defecto@defecto.es";
 		this.direccion="defecto";
-		this.compras=new Vector<Instrumentos>(10,0);
+		this.compras=new Vector<InstrumentoImpl>(10,0);
 	}
 
+	
 	public ClienteImpl(long dni, String nombre, String apellido1, String apellido2,
-					   String correoe,String direccion,Vector<Instrumentos> compras) {
+					   String correoe,String direccion,Vector<InstrumentoImpl> compras) {
 		super(dni, nombre, apellido1, apellido2);
 		if(correoeValido(correoe)){
 			this.correoe=correoe;
@@ -72,7 +72,7 @@ public class ClienteImpl extends PersonaImpl implements Cliente {
 	}
 
 	@Override
-	public Vector<Instrumentos> getCompras() {
+	public Vector<InstrumentoImpl> getCompras() {
 		
 		return compras;
 	}
@@ -89,12 +89,18 @@ public class ClienteImpl extends PersonaImpl implements Cliente {
 
 	@Override
 	public void setDireccion(String direccion) {
-		this.direccion=direccion;
-
+		if(direccion.length()<=30){
+			this.direccion=direccion;
+		}else{
+			direccion=direccion.substring(0,29);
+			this.direccion=direccion;
+			System.out.println("Dirección demasiado larga, se ha guadado:");
+			System.out.println(direccion);
+		}
 	}
 
 	@Override
-	public void setCompras(Vector<Instrumentos> compras) {
+	public void setCompras(Vector<InstrumentoImpl> compras) {
 		this.compras=compras;
 
 	}
@@ -127,6 +133,7 @@ public class ClienteImpl extends PersonaImpl implements Cliente {
 	
 	@Override
 	public String toString(){
-		return (super.toString()+" "+correoe+" "+direccion+" "+compras);
+		
+		return (super.toString()+" "+correoe+" "+direccion);
 	}
 }
