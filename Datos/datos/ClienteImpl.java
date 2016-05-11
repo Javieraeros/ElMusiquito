@@ -7,7 +7,6 @@
  * 
  * boolean correoeValido(String correoe);
  * String toString();
- * boolean equals();
  */
 
 package datos;
@@ -124,5 +123,10 @@ public class ClienteImpl extends PersonaImpl implements Cliente {
 			}
 		}
 		return valido;
+	}
+	
+	@Override
+	public String toString(){
+		return (super.toString()+" "+correoe+" "+direccion+" "+compras);
 	}
 }

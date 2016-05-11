@@ -5,7 +5,6 @@
  * 					seguida de 18 dígitos.
  * Métodos Añadidos/Heredados
  * boolean cuentaValida(String cuenta)
- * boolean equals(Object o)
  * String toString()
  */
 
@@ -55,27 +54,33 @@ public class EmpleadoImpl extends PersonaImpl implements Empleado {
 	}
 
 	public double getSueldo() {
-		// TODO Auto-generated method stub
-		return 0;
+		return sueldo;
 	}
 
 	public short getTienda() {
-		// TODO Auto-generated method stub
-		return 0;
+		return tienda;
 	}
 
 	public void setCuentaCorriente(String cuenta) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+		if(cuentaCorrienteValida(cuenta)){
+			this.cuentacorriente=cuenta;
+		}else{
+			throw new IllegalArgumentException("Error, la cuenta no es válida");
+		}
 
 	}
 
 	public void setSueldo(double sueldo) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+		if(sueldo>0){
+			this.sueldo=sueldo;
+		}else{
+			throw new IllegalArgumentException("Error, el sueldo no puede ser menor que 0");
+		}
 
 	}
 
 	public void setTienda(short tienda) {
-		
+		this.tienda=tienda;
 	}
 	
 	/* 
@@ -108,4 +113,10 @@ public class EmpleadoImpl extends PersonaImpl implements Empleado {
 		}
 		return valida;
 	}
+	
+	@Override
+	public String toString(){
+		return (super.toString()+" "+cuentacorriente+" "+sueldo+" "+tienda);
+	}
+	
 }

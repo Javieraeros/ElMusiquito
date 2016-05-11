@@ -17,7 +17,7 @@ package interfaces;
 
 import enums.Marca;
 
-public interface Instrumentos {
+public interface Instrumento {
 	public int getId();
 	public int getIdCompartido();
 	public String getNombre();
