@@ -82,10 +82,10 @@ public class ClienteImplTest {
 		assertEquals(v,javi.getCompras());
 	}
 
+	
 	@Test
 	public void testCorreoeValido() {
 		ClienteImpl defecto=new ClienteImpl();
 		assertFalse(defecto.correoeValido("javi@.com"));
 	}
-
 }
