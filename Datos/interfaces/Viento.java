@@ -15,7 +15,7 @@ public interface Viento {
 	public String getTesitura();
 	public byte getBoquilla();
 	
-	public void setAfiancion(char afiancion);
+	public void setAfinacion(char afinacion);
 	public void setTesitura(String tesitura);
 	public void setBoquilla(byte boquilla);
 }

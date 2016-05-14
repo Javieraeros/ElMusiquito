@@ -73,29 +73,65 @@ public class PercusionImpl extends InstrumentoImpl implements Percusion {
 		this.material=material;
 		this.accesorio=accesorio;
 	}
+	
+	public PercusionImpl(InstrumentoImpl instrumento,char afinacion,String material,boolean accesorio){
+		super(instrumento);
+		if (!afinacionValida(afinacion)) {
+			System.out.println("Error, la afinación no es válida");
+			System.out.println("Se guardará C");
+			afinacion = 'C';
+		}
+		this.afinacion = afinacion;
+		if(material.length()>20){
+			System.out.println("Error, el material es demasiado grande, se guardará: ");
+			material=material.substring(0, 20);
+			System.out.println(material);
+		}
+		this.material=material;
+		this.accesorio=accesorio;
+	}
+	
+	//Copia
+	public PercusionImpl(PercusionImpl percu){
+		super(percu.getId(), percu.getNombre(), percu.getMarca(), 
+				percu.getDescripcion(), percu.getModelo(), percu.getPrecioVenta());
+		this.afinacion=percu.getAfinacion();
+		this.material=percu.getMaterial();
+		this.accesorio=percu.getAccesorios();
+	}
 
 	public char getAfinacion() {
-		return 0;
+		return afinacion;
 	}
 
 	public String getMaterial() {
-		return null;
+		return material;
 	}
 
 	public boolean getAccesorios() {
-		return false;
+		return accesorio;
 	}
 
-	public void setAfiancion(char afiancion) {
-		
+	public void setAfinacion(char afinacion) {
+		if (!afinacionValida(afinacion)) {
+			System.out.println("Error, la afinación no es válida");
+			System.out.println("Se guardará C");
+			afinacion = 'C';
+		}
+		this.afinacion = afinacion;
 	}
 
-	public void setRegistro(String material) {
-		
+	public void setMaterial(String material) {
+		if(material.length()>20){
+			System.out.println("Error, el material es demasiado grande, se guardará: ");
+			material=material.substring(0, 20);
+			System.out.println(material);
+		}
+		this.material=material;
 	}
 
 	public void setAccesorios(boolean accesorios) {
-		
+		this.accesorio=accesorios;
 	}
 	
 	public boolean afinacionValida(char afinacion) {
@@ -104,5 +140,11 @@ public class PercusionImpl extends InstrumentoImpl implements Percusion {
 			resultado = false;
 		}
 		return resultado;
+	}
+	
+	public String toString(){
+		String salida=super.toString();
+		salida=salida+"\n"+afinacion+" "+material+" "+accesorio;
+		return salida;
 	}
 }

@@ -14,7 +14,7 @@ public interface Percusion {
 	public String getMaterial();
 	public boolean getAccesorios();
 	
-	public void setAfiancion(char afiancion);
-	public void setRegistro(String material);
+	public void setAfinacion(char afinacion);
+	public void setMaterial(String material);
 	public void setAccesorios(boolean accesorios);
 }

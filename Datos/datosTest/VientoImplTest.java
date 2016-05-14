@@ -1,6 +1,8 @@
 package datosTest;
 
 import static org.junit.Assert.*;
+
+import datos.InstrumentoImpl;
 import datos.VientoImpl;
 import enums.Marca;
 
@@ -17,8 +19,15 @@ public class VientoImplTest {
 	}
 
 	@Test
-	public void testSetAfiancion() {
-		defecto.setAfiancion('y');
+	public void testVientoImplInstrumento(){
+		InstrumentoImpl instrumentoDefecto=new InstrumentoImpl();
+		VientoImpl copia=new VientoImpl(defecto, 'b', "Lab3-Sib6",(byte) 1);
+		assertEquals(instrumentoDefecto.getNombre(),copia.getNombre());
+	}
+	
+	@Test
+	public void testSetAfinacion() {
+		defecto.setAfinacion('y');
 		assertEquals('C',defecto.getAfinacion());
 	}
 

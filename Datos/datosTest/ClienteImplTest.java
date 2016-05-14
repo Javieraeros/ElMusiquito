@@ -19,8 +19,10 @@ public class ClienteImplTest {
 		vector.addElement(violin);
 		ClienteImpl javi=new ClienteImpl(47428157,"Javi","Ruiz","Rodríguez",
 										 "pajarrurro@gmail.com","Mi casa",vector);
-		String esperado="47428157 Javi Ruiz Rodríguez pajarrurro@gmail.com Mi casa";
+		String esperado="47428157 Javi Ruiz Rodríguez\npajarrurro@gmail.com Mi casa";
+		System.out.println(esperado);
 		assertEquals(esperado,javi.toString());
+		
 	}
 
 	@Test

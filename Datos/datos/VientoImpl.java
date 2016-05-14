@@ -14,6 +14,9 @@
  * ***************************
  * boolean afinacionValida(char afinacion);
  * String toString();
+ * 
+ * 
+ * 				MOSTRAR EJEMPLO SETTESITURA!!!!!!
  */
 
 package datos;
@@ -47,8 +50,8 @@ public class VientoImpl extends InstrumentoImpl implements Viento {
 			System.out.println("Se guardará C");
 			afinacion = 'C';
 		}
-		this.afinacion = afinacion;
-		this.tesitura = tesitura;
+		setTesitura(tesitura);           //Como ejemplo de que se puede hacer!
+										 //Pero no es lo habitual
 		if (boquilla != 1 && boquilla != 0) {
 			System.out.println("Error, la boquilla debe ser 0 ó 1.\nSe guardará 0");
 			boquilla = 0;
@@ -65,8 +68,14 @@ public class VientoImpl extends InstrumentoImpl implements Viento {
 			System.out.println("Se guardará C");
 			afinacion = 'C';
 		}
-		this.afinacion = afinacion;
-		this.tesitura = tesitura;
+		
+		if(tesitura.length()>20){
+			System.out.println("Error, la tesitura no puede contener más de 20 caracteres");
+			tesitura=tesitura.substring(0,20);
+			System.out.println("Se guardará: "+tesitura);
+		}
+		this.tesitura=tesitura;
+		
 		if (boquilla != 1 && boquilla != 0) {
 			System.out.println("Error, la boquilla debe ser 0 ó 1.\nSe guardará 0");
 			boquilla = 0;
@@ -76,10 +85,38 @@ public class VientoImpl extends InstrumentoImpl implements Viento {
 	}
 
 	public VientoImpl(InstrumentoImpl instrumento, char afinacion, String tesitura, byte boquilla) {
-		this();
-		System.out.println("En desarrollo");
+		super(instrumento);
+		if (!afinacionValida(afinacion)) {
+			System.out.println("Error, la afinación no es válida");
+			System.out.println("Se guardará C");
+			afinacion = 'C';
+		}
+		this.afinacion=afinacion;
+		
+		if(tesitura.length()>20){
+			System.out.println("Error, la tesitura no puede contener más de 20 caracteres");
+			tesitura=tesitura.substring(0,20);
+			System.out.println("Se guardará: "+tesitura);
+		}
+		this.tesitura=tesitura;
+		
+		if (boquilla != 1 && boquilla != 0) {
+			System.out.println("Error, la boquilla debe ser 0 ó 1.\nSe guardará 0");
+			boquilla = 0;
+		}
+		this.boquilla = boquilla;
 	}
 
+	
+	//Copia, no generará id.
+	public VientoImpl(VientoImpl viento){
+		super(viento.getId(), viento.getNombre(), viento.getMarca(), 
+				viento.getDescripcion(), viento.getModelo(), viento.getPrecioVenta());
+		this.afinacion=viento.getAfinacion();
+		this.tesitura=viento.getTesitura();
+		this.boquilla=viento.getBoquilla();
+	}
+	
 	@Override
 	public char getAfinacion() {
 		return afinacion;
@@ -96,7 +133,7 @@ public class VientoImpl extends InstrumentoImpl implements Viento {
 	}
 
 	@Override
-	public void setAfiancion(char afinacion) {
+	public void setAfinacion(char afinacion) {
 		if (!afinacionValida(afinacion)) {
 			System.out.println("Error, la afinación no es válida");
 			System.out.println("Se guardará C");
@@ -107,7 +144,12 @@ public class VientoImpl extends InstrumentoImpl implements Viento {
 
 	@Override
 	public void setTesitura(String tesitura) {
-		this.tesitura = tesitura;
+		if(tesitura.length()>20){
+			System.out.println("Error, la tesitura no puede contener más de 20 caracteres");
+			tesitura=tesitura.substring(0,20);
+			System.out.println("Se guardará: "+tesitura);
+		}
+		this.tesitura=tesitura;
 	}
 
 	@Override
@@ -129,7 +171,7 @@ public class VientoImpl extends InstrumentoImpl implements Viento {
 
 	public String toString() {
 		String salida = super.toString();
-		salida = salida + " " + afinacion + " " + tesitura + " " + " " + boquilla;
+		salida = salida + "\n" + afinacion + " " + tesitura + " " + " " + boquilla;
 		return salida;
 	}
 }

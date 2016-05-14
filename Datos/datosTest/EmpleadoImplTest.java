@@ -11,7 +11,7 @@ public class EmpleadoImplTest {
 	@Test
 	public void testToString() {
 		EmpleadoImpl javi=new EmpleadoImpl(47428157, "Javi", "Ruiz", "Rodriguez", "ES123456789112345678", 1000.35, (short) 1);
-		String esperado="47428157 Javi Ruiz Rodriguez ES123456789112345678 1000.35 1";
+		String esperado="47428157 Javi Ruiz Rodriguez\nES123456789112345678 1000.35 1";
 		assertEquals(esperado,javi.toString());
 	}
 

@@ -22,6 +22,11 @@ public class InstrumentoImplTest {
 	}
 
 	@Test
+	public void testInstrumentoImplCopia(){
+		InstrumentoImpl copiaDefecto=new InstrumentoImpl(defecto);
+		assertEquals(defecto.getId(),copiaDefecto.getId());
+	}
+	@Test
 	public void testSetNombre() {
 		defecto.setNombre("Tuba grande y hermosa como una osa");
 		assertEquals("Tuba grande y hermos",defecto.getNombre());

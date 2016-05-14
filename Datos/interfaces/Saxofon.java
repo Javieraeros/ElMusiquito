@@ -11,17 +11,17 @@
 
 package interfaces;
 
-import enums.FamiliaSaxo;
+import enums.*;
 
 public interface Saxofon extends Viento {
 	public FamiliaSaxo getFamilia();
 	public String getBoquillaSaxo();
 	public String getMaterial();
-	public String getAcabado();
+	public Acabado getAcabado();
 	
 	public void setFamilia(FamiliaSaxo familia);
 	public void setBoquillaSaxo(String boquillaSaxo);
 	public void setMaterial(String material);
-	public void setAcabado(String acabado);
+	public void setAcabado(Acabado acabado);
 	
 }

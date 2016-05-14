@@ -134,6 +134,6 @@ public class ClienteImpl extends PersonaImpl implements Cliente {
 	@Override
 	public String toString(){
 		
-		return (super.toString()+" "+correoe+" "+direccion);
+		return (super.toString()+"\n"+correoe+" "+direccion);
 	}
 }

@@ -1,6 +1,7 @@
 /*
  * Restricciones:
- * 
+ * Tando el nombre como el modelo, no podrá superar los 20 caracteres.
+ * Precio mayor que 0.
  * Métodos heredados/añadidos:
  * int tomaId();
  * boolean equals();
@@ -92,6 +93,17 @@ public class InstrumentoImpl implements Instrumento,Serializable {
 		}
 		this.precioVenta=precio;
 	}
+	
+	//Copia.No generará nueva id
+	public InstrumentoImpl(InstrumentoImpl instrumento){
+		this.id=instrumento.getId();
+		this.nombre=instrumento.getNombre();
+		this.marca=instrumento.getMarca();
+		this.descripcion=instrumento.getDescripcion();
+		this.modelo=instrumento.getModelo();
+		this.precioVenta=instrumento.getPrecioVenta();
+	}
+	
 	
 	public int getId() {
 		return id;
