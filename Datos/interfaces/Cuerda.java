@@ -11,10 +11,10 @@ package interfaces;
 
 public interface Cuerda {
 	public int getCuerdas();
-	public String getTesitura();
+	public String getRegistro();
 	public byte getTipoCuerda();
 	
 	public void setCuerdas(int cuerdas);
-	public void setTesitura(String tesitura);
+	public void setRegistro(String registro);
 	public void setTipoCuerda(byte tipoCuerda);
 }

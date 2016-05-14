@@ -9,8 +9,6 @@
  * PrecioVenta:Double consultable y modificable.
  * Descripción:String, consultable y modificable.
  * 
- * Compartidas:
- * IdCompartido: int, consultable.
  */
 
 package interfaces;
@@ -19,7 +17,6 @@ import enums.Marca;
 
 public interface Instrumento {
 	public int getId();
-	public int getIdCompartido();
 	public String getNombre();
 	public Marca getMarca();
 	public String getModelo();
@@ -29,6 +26,6 @@ public interface Instrumento {
 	public void setNombre(String nombre);
 	public void setMarca(Marca marca);
 	public void setModelo(String modelo);
-	public void setPrecioVenta(String precioVenta);
+	public void setPrecioVenta(double precioVenta);
 	public void setDescripcion(String descripcion);
 }

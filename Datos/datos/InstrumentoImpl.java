@@ -3,7 +3,8 @@
  * 
  * Métodos heredados/añadidos:
  * int tomaId();
- * 
+ * boolean equals();
+ * String toString();
  */
 package datos;
 
@@ -32,6 +33,64 @@ public class InstrumentoImpl implements Instrumento,Serializable {
 	
 	public InstrumentoImpl(){
 		id=tomaID();
+		nombre="Saxofon";
+		marca=Marca.Selmer;
+		descripcion="Gran Saxo, mejor persona";
+		modelo="Serie 3";
+		precioVenta=2500;
+	}
+	
+	public InstrumentoImpl(String nombre,Marca marca,String descripcion,String modelo,double precio){
+		this();
+		if(nombre.length()>=20){
+			System.out.println("El nombre es demasiado largo, se guardará: ");
+			nombre=nombre.substring(0, 19);
+			System.out.println(nombre);
+		}
+		this.nombre=nombre;    //También podríamos usar setNombre, pero esto me parece más correcto
+		this.marca=marca;
+		this.descripcion=descripcion;
+		if(modelo.length()>=20){
+			System.out.println("El modelo es demasiado largo, se guardará: ");
+			modelo=modelo.substring(0, 19);
+			System.out.println(modelo);
+		}
+		this.modelo=modelo;
+		if(precio<0){
+			System.out.println("El precio no puede ser menor que 0.");
+			System.out.println("Capitalista!, Opresor!, Falocentrista!");
+			System.out.println("(bien dicho Marta)");
+			precio=1;
+		}
+		this.precioVenta=precio;
+	}
+	
+	/* Se desaconseja el uso de este constructor para nuevos objetos
+	 * Solo se usará para crear objetos almacenados en ficheros.
+	 */
+	public InstrumentoImpl(int id,String nombre,Marca marca,String descripcion,String modelo,double precio){
+		this.id=id;
+		if(nombre.length()>20){
+			System.out.println("El nombre es demasiado largo, se guardará: ");
+			nombre=nombre.substring(0, 20);
+			System.out.println(nombre);
+		}
+		this.nombre=nombre;    //También podríamos usar setNombre, pero esto me parece más correcto
+		this.marca=marca;
+		this.descripcion=descripcion;
+		if(modelo.length()>20){
+			System.out.println("El modelo es demasiado largo, se guardará: ");
+			modelo=modelo.substring(0, 20);
+			System.out.println(modelo);
+		}
+		this.modelo=modelo;
+		if(precio<0){
+			System.out.println("El precio no puede ser menor que 0.");
+			System.out.println("Capitalista!, Opresor!, Falocentrista!");
+			System.out.println("(bien dicho Marta)");
+			precio=1;
+		}
+		this.precioVenta=precio;
 	}
 	
 	public int getId() {
@@ -40,68 +99,73 @@ public class InstrumentoImpl implements Instrumento,Serializable {
 
 	
 	public int getIdCompartido() {
-		// TODO Auto-generated method stub
-		return 0;
+		return idCompartido;
 	}
 
 	
 	public String getNombre() {
-		// TODO Auto-generated method stub
-		return null;
+		return nombre;
 	}
 
 	
 	public Marca getMarca() {
-		// TODO Auto-generated method stub
-		return null;
+		return marca;
 	}
 
 	
 	public String getModelo() {
-		// TODO Auto-generated method stub
-		return null;
+		return modelo;
 	}
 
 	
 	public double getPrecioVenta() {
-		// TODO Auto-generated method stub
-		return 0;
+		return precioVenta;
 	}
 
 	
 	public String getDescripcion() {
-		// TODO Auto-generated method stub
-		return null;
+		return descripcion;
 	}
 
 	
 	public void setNombre(String nombre) {
-		// TODO Auto-generated method stub
-
+		if(nombre.length()>20){
+			System.out.println("El nombre es demasiado largo, se guardará: ");
+			nombre=nombre.substring(0, 20);
+			System.out.println(nombre);
+		}
+		this.nombre=nombre;
 	}
 
 	
 	public void setMarca(Marca marca) {
-		// TODO Auto-generated method stub
-
+		this.marca=marca;
 	}
 
 	
 	public void setModelo(String modelo) {
-		// TODO Auto-generated method stub
-
+		if(modelo.length()>20){
+			System.out.println("El modelo es demasiado largo, se guardará: ");
+			modelo=modelo.substring(0, 20);
+			System.out.println(modelo);
+		}
+		this.modelo=modelo;
 	}
 
 	
-	public void setPrecioVenta(String precioVenta) {
-		// TODO Auto-generated method stub
-
+	public void setPrecioVenta(double precio) {
+		if(precio<0){
+			System.out.println("El precio no puede ser menor que 0.");
+			System.out.println("Capitalista!, Opresor!, Falocentrista!");
+			System.out.println("(bien dicho Marta)");
+			precio=1;
+		}
+		this.precioVenta=precio;
 	}
 
 	
 	public void setDescripcion(String descripcion) {
-		// TODO Auto-generated method stub
-
+		this.descripcion=descripcion;
 	}
 
 	public int tomaID(){
@@ -147,4 +211,31 @@ public class InstrumentoImpl implements Instrumento,Serializable {
 
 		return id;
 	}
+	
+	/* 
+	 * Interfaz 
+	 * Cabecera: boolean equals(Object o)
+	 * Proceso: Método que devuelve si un objeto es IGUAL a otro
+	 * Precondiciones:Ninguna
+	 * Entrada:1 objeto
+	 * Salida: 1 booleano
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Booleano asociado al nombre, true si los objetos son iguales, false en caso contrario
+	 * 					Consideraremos que dos instrumentos son iguales si tienen el mismo id
+	 */
+	@Override
+	public boolean equals(Object o){
+		boolean resultado=false;
+		if(o!=null && o instanceof InstrumentoImpl){
+			InstrumentoImpl ii=(InstrumentoImpl) o;
+			resultado=this.id==ii.getId();
+		}
+		return resultado;
+	}
+	
+	@Override
+	public String toString(){
+		return (id+" "+nombre+" "+marca+" "+modelo+" "+precioVenta);
+	}
+	
 }

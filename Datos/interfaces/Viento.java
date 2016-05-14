@@ -12,10 +12,10 @@ package interfaces;
 
 public interface Viento {
 	public char getAfinacion();
-	public String getRegistro();
+	public String getTesitura();
 	public byte getBoquilla();
 	
 	public void setAfiancion(char afiancion);
-	public void setRegistro(String registro);
+	public void setTesitura(String tesitura);
 	public void setBoquilla(byte boquilla);
 }
