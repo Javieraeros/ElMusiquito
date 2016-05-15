@@ -93,7 +93,7 @@ public class FicheroCliente {
 				dis=new DataInputStream(fis);
 				dniLeido=dis.readLong();
 				while(dis.available()>0 && dniLeido!=dni){
-					dis.skip(50);
+					dis.skip(100);
 					dniLeido=dis.readLong();
 				}
 				

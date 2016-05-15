@@ -1,0 +1,74 @@
+ * ***********
+ * Propiedades
+ * ***********
+ * Basicas:
+ * 
+ * 
+ * Derivadas:
+ * 
+ * 
+ * Compartidas:
+ *  
+ * 
+ * 
+ * Restricciones:
+ * 
+ * 
+ * 
+ * ********
+ * Interfaz
+ * ********
+ * Consultores:
+ * 
+ * 
+ * Modificadores:
+ * 
+ * 
+ * Métodos añadidos:
+ * 
+ * 
+ * 
+ * Métodos Sobreescritos:
+ * boolean equals(Object o);
+ * XXXXX clone();
+ * String toString();
+ * int hashCode();
+ * int compareTo(XXXX comparada);
+ 
+ 
+ 
+ /* 
+	 * Interfaz 
+	 * Cabecera:
+	 * Proceso:
+	 * Precondiciones:
+	 * Entrada:
+	 * Salida:
+	 * Entrada/Salida:
+	 * Postcondiciones:
+	 */
+
+	 
+/* 
+	 * Interfaz 
+	 * Cabecera: boolean equals(Object o)
+	 * Proceso: Método que devuelve si un objeto es IGUAL a otro
+	 * Precondiciones:Ninguna
+	 * Entrada:1 objeto
+	 * Salida: 1 booleano
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Booleano asociado al nombre, true si los objetos son iguales, false en caso contrario
+	 */
+
+/* 
+	 * Interfaz 
+	 * Cabecera: int compareTo(XXXX comparada)
+	 * Proceso Método que compara si un dos XXXX son IGUALES
+	 * Precondiciones:Nada
+	 * Entrada:1 XXXX
+	 * Salida:1 Entero
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Devuelve 1 si XXX que usa el método es mayor que XXXX que paso por parametro
+	 * 0 si son iguales, -1 en caso contrario.
+	 */
+ 
