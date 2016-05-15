@@ -1,4 +1,4 @@
-package ejecutables;
+package creadores;
 
 import java.io.*;
 import java.util.Scanner;
