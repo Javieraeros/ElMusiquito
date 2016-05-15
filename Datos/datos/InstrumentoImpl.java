@@ -34,7 +34,7 @@ public class InstrumentoImpl implements Instrumento,Serializable {
 	private double precioVenta;
 	
 	public InstrumentoImpl(){
-		id=tomaID();
+		id=tomaID("Ficheros//Id.dat");
 		nombre="Saxofon";
 		marca=Marca.Selmer;
 		descripcion="Gran Saxo, mejor persona";
@@ -166,11 +166,24 @@ public class InstrumentoImpl implements Instrumento,Serializable {
 		this.descripcion=descripcion;
 	}
 
-	public int tomaID(){
+	/* 
+	 * Interfaz 
+	 * Cabecera:public int tomaID(String ruta)
+	 * Proceso:Nos tomará un id de un fichero, aumentando el id de ese fichero en 1, y aumentando
+	 * 		el atributo estatico IdCompartido en 1
+	 * Precondiciones:La clase debe contener un atributo estático llamado idCmopartido.
+	 * Entrada:Nada
+	 * Salida:1 entero
+	 * Entrada/Salida:1 String para la ruta del fichero
+	 * Postcondiciones:En caso de no existir ese fichero, lo creará, además siempre que se llama
+	 * 					al método, se aumentará en uno el valor de idCompartido,
+	 */
+	
+	public int tomaID(String ruta){
 		int id = 1;
 		if (idCompartido == 0) {
 			try {
-				FileInputStream leerID = new FileInputStream("Ficheros//Id.dat");
+				FileInputStream leerID = new FileInputStream(ruta);
 				DataInputStream in = new DataInputStream(leerID);
 				/*
 				 * Puesto que sabesmos que, si el fichero existe,solo tiene
@@ -187,7 +200,7 @@ public class InstrumentoImpl implements Instrumento,Serializable {
 				in.close();
 				leerID.close();
 			} catch (FileNotFoundException e1) {
-				System.out.println("Que has hecho que no encuentro el fichero Alumnos.dat??");
+				System.out.println("Que has hecho que no encuentro el fichero "+ruta);
 				System.out.println("Bueno, no pasa nada, lo vuelvo a crear... PERO QUE NO VUELVA A OCURRIR");
 			} catch (IOException e) {
 				System.out.println(e);
@@ -197,7 +210,7 @@ public class InstrumentoImpl implements Instrumento,Serializable {
 			idCompartido++;
 		}
 		try {
-			FileOutputStream escribeID = new FileOutputStream("Ficheros//Id.dat");
+			FileOutputStream escribeID = new FileOutputStream(ruta);
 			DataOutputStream out = new DataOutputStream(escribeID);
 			out.writeInt(id);
 			escribeID.close();
