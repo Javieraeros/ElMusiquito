@@ -50,6 +50,13 @@ public class PersonaImpl implements Persona,Serializable {
 		
 	}
 	
+	public PersonaImpl(PersonaImpl p){
+		this.dni=p.getDNI();
+		this.nombre=p.getNombre();
+		this.apellido1=p.getApellido1();
+		this.apellido2=p.getApellido2();
+	}
+	
 	public long getDNI() {
 		return this.dni;
 	}

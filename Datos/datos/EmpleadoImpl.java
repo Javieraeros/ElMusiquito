@@ -48,6 +48,23 @@ public class EmpleadoImpl extends PersonaImpl implements Empleado {
 		}
 		this.tienda=tienda;
 	}
+	
+	public EmpleadoImpl(PersonaImpl p,String cc,double sueldo,short tienda){
+		super(p);
+		if(cuentaCorrienteValida(cc)){
+			this.cuentacorriente=cc;
+		}else{
+			this.cuentacorriente="ES000000000000000000";
+			System.out.println("Error,número de cuenta no válido");
+		}
+		if(sueldo>0){
+			this.sueldo=sueldo;
+		}else{
+			this.sueldo=1;
+			System.out.println("Error, el sueldo no puede ser menor que 0");
+		}
+		this.tienda=tienda;
+	}
 
 	public String getCuentaCorriente() {
 		return cuentacorriente;
