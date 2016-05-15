@@ -10,7 +10,7 @@
 
 package datos;
 import java.io.Serializable;
-
+import compartidas.*;
 import interfaces.Persona;
 
 public class PersonaImpl implements Persona,Serializable {
@@ -23,7 +23,7 @@ public class PersonaImpl implements Persona,Serializable {
 	
 	
 	public PersonaImpl(){
-		dni=00000001;
+		dni=1;
 		nombre="Desconocido";
 		apellido1="Desconocido";
 		apellido2="Desconocido";
@@ -33,33 +33,20 @@ public class PersonaImpl implements Persona,Serializable {
 	 */
 	public PersonaImpl(long dni,String nombre,String apellido1,String apellido2){
 		this();
-		if(nombre.length()<=20 &&
-		   apellido1.length()<=20 &&
-		   apellido2.length()<=20 &&
-		   dni>0){
+		if(dni>0){
 			this.dni=dni;
-			this.nombre=nombre;
-			this.apellido1=apellido1;
-			this.apellido2=apellido2;
 		}else{
-			if(dni<0){
-				System.out.println("Error, el DNI no puede ser menor que 0");
-				System.out.println("Se usará el usuario por defecto");
-			}
-			if(nombre.length()>20){
-				System.out.println("Error, el nombre no puede contener más de 20 caracteres");
-				System.out.println("Se usará el usuario por defecto");
-			}
-			if(apellido1.length()>20){
-				System.out.println("Error, el primer apellido no puede contener más de 20 caracteres");
-				System.out.println("Se usará el usuario por defecto");
-			}
-			if(apellido2.length()>20){
-				System.out.println("Error, el segundo apellido no puede contener más de 20 caracteres");
-				System.out.println("Se usará el usuario por defecto");
-			}
+			System.out.println("Error, el DNI no puede ser menor que 0");
+			System.out.println("Se usará 1");
 		}
+		nombre=UtilidadesCompartidas.ajustaLongitud(nombre, 20);
+		this.nombre=nombre;
 		
+		apellido1=UtilidadesCompartidas.ajustaLongitud(apellido1, 20);
+		this.apellido1=apellido1;
+		
+		apellido2=UtilidadesCompartidas.ajustaLongitud(apellido2, 20);
+		this.apellido2=apellido2;
 		
 	}
 	
@@ -87,7 +74,7 @@ public class PersonaImpl implements Persona,Serializable {
 		if(dni>0){
 			this.dni=dni;
 		}else{
-			throw new IllegalArgumentException("Error, el dni no puede ser menor que 0");
+			throw new IllegalArgumentException("Error, el dni no puede ser menor que 0,se guardará 1");
 		}
 
 	}

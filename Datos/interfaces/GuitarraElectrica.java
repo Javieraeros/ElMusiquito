@@ -14,12 +14,12 @@ import enums.Tipo;
 
 public interface GuitarraElectrica {
 	public Tipo getTipo();
-	public Pastilla[] getPastillas();
+	public int[] getIdPastillas();
 	public boolean getPuenteFlotante();
 	public int getControles();
 	
 	public void setTipo(Tipo tipo);
-	public void setPastillas(Pastilla[] pastillas);//Máximo 3 pastillas!!!
+	public void setIdPastillas(int[] pastillas);//Máximo 3 pastillas!!!
 	public void setPuenteFlotante(boolean puenteFlotante);
 	public void setControles(int controles);
 }

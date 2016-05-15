@@ -11,6 +11,7 @@
 
 package datos;
 
+import compartidas.UtilidadesCompartidas;
 import enums.Acabado;
 import enums.FamiliaSaxo;
 import enums.Marca;
@@ -38,20 +39,13 @@ public class SaxofonImpl extends VientoImpl implements Saxofon {
 			char afinacion,String tesitura, byte boquilla,
 			FamiliaSaxo familia,String boquillaSaxo,String material,Acabado acabado) {
 		super(nombre, marca, descripcion, modelo, precio, afinacion, tesitura, boquilla);
+		
 		this.familia=familia;
 		
-		if(boquillaSaxo.length()>20){
-			System.out.println("Error, el boquillaSaxo no puede contener más de 20 caracteres");
-			boquillaSaxo=boquillaSaxo.substring(0,20);
-			System.out.println("Se guardará: "+boquillaSaxo);
-		}
+		boquillaSaxo=UtilidadesCompartidas.ajustaLongitud(boquillaSaxo, 20);
 		this.boquillaSaxo=boquillaSaxo;
 		
-		if(material.length()>20){
-			System.out.println("Error, el material no puede contener más de 20 caracteres");
-			material=material.substring(0,20);
-			System.out.println("Se guardará: "+material);
-		}
+		material=UtilidadesCompartidas.ajustaLongitud(material, 20);
 		this.material=material;
 
 		this.acabado=acabado;
@@ -65,11 +59,7 @@ public class SaxofonImpl extends VientoImpl implements Saxofon {
 		
 		this.familia=familia;
 		
-		if(boquillaSaxo.length()>20){
-			System.out.println("Error, el boquillaSaxo no puede contener más de 20 caracteres");
-			boquillaSaxo=boquillaSaxo.substring(0,20);
-			System.out.println("Se guardará: "+boquillaSaxo);
-		}
+		boquillaSaxo=UtilidadesCompartidas.ajustaLongitud(boquillaSaxo, 20);
 		this.boquillaSaxo=boquillaSaxo;
 		
 		if(material.length()>20){
@@ -87,19 +77,11 @@ public class SaxofonImpl extends VientoImpl implements Saxofon {
 
 		this.familia=familia;
 		
-		if(boquillaSaxo.length()>20){
-			System.out.println("Error, el boquillaSaxo no puede contener más de 20 caracteres");
-			boquillaSaxo=boquillaSaxo.substring(0,20);
-			System.out.println("Se guardará: "+boquillaSaxo);
-		}
+		boquillaSaxo=UtilidadesCompartidas.ajustaLongitud(boquillaSaxo, 20);
 		this.boquillaSaxo=boquillaSaxo;
 		
-		if(material.length()>20){
-			System.out.println("Error, el material no puede contener más de 20 caracteres");
-			material=material.substring(0,20);
-			System.out.println("Se guardará: "+material);
-		}
-		this.material=material;
+		material=UtilidadesCompartidas.ajustaLongitud(material, 20);
+		this.material=material;;
 
 		this.acabado=acabado;
 	}
@@ -142,21 +124,13 @@ public class SaxofonImpl extends VientoImpl implements Saxofon {
 
 	@Override
 	public void setBoquillaSaxo(String boquillaSaxo) {
-		if(boquillaSaxo.length()>20){
-			System.out.println("Error, el boquillaSaxo no puede contener más de 20 caracteres");
-			boquillaSaxo=boquillaSaxo.substring(0,20);
-			System.out.println("Se guardará: "+boquillaSaxo);
-		}
+		boquillaSaxo=UtilidadesCompartidas.ajustaLongitud(boquillaSaxo, 20);
 		this.boquillaSaxo=boquillaSaxo;
 	}
 
 	@Override
 	public void setMaterial(String material) {
-		if(material.length()>20){
-			System.out.println("Error, el material no puede contener más de 20 caracteres");
-			material=material.substring(0,20);
-			System.out.println("Se guardará: "+material);
-		}
+		material=UtilidadesCompartidas.ajustaLongitud(material, 20);
 		this.material=material;
 
 	}

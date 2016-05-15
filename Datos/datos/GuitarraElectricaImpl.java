@@ -19,7 +19,7 @@ public class GuitarraElectricaImpl extends CuerdaImpl implements GuitarraElectri
 	private static final long serialVersionUID = 1L;
 
 	private Tipo tipo;
-	private Pastilla[] pastillas;
+	private int[] pastillas;
 	private boolean puenteFlotante;
 	private int controles;
 	
@@ -27,23 +27,22 @@ public class GuitarraElectricaImpl extends CuerdaImpl implements GuitarraElectri
 	public GuitarraElectricaImpl() {
 		super();
 		this.tipo=Tipo.ES;
-		Pastilla defecto=new Pastilla();
-		Pastilla[] aPastillas={defecto,defecto,defecto};
-		this.pastillas=aPastillas;
+		int[] aux={1,1,1};
+		this.pastillas=aux;
 		this.puenteFlotante=false;
 		this.controles=2;
 	}
 
 	public GuitarraElectricaImpl(String nombre, Marca marca, String descripcion, String modelo, double precio,
 			int cuerdas, String registro, byte tipoCuerda,
-			Tipo tipo,Pastilla[] pastillas,boolean puenteFlotante,int controles) {
+			Tipo tipo,int[] pastillas,boolean puenteFlotante,int controles) {
 		super(nombre, marca, descripcion, modelo, precio, cuerdas, registro, tipoCuerda);
 		
 		this.tipo=tipo;
 		
 		if(pastillas.length>3){
 			System.out.println("Error, solo se pueden poner 3 pastillas. Se guardaran las 3 primeras");
-			Pastilla[] aux={pastillas[0],pastillas[1],pastillas[2]};
+			int[] aux={pastillas[0],pastillas[1],pastillas[2]};
 			this.pastillas=aux;
 		}else{
 			this.pastillas=pastillas;
@@ -61,14 +60,14 @@ public class GuitarraElectricaImpl extends CuerdaImpl implements GuitarraElectri
 
 	public GuitarraElectricaImpl(int id, String nombre, Marca marca, String descripcion, String modelo, double precio,
 			int cuerdas, String registro, byte tipoCuerda,
-			Tipo tipo,Pastilla[] pastillas,boolean puenteFlotante,int controles) {
+			Tipo tipo,int[] pastillas,boolean puenteFlotante,int controles) {
 		super(id, nombre, marca, descripcion, modelo, precio, cuerdas, registro, tipoCuerda);
 		
 		this.tipo=tipo;
 		
 		if(pastillas.length>3){
 			System.out.println("Error, solo se pueden poner 3 pastillas. Se guardaran las 3 primeras");
-			Pastilla[] aux={pastillas[0],pastillas[1],pastillas[2]};
+			int[] aux={pastillas[0],pastillas[1],pastillas[2]};
 			this.pastillas=aux;
 		}else{
 			this.pastillas=pastillas;
@@ -86,7 +85,7 @@ public class GuitarraElectricaImpl extends CuerdaImpl implements GuitarraElectri
 
 	public GuitarraElectricaImpl(InstrumentoImpl instrumento, 
 			int cuerdas, String registro, byte tipoCuerda,
-			Tipo tipo,Pastilla[] pastillas,boolean puenteFlotante,int controles
+			Tipo tipo,int[] pastillas,boolean puenteFlotante,int controles
 			) {
 		super(instrumento, cuerdas, registro, tipoCuerda);
 		
@@ -94,7 +93,7 @@ public class GuitarraElectricaImpl extends CuerdaImpl implements GuitarraElectri
 		
 		if(pastillas.length>3){
 			System.out.println("Error, solo se pueden poner 3 pastillas. Se guardaran las 3 primeras");
-			Pastilla[] aux={pastillas[0],pastillas[1],pastillas[2]};
+			int[] aux={pastillas[0],pastillas[1],pastillas[2]};
 			this.pastillas=aux;
 		}else{
 			this.pastillas=pastillas;
@@ -111,14 +110,14 @@ public class GuitarraElectricaImpl extends CuerdaImpl implements GuitarraElectri
 	}
 
 	public GuitarraElectricaImpl(CuerdaImpl cuerda,
-			Tipo tipo,Pastilla[] pastillas,boolean puenteFlotante,int controles) {
+			Tipo tipo,int[] pastillas,boolean puenteFlotante,int controles) {
 		super(cuerda);
 		
 		this.tipo=tipo;
 		
 		if(pastillas.length>3){
 			System.out.println("Error, solo se pueden poner 3 pastillas. Se guardaran las 3 primeras");
-			Pastilla[] aux={pastillas[0],pastillas[1],pastillas[2]};
+			int[] aux={pastillas[0],pastillas[1],pastillas[2]};
 			this.pastillas=aux;
 		}else{
 			this.pastillas=pastillas;
@@ -140,7 +139,7 @@ public class GuitarraElectricaImpl extends CuerdaImpl implements GuitarraElectri
 	}
 
 	@Override
-	public Pastilla[] getPastillas() {
+	public int[] getIdPastillas() {
 		return pastillas;
 	}
 
@@ -160,10 +159,10 @@ public class GuitarraElectricaImpl extends CuerdaImpl implements GuitarraElectri
 	}
 
 	@Override
-	public void setPastillas(Pastilla[] pastillas) {
+	public void setIdPastillas(int[] pastillas) {
 		if(pastillas.length>3){
 			System.out.println("Error, solo se pueden poner 3 pastillas. Se guardaran las 3 primeras");
-			Pastilla[] aux={pastillas[0],pastillas[1],pastillas[2]};
+			int[] aux={pastillas[0],pastillas[1],pastillas[2]};
 			this.pastillas=aux;
 		}else{
 			this.pastillas=pastillas;

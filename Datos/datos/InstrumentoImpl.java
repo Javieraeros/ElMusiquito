@@ -17,6 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.Serializable;
 
+import compartidas.UtilidadesCompartidas;
 import enums.Marca;
 import interfaces.Instrumento;
 
@@ -43,20 +44,16 @@ public class InstrumentoImpl implements Instrumento,Serializable {
 	
 	public InstrumentoImpl(String nombre,Marca marca,String descripcion,String modelo,double precio){
 		this();
-		if(nombre.length()>=20){
-			System.out.println("El nombre es demasiado largo, se guardará: ");
-			nombre=nombre.substring(0, 19);
-			System.out.println(nombre);
-		}
+		nombre=UtilidadesCompartidas.ajustaLongitud(nombre, 20);
 		this.nombre=nombre;    //También podríamos usar setNombre, pero esto me parece más correcto
+		
 		this.marca=marca;
+		
 		this.descripcion=descripcion;
-		if(modelo.length()>=20){
-			System.out.println("El modelo es demasiado largo, se guardará: ");
-			modelo=modelo.substring(0, 19);
-			System.out.println(modelo);
-		}
+		
+		modelo=UtilidadesCompartidas.ajustaLongitud(modelo, 20);
 		this.modelo=modelo;
+		
 		if(precio<0){
 			System.out.println("El precio no puede ser menor que 0.");
 			System.out.println("Capitalista!, Opresor!, Falocentrista!");
@@ -71,20 +68,16 @@ public class InstrumentoImpl implements Instrumento,Serializable {
 	 */
 	public InstrumentoImpl(int id,String nombre,Marca marca,String descripcion,String modelo,double precio){
 		this.id=id;
-		if(nombre.length()>20){
-			System.out.println("El nombre es demasiado largo, se guardará: ");
-			nombre=nombre.substring(0, 20);
-			System.out.println(nombre);
-		}
+		nombre=UtilidadesCompartidas.ajustaLongitud(nombre, 20);
 		this.nombre=nombre;    //También podríamos usar setNombre, pero esto me parece más correcto
+		
 		this.marca=marca;
+		
 		this.descripcion=descripcion;
-		if(modelo.length()>20){
-			System.out.println("El modelo es demasiado largo, se guardará: ");
-			modelo=modelo.substring(0, 20);
-			System.out.println(modelo);
-		}
+		
+		modelo=UtilidadesCompartidas.ajustaLongitud(modelo, 20);
 		this.modelo=modelo;
+		
 		if(precio<0){
 			System.out.println("El precio no puede ser menor que 0.");
 			System.out.println("Capitalista!, Opresor!, Falocentrista!");
@@ -141,12 +134,9 @@ public class InstrumentoImpl implements Instrumento,Serializable {
 
 	
 	public void setNombre(String nombre) {
-		if(nombre.length()>20){
-			System.out.println("El nombre es demasiado largo, se guardará: ");
-			nombre=nombre.substring(0, 20);
-			System.out.println(nombre);
-		}
+		nombre=UtilidadesCompartidas.ajustaLongitud(nombre, 20);
 		this.nombre=nombre;
+		
 	}
 
 	
@@ -156,11 +146,7 @@ public class InstrumentoImpl implements Instrumento,Serializable {
 
 	
 	public void setModelo(String modelo) {
-		if(modelo.length()>20){
-			System.out.println("El modelo es demasiado largo, se guardará: ");
-			modelo=modelo.substring(0, 20);
-			System.out.println(modelo);
-		}
+		modelo=UtilidadesCompartidas.ajustaLongitud(modelo, 20);
 		this.modelo=modelo;
 	}
 

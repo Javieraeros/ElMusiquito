@@ -12,6 +12,7 @@
 
 package datos;
 
+import compartidas.UtilidadesCompartidas;
 import enums.Marca;
 import interfaces.Cuerda;
 
@@ -36,18 +37,17 @@ public class CuerdaImpl extends InstrumentoImpl implements Cuerda {
 	public CuerdaImpl(String nombre, Marca marca, String descripcion, String modelo, double precio,
 			int cuerdas,String registro,byte tipoCuerda) {
 		super(nombre, marca, descripcion, modelo, precio);
+		
 		if(cuerdas<1){
 			System.out.println("Error, el número de cuerdas no puede ser menor o igual que 0");
 			System.out.println("Se guardará 1 cuerda");
 			cuerdas=1;
 		}
 		this.cuerdas=cuerdas;
-		if(registro.length()>20){
-			System.out.println("Error, el registro no puede contener más de 20 caracteres");
-			registro=registro.substring(0,20);
-			System.out.println("Se guardará: "+registro);
-		}
+		
+		registro=UtilidadesCompartidas.ajustaLongitud(registro, 20);
 		this.registro=registro;
+		
 		if(tipoCuerda!=0 && tipoCuerda!=1){
 			System.out.println("Error, el tipo de cuerda tiene que ser 0 ó 1. Se guardará 1");
 			tipoCuerda=1;
@@ -58,18 +58,17 @@ public class CuerdaImpl extends InstrumentoImpl implements Cuerda {
 	public CuerdaImpl(int id, String nombre, Marca marca, String descripcion, String modelo, 
 			double precio,int cuerdas,String registro,byte tipoCuerda) {
 		super(id, nombre, marca, descripcion, modelo, precio);
+		
 		if(cuerdas<1){
 			System.out.println("Error, el número de cuerdas no puede ser menor o igual que 0");
 			System.out.println("Se guardará 1 cuerda");
 			cuerdas=1;
 		}
 		this.cuerdas=cuerdas;
-		if(registro.length()>20){
-			System.out.println("Error, el registro no puede contener más de 20 caracteres");
-			registro=registro.substring(0,20);
-			System.out.println("Se guardará: "+registro);
-		}
+		
+		registro=UtilidadesCompartidas.ajustaLongitud(registro, 20);
 		this.registro=registro;
+		
 		if(tipoCuerda!=0 && tipoCuerda!=1){
 			System.out.println("Error, el tipo de cuerda tiene que ser 0 ó 1. Se guardará 1");
 			tipoCuerda=1;
@@ -80,18 +79,17 @@ public class CuerdaImpl extends InstrumentoImpl implements Cuerda {
 	
 	public CuerdaImpl(InstrumentoImpl instrumento,int cuerdas, String registro, byte tipoCuerda) {
 		super(instrumento);
+		
 		if(cuerdas<1){
 			System.out.println("Error, el número de cuerdas no puede ser menor o igual que 0");
 			System.out.println("Se guardará 1 cuerda");
 			cuerdas=1;
 		}
 		this.cuerdas=cuerdas;
-		if(registro.length()>20){
-			System.out.println("Error, el registro no puede contener más de 20 caracteres");
-			registro=registro.substring(0,20);
-			System.out.println("Se guardará: "+registro);
-		}
+		
+		registro=UtilidadesCompartidas.ajustaLongitud(registro, 20);
 		this.registro=registro;
+		
 		if(tipoCuerda!=0 && tipoCuerda!=1){
 			System.out.println("Error, el tipo de cuerda tiene que ser 0 ó 1. Se guardará 1");
 			tipoCuerda=1;
@@ -137,12 +135,8 @@ public class CuerdaImpl extends InstrumentoImpl implements Cuerda {
 
 	@Override
 	public void setRegistro(String registro) {
-		if(registro.length()>20){
-			System.out.println("Error, el registro no puede contener más de 20 caracteres");
-			registro=registro.substring(0,20);
-			System.out.println("Se guardará: "+registro);
-		}
-		this.registro=registro;
+		registro=UtilidadesCompartidas.ajustaLongitud(registro, 20);
+		this.registro=registro;;
 	}
 
 	@Override

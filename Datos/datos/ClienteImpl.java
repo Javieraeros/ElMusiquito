@@ -13,6 +13,7 @@ package datos;
 
 import java.util.Vector;
 
+import compartidas.UtilidadesCompartidas;
 import interfaces.Cliente;
 
 public class ClienteImpl extends PersonaImpl implements Cliente {
@@ -40,7 +41,9 @@ public class ClienteImpl extends PersonaImpl implements Cliente {
 			this.correoe="defecto@defecto.es";
 			System.out.println("Correo no válido, se usará el por defecto");
 		}
+		direccion=UtilidadesCompartidas.ajustaLongitud(direccion, 20);
 		this.direccion=direccion;
+		
 		this.compras=compras;
 		
 	}
@@ -89,14 +92,7 @@ public class ClienteImpl extends PersonaImpl implements Cliente {
 
 	@Override
 	public void setDireccion(String direccion) {
-		if(direccion.length()<=30){
-			this.direccion=direccion;
-		}else{
-			direccion=direccion.substring(0,29);
-			this.direccion=direccion;
-			System.out.println("Dirección demasiado larga, se ha guadado:");
-			System.out.println(direccion);
-		}
+		direccion=UtilidadesCompartidas.ajustaLongitud(direccion, 20);
 	}
 
 	@Override
@@ -108,7 +104,7 @@ public class ClienteImpl extends PersonaImpl implements Cliente {
 	/* 
 	 * Interfaz 
 	 * Cabecera:boolean correoeValido(String correoe)
-	 * Proceso:Método que comprueba que un correo sea valido: *@*.*
+	 * Proceso:Método que comprueba que un correo sea valido: *@*.* longitud máxima=30
 	 * Precondiciones:Ninguna
 	 * Entrada:Una cadena con el correoe
 	 * Salida:Un booleano indicando la validez del correoe
@@ -117,13 +113,15 @@ public class ClienteImpl extends PersonaImpl implements Cliente {
 	 */
 	public boolean correoeValido(String correoe){
 		boolean valido=false;
-		char[] aux=correoe.toCharArray();
-		for(int i=0;i<aux.length && !valido;i++){
-			//Si hay al menos una letra (i>0) y un @
-			if(i>0 && aux[i]=='@'){
-				for(int j=i;j<aux.length;j++){
-					if(j>i+1 && aux[j]=='.'){
-						valido=true;
+		if(correoe.length()<=30){
+			char[] aux=correoe.toCharArray();
+			for(int i=0;i<aux.length && !valido;i++){
+				//Si hay al menos una letra (i>0) y un @
+				if(i>0 && aux[i]=='@'){
+					for(int j=i;j<aux.length;j++){
+						if(j>i+1 && aux[j]=='.'){
+							valido=true;
+						}
 					}
 				}
 			}

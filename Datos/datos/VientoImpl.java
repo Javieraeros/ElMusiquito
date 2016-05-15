@@ -21,6 +21,7 @@
 
 package datos;
 
+import compartidas.UtilidadesCompartidas;
 import enums.Marca;
 import interfaces.Viento;
 
@@ -69,11 +70,7 @@ public class VientoImpl extends InstrumentoImpl implements Viento {
 			afinacion = 'C';
 		}
 		
-		if(tesitura.length()>20){
-			System.out.println("Error, la tesitura no puede contener más de 20 caracteres");
-			tesitura=tesitura.substring(0,20);
-			System.out.println("Se guardará: "+tesitura);
-		}
+		tesitura=UtilidadesCompartidas.ajustaLongitud(tesitura, 20);
 		this.tesitura=tesitura;
 		
 		if (boquilla != 1 && boquilla != 0) {
@@ -93,11 +90,7 @@ public class VientoImpl extends InstrumentoImpl implements Viento {
 		}
 		this.afinacion=afinacion;
 		
-		if(tesitura.length()>20){
-			System.out.println("Error, la tesitura no puede contener más de 20 caracteres");
-			tesitura=tesitura.substring(0,20);
-			System.out.println("Se guardará: "+tesitura);
-		}
+		tesitura=UtilidadesCompartidas.ajustaLongitud(tesitura, 20);
 		this.tesitura=tesitura;
 		
 		if (boquilla != 1 && boquilla != 0) {
@@ -144,11 +137,7 @@ public class VientoImpl extends InstrumentoImpl implements Viento {
 
 	@Override
 	public void setTesitura(String tesitura) {
-		if(tesitura.length()>20){
-			System.out.println("Error, la tesitura no puede contener más de 20 caracteres");
-			tesitura=tesitura.substring(0,20);
-			System.out.println("Se guardará: "+tesitura);
-		}
+		tesitura=UtilidadesCompartidas.ajustaLongitud(tesitura, 20);
 		this.tesitura=tesitura;
 	}
 

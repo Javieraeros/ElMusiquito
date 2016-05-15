@@ -19,7 +19,8 @@ public class PersonaImplTest {
 	@Test
 	public void testPersonaImplInvalido() {
 		PersonaImpl javi=new PersonaImpl(47428157,"Francisco Javier*****","Ruiz","Rodríguez");
-		assertEquals(javi,defecto);
+		PersonaImpl esperado=new PersonaImpl(47428157,"Francisco Javier****","Ruiz","Rodríguez");
+		assertEquals(esperado,javi);
 	}
 
 	@Test

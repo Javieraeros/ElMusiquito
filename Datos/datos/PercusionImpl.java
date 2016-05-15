@@ -16,6 +16,7 @@
 
 package datos;
 
+import compartidas.UtilidadesCompartidas;
 import enums.Marca;
 import interfaces.Percusion;
 
@@ -40,18 +41,17 @@ public class PercusionImpl extends InstrumentoImpl implements Percusion {
 	public PercusionImpl(String nombre, Marca marca, String descripcion, String modelo,
 			double precio,char afinacion,String material,boolean accesorio) {
 		super(nombre, marca, descripcion, modelo, precio);
+		
 		if (!afinacionValida(afinacion)) {
 			System.out.println("Error, la afinación no es válida");
 			System.out.println("Se guardará C");
 			afinacion = 'C';
 		}
 		this.afinacion = afinacion;
-		if(material.length()>20){
-			System.out.println("Error, el material es demasiado grande, se guardará: ");
-			material=material.substring(0, 20);
-			System.out.println(material);
-		}
+		
+		material=UtilidadesCompartidas.ajustaLongitud(material, 20);
 		this.material=material;
+		
 		this.accesorio=accesorio;
 		
 	}
@@ -59,35 +59,33 @@ public class PercusionImpl extends InstrumentoImpl implements Percusion {
 	public PercusionImpl(int id, String nombre, Marca marca, String descripcion, String modelo, 
 			double precio,char afinacion,String material,boolean accesorio) {
 		super(id, nombre, marca, descripcion, modelo, precio);
+		
 		if (!afinacionValida(afinacion)) {
 			System.out.println("Error, la afinación no es válida");
 			System.out.println("Se guardará C");
 			afinacion = 'C';
 		}
 		this.afinacion = afinacion;
-		if(material.length()>20){
-			System.out.println("Error, el material es demasiado grande, se guardará: ");
-			material=material.substring(0, 20);
-			System.out.println(material);
-		}
+		
+		material=UtilidadesCompartidas.ajustaLongitud(material, 20);
 		this.material=material;
+		
 		this.accesorio=accesorio;
 	}
 	
 	public PercusionImpl(InstrumentoImpl instrumento,char afinacion,String material,boolean accesorio){
 		super(instrumento);
+		
 		if (!afinacionValida(afinacion)) {
 			System.out.println("Error, la afinación no es válida");
 			System.out.println("Se guardará C");
 			afinacion = 'C';
 		}
 		this.afinacion = afinacion;
-		if(material.length()>20){
-			System.out.println("Error, el material es demasiado grande, se guardará: ");
-			material=material.substring(0, 20);
-			System.out.println(material);
-		}
+		
+		material=UtilidadesCompartidas.ajustaLongitud(material, 20);
 		this.material=material;
+		
 		this.accesorio=accesorio;
 	}
 	
@@ -122,11 +120,7 @@ public class PercusionImpl extends InstrumentoImpl implements Percusion {
 	}
 
 	public void setMaterial(String material) {
-		if(material.length()>20){
-			System.out.println("Error, el material es demasiado grande, se guardará: ");
-			material=material.substring(0, 20);
-			System.out.println(material);
-		}
+		material=UtilidadesCompartidas.ajustaLongitud(material, 20);
 		this.material=material;
 	}
 
