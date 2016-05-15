@@ -169,7 +169,7 @@ public class SaxofonImpl extends VientoImpl implements Saxofon {
 	@Override
 	public String toString(){
 		String salida=super.toString();
-		salida=salida+"\n"+familia+" "+boquillaSaxo+" "+material+" "+acabado;
+		salida=salida+"\nFamilia"+familia+"\nBoquilla: "+boquillaSaxo+"\nMaterial: "+material+"\nAcabado: "+acabado;
 		return salida;
 	}
 }

@@ -144,7 +144,7 @@ public class PercusionImpl extends InstrumentoImpl implements Percusion {
 	
 	public String toString(){
 		String salida=super.toString();
-		salida=salida+"\n"+afinacion+" "+material+" "+accesorio;
+		salida=salida+"\nAfinacion: "+afinacion+"\nMaterial: "+material+"\nAccesorio: "+accesorio;
 		return salida;
 	}
 }

@@ -188,7 +188,7 @@ public class GuitarraElectricaImpl extends CuerdaImpl implements GuitarraElectri
 	@Override
 	public String toString(){
 		String salida=super.toString();
-		salida=salida+"\n"+" "+tipo+" "+pastillas[0]+" "+pastillas[1]+" "+pastillas[2]+" "+puenteFlotante+" "+controles;
+		salida=salida+"\nTipo: "+tipo+"\nNumero de Pastillas: "+pastillas.length+"\nPuenteFlotante: "+puenteFlotante+"\nNumero controles: "+controles;
 		return salida;
 	}
 }

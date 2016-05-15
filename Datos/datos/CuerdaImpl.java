@@ -157,7 +157,7 @@ public class CuerdaImpl extends InstrumentoImpl implements Cuerda {
 	@Override
 	public String toString(){
 		String salida=super.toString();
-		salida=salida+"\n"+cuerdas+" "+registro+" "+tipoCuerda;
+		salida=salida+"\nCuerdas: "+cuerdas+"\nRegistro: "+registro+"\nTipo Cuerda: "+tipoCuerda;
 		return salida;
 	}
 }

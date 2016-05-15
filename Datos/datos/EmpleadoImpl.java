@@ -116,7 +116,7 @@ public class EmpleadoImpl extends PersonaImpl implements Empleado {
 	
 	@Override
 	public String toString(){
-		return (super.toString()+"\n"+cuentacorriente+" "+sueldo+" "+tienda);
+		return (super.toString()+"\nCuenta corriente: "+cuentacorriente+"\nSueldo: "+sueldo+"\nTienda: "+tienda);
 	}
 	
 }

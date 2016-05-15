@@ -171,7 +171,7 @@ public class VientoImpl extends InstrumentoImpl implements Viento {
 
 	public String toString() {
 		String salida = super.toString();
-		salida = salida + "\n" + afinacion + " " + tesitura + " " + " " + boquilla;
+		salida = salida + "\nAfinacion: " + afinacion + "\nTesitura:" + tesitura + "\nBoquilla: " + boquilla;
 		return salida;
 	}
 }
