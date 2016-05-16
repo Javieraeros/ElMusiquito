@@ -24,7 +24,7 @@ public class FicheroPercusion {
 		
 		try{
 			out=new RandomAccessFile(fichero, "rw");
-			out.seek(perc.getId()*43);
+			out.seek(perc.getId()*47);
 			out.writeInt(perc.getId());
 			out.writeChar(perc.getAfinacion());
 			out.writeChars(material);
@@ -73,7 +73,7 @@ public class FicheroPercusion {
 		if(ii!=null){
 			try {
 				in=new RandomAccessFile(rutaPerc, "r");
-				in.seek(id*43);
+				in.seek(id*47);
 				
 				idLeido=in.readInt();
 				if(idLeido!=0){

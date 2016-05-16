@@ -1,5 +1,7 @@
 package ficherosTest;
 
+import java.util.Vector;
+
 import datos.*;
 import enums.*;
 import ficheros.*;
@@ -20,10 +22,15 @@ public class TestNoJunitFicheros {
 		/*System.out.println(fi.devuelveInstrumento("Ficheros//Tests//Instrumentos.dat", 15));*/
 		
 		
-		fp.muestraPersonas("Ficheros//Personas.dat");
+		/*fp.muestraPersonas("Ficheros//Personas.dat");
 		System.out.println();
 		System.out.println();
-		System.out.println(fc.devuelveCliente("Ficheros//Tests//Clientes.dat", "Ficheros//Tests//Personas.dat", 555));
+		System.out.println(fc.devuelveCliente("Ficheros//Tests//Clientes.dat", "Ficheros//Tests//Personas.dat", 555,
+				"Ficheros//Tests//Instrumentos.dat","Ficheros//Tests//Compras.dat"));*/
+		
+		Vector<InstrumentoImpl> v=fc.devuelveCompras("Ficheros//Tests//Compras.dat","Ficheros//Tests//Instrumentos.dat", 47428157);
+		
+		System.out.println(v.get(1));
 	}
 
 }

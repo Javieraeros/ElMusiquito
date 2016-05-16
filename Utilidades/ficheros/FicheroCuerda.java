@@ -25,7 +25,7 @@ public class FicheroCuerda {
 		
 		try{
 			out=new RandomAccessFile(fichero, "rw");
-			out.seek(cuerda.getId()*45);
+			out.seek(cuerda.getId()*49);
 			out.writeInt(cuerda.getId());
 			out.writeInt(cuerda.getCuerdas());
 			out.writeChars(registro);
@@ -74,7 +74,7 @@ public class FicheroCuerda {
 		if(ii!=null){
 			try {
 				in=new RandomAccessFile(rutaCuerda, "r");
-				in.seek(id*47);
+				in.seek(id*49);
 				
 				idLeido=in.readInt();
 				if(idLeido!=0){

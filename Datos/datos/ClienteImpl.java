@@ -27,7 +27,7 @@ public class ClienteImpl extends PersonaImpl implements Cliente {
 		super();
 		this.correoe = "defecto@defecto.es";
 		this.direccion = "defecto";
-		this.compras = new Vector<InstrumentoImpl>(10, 0);
+		this.compras = new Vector<InstrumentoImpl>(10, 1);
 	}
 
 	public ClienteImpl(long dni, String nombre, String apellido1, String apellido2, String correoe, String direccion,

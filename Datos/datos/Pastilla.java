@@ -38,6 +38,7 @@
 * 
 * M�todos Sobreescritos:
 * String toString();
+* int comparteTo(Pastilla p)
 */
 
 
@@ -187,6 +188,10 @@ public class Pastilla implements Serializable,Comparable<Pastilla> {
 		}
 
 		return id;
+	}
+	
+	public String toString(){
+		return (this.id+" "+this.marca+" "+this.modelo+" "+this.bobinas);
 	}
 
 	/* 

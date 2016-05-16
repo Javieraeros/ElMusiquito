@@ -190,7 +190,6 @@ public class FicheroGuitarra {
 		File ficheroRelaciones=new File(rutaRelaciones);
 		FileInputStream fis = null;
 		DataInputStream dis = null;
-		String direccion="",correoe="";
 		
 			try {
 				fis=new FileInputStream(ficheroRelaciones);
@@ -202,16 +201,20 @@ public class FicheroGuitarra {
 					
 					idLeido=dis.readInt();
 				}
-				devolver[0]=dis.readInt();
-				
-				//Si existen más pastillas en la misma guitarra
-				idLeido=dis.readInt();
-				if(id==idLeido){
-					devolver[1]=dis.readInt();
+				if(dis.available()>0){
+					devolver[0]=dis.readInt();
+					
+					//Si existen más pastillas en la misma guitarra
 					idLeido=dis.readInt();
 					if(id==idLeido){
-						devolver[2]=dis.readInt();
+						devolver[1]=dis.readInt();
+						idLeido=dis.readInt();
+						if(id==idLeido){
+							devolver[2]=dis.readInt();
+						}
 					}
+				}else{
+					System.out.println("Error, no se encuentran las pastillas");
 				}
 			} catch (FileNotFoundException e) {
 				System.out.println(e);

@@ -9,7 +9,7 @@ import enums.Marca;
 public class MuestraInstrumentos {
 
 	public static void main(String[] args) {
-		String ruta="Ficheros//Instrumentos.dat";
+		String ruta="Ficheros//Tests//Instrumentos.dat";
 		File fichero=new File(ruta);
 		RandomAccessFile in=null;
 		int id,contador=1,i;

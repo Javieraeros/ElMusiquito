@@ -134,7 +134,7 @@ public class FicheroPastillas {
 	 * Postcondiciones:Pastilla asociada al nombre. Null si dicho id no se encuentra en el dicero.
 	 */
 
-	public Pastilla devuelvePersona(String ruta, int id) {
+	public Pastilla devuelvePastilla(String ruta, int id) {
 		Pastilla aux = null;
 		Pastilla p=null;
 		FileInputStream fos = null;

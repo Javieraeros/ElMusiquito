@@ -12,19 +12,29 @@ import org.junit.Test;
 public class FicheroClienteTest {
 	FicheroPersona fp=new FicheroPersona();
 	FicheroCliente fc=new FicheroCliente();
+	FicheroInstrumento fi=new FicheroInstrumento();
+	String rutaPersona="Ficheros//Tests//PersonaTestCliente.dat";
+	String rutaCliente="Ficheros//Tests//ClientesTests.dat";
+	String rutaCompras="Ficheros//Tests//Compras.dat";
+	String rutaInstrumentos="Ficheros//Tests//Instrumentos.dat";
+	
 	@Test
 	public void testGuardaCliente() {
-		Vector<InstrumentoImpl> v=null;
+		Vector<InstrumentoImpl> v=new Vector<InstrumentoImpl>(1, 1);
+		InstrumentoImpl defecto=new InstrumentoImpl();
+		v.add(defecto);
 		PersonaImpl p=new PersonaImpl(47428157, "Javi", "Ruiz", "Rodriguez");
 		ClienteImpl c=new ClienteImpl(p, "pajarruro@gmail.com", "platino 42", v);
-		fp.guardaPersona("Ficheros//Tests//PersonaTestCliente.dat", p);
-		fc.guardaCliente("Ficheros//Tests//ClientesTests.dat", c);
+		fp.guardaPersona(rutaPersona,p);
+		fi.guardaInstrumento(rutaInstrumentos, defecto);
+		fc.guardaCliente(rutaCliente,rutaCompras, c);
 		
 	}
 
 	@Test
 	public void testDevuelveCliente() {
-		ClienteImpl c=fc.devuelveCliente("Ficheros//Tests//ClientesTests.dat","Ficheros//Tests//PersonaTestCliente.dat", 47428157);
+		ClienteImpl c=fc.devuelveCliente(rutaCliente,rutaPersona, 47428157,
+											rutaInstrumentos,rutaCompras);
 		assertEquals("platino 42",c.getDireccion());
 	}
 
