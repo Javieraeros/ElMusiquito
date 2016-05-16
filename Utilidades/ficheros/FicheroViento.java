@@ -67,9 +67,8 @@ public class FicheroViento {
 		
 		int idLeido,i;
 		String tesitura;
-		double precioVenta;
 		char afinacion;
-		byte tienda;
+		byte boquilla;
 		
 		ii=fi.devuelveInstrumento(rutaInst, id);
 		
@@ -84,18 +83,18 @@ public class FicheroViento {
 					afinacion=in.readChar();
 					
 					
-					//Registro
+					//Tesitura
 					tesitura="";
 					for(i=0;i<20;i++){
 						tesitura=tesitura+in.readChar();
 					}
 					tesitura=UtilidadesCompartidas.quitaAsterisco(tesitura);
 					
-					//Tienda
-					tienda=in.readByte();
+					//Boquilla
+					boquilla=in.readByte();
 				
 				
-					devolver=new VientoImpl(ii,afinacion,tesitura,tienda);
+					devolver=new VientoImpl(ii,afinacion,tesitura,boquilla);
 				}
 			} catch (FileNotFoundException e) {
 				System.out.println(e);

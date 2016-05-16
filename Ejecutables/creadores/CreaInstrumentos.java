@@ -10,7 +10,7 @@ public class CreaInstrumentos {
 	public static void main(String[] args) {
 		FicheroInstrumento fi=new FicheroInstrumento();
 		Scanner teclado=new Scanner(System.in);
-		String ruta="Ficheros//Instrumentos.dat";
+		String ruta="Ficheros//Tests//PruebaGuardaInstrumentos.dat";
 		
 		char continuar,desc;
 		String nombre,modelo;

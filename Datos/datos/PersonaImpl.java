@@ -5,7 +5,8 @@
  * Métodos Añadidios/Heredados:
  * 
  * String toString();
- * boolean equals();
+ * boolean equals(Object o);
+ * int compareTo(PersonaImpl p)
  */
 
 package datos;
@@ -13,7 +14,7 @@ import java.io.Serializable;
 import compartidas.*;
 import interfaces.Persona;
 
-public class PersonaImpl implements Persona,Serializable {
+public class PersonaImpl implements Persona,Serializable,Comparable<PersonaImpl> {
 	
 	private static final long serialVersionUID = 1L;
 	private long dni;
@@ -134,5 +135,32 @@ public class PersonaImpl implements Persona,Serializable {
 			resultado=this.dni==pi.getDNI();
 		}
 		return resultado;
+	}
+	
+	/*
+	 * Interfaz Cabecera: int compareTo(Alumno comparado) 
+	 * Proceso Metodo que
+	 * compara si un dos Personas son IGUALES 
+	 * Precondiciones:Nada 
+	 * Entrada:1 PersonaImpl
+	 * Salida:1 Entero 
+	 * Entrada/Salida:Nada 
+	 * Postcondiciones:Devuelve 1 si la Persona que usa el método es mayor que el Alumno que paso por
+	 * parametro 0 si son iguales, -1 en caso contrario. Una persona es mayor que otra si su dni es posterior
+	 * al de dicha persona
+	 */
+	
+	@Override
+	public int compareTo(PersonaImpl p){
+		int devolver=0;
+		if(this.dni>p.getDNI()){
+			devolver=1;
+		}else{
+			if(this.dni<p.getDNI()){
+				devolver=-1;
+			}
+		}
+		
+		return devolver;
 	}
 }

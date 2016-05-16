@@ -47,7 +47,9 @@ import java.io.*;
 
 import compartidas.UtilidadesCompartidas;
 
-public class Pastilla {
+public class Pastilla implements Serializable,Comparable<Pastilla> {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private int id;
 	private String marca;
@@ -185,5 +187,30 @@ public class Pastilla {
 		}
 
 		return id;
+	}
+
+	/* 
+	 * Interfaz 
+	 * Cabecera: int compareTo(pastilla comparada)
+	 * Proceso Método que compara si un dos pastillas son IGUALES
+	 * Precondiciones:Nada
+	 * Entrada:1 pastilla
+	 * Salida:1 Entero
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Devuelve 1 si la pastilla que usa el método es mayor que la pastilla que paso por parametro
+	 * 0 si son iguales, -1 en caso contrario.Una pastilla será mayor que otra si su id es mayor.
+	 */
+	
+	@Override
+	public int compareTo(Pastilla p) {
+		int devolver=0;
+		if(this.id>p.getId()){
+			devolver=1;
+		}else{
+			if(this.id<p.getId()){
+				devolver=-1;
+			}
+		}
+		return devolver;
 	}
 }

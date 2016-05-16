@@ -76,5 +76,12 @@ public class PersonaImplTest {
 		assertEquals("Muñiz",defecto.getApellido2());
 	}
 
-
+	@Test
+	public void testCompareTo(){
+		PersonaImpl javi=new PersonaImpl(47428157,"Francisco Javier","Ruiz","Rodríguez");
+		assertEquals(1,javi.compareTo(defecto));
+		defecto.setDNI(56892321);
+		assertEquals(-1,javi.compareTo(defecto));
+	}
+	
 }

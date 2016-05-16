@@ -1,7 +1,3 @@
-/*
- * Clase encargada de manejar los ficheros de Persona.
- * Guardará a las personas como objetos
- */
 package ficheros;
 
 import java.io.*;
@@ -9,19 +5,20 @@ import java.io.*;
 import compartidas.MiOOS;
 import datos.*;
 
-public class FicheroPersona {
+public class FicheroPastillas {
+
 
 	/*
-	 * Interfaz Cabecera:public void guardaPersona(String ruta,PerosnaImpl p)
-	 * Proceso:Guarda una persona en el fichero dado 
+	 * Interfaz Cabecera:public void guardaPastilla(String ruta,Pastilla p)
+	 * Proceso:Guarda una pastilla en el fichero dado 
 	 * Precondiciones:Ninguna
-	 * Entrada:Una persona 
+	 * Entrada:Una pastilla 
 	 * Salida:Nada 
-	 * Entrada/Salida:El fichero con la personaguardada 
+	 * Entrada/Salida:El fichero con la pastilla guardada
 	 * Postcondiciones:El fichero quedará escrito.
 	 */
 
-	public void guardaPersona(String ruta, PersonaImpl p) {
+	public void guardaPastilla(String ruta, Pastilla p) {
 		File fichero = new File(ruta);
 		FileOutputStream fos = null;
 		MiOOS oos = null;
@@ -55,29 +52,28 @@ public class FicheroPersona {
 
 	/*
 	 * Interfaz 
-	 * Cabecera:public int cuentaPersonas(String ruta) 
-	 * Proceso:Cuenta el numero de personas que hay en un fichero,independientemente de que las
-	 * personas sean "validas" o no 
+	 * Cabecera:public int cuentaPastillas(String ruta) 
+	 * Proceso:Cuenta el numero de pastillas que hay en un fichero
 	 * Precondiciones:Ninguna 
 	 * Entrada:1 cadena para el fichero 
-	 * Salida:1 entero con el número de personas 
+	 * Salida:1 entero con el número de pastillas 
 	 * Entrada/Salida:Nada
 	 * Postcondiciones:Entero asociado al nombre
 	 */
 
-	public int cuentaPersonas(String ruta) {
-		int numeroPersonas = 0;
-		PersonaImpl p;
+	public int cuentaPastillas(String ruta) {
+		int numeroPastillas = 0;
+		Pastilla p;
 		FileInputStream fos = null;
 		ObjectInputStream ois = null;
 
 		try {
 			fos = new FileInputStream(ruta);
 			ois = new ObjectInputStream(fos);
-			p = (PersonaImpl) ois.readObject();
+			p = (Pastilla) ois.readObject();
 			while (p != null) {
-				numeroPersonas++;
-				p = (PersonaImpl) ois.readObject();
+				numeroPastillas++;
+				p = (Pastilla) ois.readObject();
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
@@ -88,31 +84,31 @@ public class FicheroPersona {
 		} catch (IOException e) {
 			System.out.println(e);
 		}
-		return numeroPersonas;
+		return numeroPastillas;
 	}
 
 	/*
 	 * Interfaz 
-	 * Cabecera:public void muestraPersonas(String ruta)
-	 * Proceso:Muestra todas las personas de un fichero dado
-	 * Precondiciones:Fichero con personas 
+	 * Cabecera:public void muestraPastillas(String ruta)
+	 * Proceso:Muestra todas las pastillas de un fichero dado
+	 * Precondiciones:Fichero con pastillas 
 	 * Entrada:1 cadena con la ruta del fichero 
 	 * Salida:Nada, pinta en pantalla 
 	 * Entrada/Salida:Nada
-	 * Postcondiciones:Pintará en pantalla todas las personas
+	 * Postcondiciones:Pintará en pantalla todas las pastillas
 	 */
 
-	public void muestraPersonas(String ruta) {
-		PersonaImpl p;
+	public void muestraPastillas(String ruta) {
+		Pastilla p;
 		FileInputStream fos = null;
 		ObjectInputStream ois = null;
-		int contador, numeroPersonas = cuentaPersonas(ruta);
+		int contador, numeroPastillas = cuentaPastillas(ruta);
 
 		try {
 			fos = new FileInputStream(ruta);
 			ois = new ObjectInputStream(fos);
-			for (contador = 0; contador < numeroPersonas; contador++) {
-				p = (PersonaImpl) ois.readObject();
+			for (contador = 0; contador < numeroPastillas; contador++) {
+				p = (Pastilla) ois.readObject();
 				System.out.println(p);
 			}
 		} catch (FileNotFoundException e) {
@@ -128,32 +124,32 @@ public class FicheroPersona {
 
 	/*
 	 * Interfaz 
-	 * Cabecera:public PersonaImpl devuelvePersona(String ruta,longdni) 
-	 * Proceso:Devuelve una persona con dicho dni 
+	 * Cabecera:public PastillaImpl devuelvePastilla(String ruta,int id) 
+	 * Proceso:Devuelve una pastilla con dicho id
 	 * Precondiciones:Ninguna
 	 * Entrada:1 cadena para la ruta del fichero 
-	 * 			1 entero largo para el dni
-	 * Salida:1 persona 
+	 * 			1 entero para el id
+	 * Salida:1 pastilla 
 	 * Entrada/Salida:Nada 
-	 * Postcondiciones:Persona asociada al nombre. Null si dicho dni no se encuentra en el dicero.
+	 * Postcondiciones:Pastilla asociada al nombre. Null si dicho id no se encuentra en el dicero.
 	 */
 
-	public PersonaImpl devuelvePersona(String ruta, long dni) {
-		PersonaImpl aux = null;
-		PersonaImpl p=null;
+	public Pastilla devuelvePersona(String ruta, int id) {
+		Pastilla aux = null;
+		Pastilla p=null;
 		FileInputStream fos = null;
 		ObjectInputStream ois = null;
-		int contador = 0, numeroPersonas = cuentaPersonas(ruta);
+		int contador = 0, numeroPersonas = cuentaPastillas(ruta);
 		boolean encontrado = false;
 
 		try {
 			fos = new FileInputStream(ruta);
 			ois = new ObjectInputStream(fos);
 			while (contador < numeroPersonas && !encontrado) {
-				aux = (PersonaImpl) ois.readObject();
-				encontrado = aux.getDNI() == dni; // encontrado será true si el
-												// dni que nos dan es igual al
-												// dni de la persona que
+				aux = (Pastilla) ois.readObject();
+				encontrado = aux.getId() == id; // encontrado será true si el
+												// id que nos dan es igual al
+												// id de la pastilla que
 												// acabamos de leer
 			}
 			if(encontrado){
@@ -171,4 +167,5 @@ public class FicheroPersona {
 		}
 		return p;
 	}
+
 }
