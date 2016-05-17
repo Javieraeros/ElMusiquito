@@ -138,7 +138,7 @@ public class CreaCliente {
 				continuar = Character.toLowerCase(teclado.nextLine().charAt(0));
 			} while (continuar != 's' && continuar != 'n');
 		}
-
+		teclado.close();
 	}
 
 }

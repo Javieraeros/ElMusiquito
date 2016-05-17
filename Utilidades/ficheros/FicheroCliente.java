@@ -12,6 +12,7 @@ public class FicheroCliente {
 	 * Interfaz 
 	 * Cabecera:public void guardaCliente(String ruta,String rutaCompras,ClienteImpl c)
 	 * Proceso:Método que te guarda el dni de un cliente, su correoe y su direccion en un fichero
+	 * 		y las compras que ha realizado en otro.
 	 * Precondiciones:Ninguna
 	 * Entrada:1 cliente
 	 * Salida:Nada
@@ -45,6 +46,60 @@ public class FicheroCliente {
 			for(i=0;i<c.getCompras().size();i++){
 				guardaCompras(rutaCompras, c, i);
 			}
+			
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}finally{
+			if(dos!=null){
+				try {
+					dos.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fos!=null){
+				try {
+					fos.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+	}
+	
+	/* 
+	 * Interfaz 
+	 * Cabecera:public void guardaClienteSinCompras(String ruta,ClienteImpl c)
+	 * Proceso:Método que te guarda el dni de un cliente, su correoe y su direccion en un fichero
+	 * Precondiciones:Ninguna
+	 * Entrada:1 cliente
+	 * Salida:Nada
+	 * Entrada/Salida:1 cadena para la ruta de los clientes
+	 * Postcondiciones:El fichero quedará escrito
+	 */
+	
+	public void guardaClienteSinCompras(String ruta,ClienteImpl c){
+		File ficheroCliente=new File(ruta);
+		FileOutputStream fos = null;
+		DataOutputStream dos = null;
+		String direccion,correoe;
+		
+		try {
+			fos=new FileOutputStream(ficheroCliente,true);
+			dos=new DataOutputStream(fos);
+			//Guardamos el dni
+			dos.writeLong(c.getDNI());
+			
+			//Guardamos el correo
+			correoe=UtilidadesCompartidas.completaCadena(c.getCorreoe(), 30);
+			dos.writeChars(correoe);
+			
+			//Guardamos la direccion
+			direccion=UtilidadesCompartidas.completaCadena(c.getDireccion(), 20);
+			dos.writeChars(direccion);
+			
 			
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
@@ -249,4 +304,85 @@ public class FicheroCliente {
 		return v;
 	}
 	
+	
+	/*
+	 * Interfaz 
+	 * Cabecera:public int cuentaclientes(String ruta) 
+	 * Proceso:Cuenta el numero de clientes que hay en un fichero.
+	 * Precondiciones:Ninguna 
+	 * Entrada:1 cadena para el fichero 
+	 * Salida:1 entero con el número de clientes
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Entero asociado al nombre
+	 */
+
+	public int cuentaClientes(String ruta) {
+		int numeroClientes = 0;
+		FileInputStream fos = null;
+		DataInputStream dis = null;
+		try {
+			fos = new FileInputStream(ruta);
+			dis = new DataInputStream(fos);
+			while (dis.available()>0) {
+				dis.skipBytes(108); //Me salto el número de Bytes que ocupa un cliente 8+60+40
+				numeroClientes++;
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (EOFException e) {
+
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+		return numeroClientes;
+	}
+	
+	/*
+	 * Interfaz 
+	 * Cabecera:public void muestraClientes(String ruta)
+	 * Proceso:Muestra el dni, el correo y la direccion de un cleinte
+	 * Precondiciones:Fichero con clientes 
+	 * Entrada:1 cadena con la ruta del fichero 
+	 * Salida:Nada, pinta en pantalla 
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Pintará en pantalla todas los clientes
+	 */
+
+	public void muestraClientes(String ruta) {
+		PersonaImpl p;
+		FileInputStream fos = null;
+		DataInputStream dis = null;
+		int contador, numeroPersonas = cuentaClientes(ruta);
+		long dni;
+		String correo,direccion;
+		try {
+			fos = new FileInputStream(ruta);
+			dis = new DataInputStream(fos);
+			for (contador = 0; contador < numeroPersonas; contador++) {
+				dni=dis.readLong();
+				System.out.print(dni+" ");
+				//Lee correo
+				correo="";
+				for(int i=0;i<30;i++){
+					correo=correo+dis.readChar();
+				}
+				correo=UtilidadesCompartidas.quitaAsterisco(correo);
+				System.out.print(correo+" ");
+				//lee direccion
+				direccion="";
+				for(int i=0;i<20;i++){
+					direccion=direccion+dis.readChar();
+				}
+				direccion=UtilidadesCompartidas.quitaAsterisco(direccion);
+				System.out.print(direccion+" ");
+				System.out.println();
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (EOFException e) {
+
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+	}
 }

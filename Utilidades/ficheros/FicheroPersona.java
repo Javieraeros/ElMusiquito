@@ -141,14 +141,14 @@ public class FicheroPersona {
 	public PersonaImpl devuelvePersona(String ruta, long dni) {
 		PersonaImpl aux = null;
 		PersonaImpl p=null;
-		FileInputStream fos = null;
+		FileInputStream fis = null;
 		ObjectInputStream ois = null;
 		int contador = 0, numeroPersonas = cuentaPersonas(ruta);
 		boolean encontrado = false;
 
 		try {
-			fos = new FileInputStream(ruta);
-			ois = new ObjectInputStream(fos);
+			fis = new FileInputStream(ruta);
+			ois = new ObjectInputStream(fis);
 			while (contador < numeroPersonas && !encontrado) {
 				aux = (PersonaImpl) ois.readObject();
 				encontrado = aux.getDNI() == dni; // encontrado será true si el

@@ -15,7 +15,7 @@ import ficheros.*;
 public class CreaPersonas {
 
 	public static void main(String[] args) {
-		String ruta = "Ficheros//Personas//Personas.dat";
+		String ruta = "Ficheros//Tests//PruebaOrdenarPersonas.dat";
 		File fichero = new File(ruta);
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;

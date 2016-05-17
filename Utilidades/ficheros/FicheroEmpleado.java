@@ -2,6 +2,7 @@ package ficheros;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -106,7 +107,7 @@ public class FicheroEmpleado {
 
 				if (dniLeido == dni) {
 					// Lee cuenta
-					for (int i = 0; i < 30; i++) {
+					for (int i = 0; i < 20; i++) {
 						cuentaCorriente = cuentaCorriente + dis.readChar();
 					}
 					
@@ -127,4 +128,85 @@ public class FicheroEmpleado {
 		return emp;
 	}
 	
+
+	/*
+	 * Interfaz 
+	 * Cabecera:public int cuentaEmpleados(String ruta) 
+	 * Proceso:Cuenta el numero de empleados que hay en un fichero.
+	 * Precondiciones:Ninguna 
+	 * Entrada:1 cadena para el fichero 
+	 * Salida:1 entero con el número de empleados
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Entero asociado al nombre
+	 */
+
+	public int cuentaEmpleados(String ruta) {
+		int numeroEmpleados = 0;
+		FileInputStream fos = null;
+		DataInputStream dis = null;
+		try {
+			fos = new FileInputStream(ruta);
+			dis = new DataInputStream(fos);
+			while (dis.available()>0) {
+				dis.skipBytes(58); //Me salto el número de Bytes que ocupa un cliente 8+60+40
+				numeroEmpleados++;
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (EOFException e) {
+
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+		return numeroEmpleados;
+	}
+
+	/*
+	 * Interfaz 
+	 * Cabecera:public void muestraEmpleados(String ruta)
+	 * Proceso:Muestra el dni, la cuenta corriente, el sueldo y la tienda de un empleado
+	 * Precondiciones:Fichero con empleados
+	 * Entrada:1 cadena con la ruta del fichero 
+	 * Salida:Nada, pinta en pantalla 
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Pintará en pantalla todas los empleados
+	 */
+
+	public void muestraEmpleados(String ruta) {
+		FileInputStream fos = null;
+		DataInputStream dis = null;
+		int contador, numeroEmpleados = cuentaEmpleados(ruta);
+		long dni;
+		String cuenta;
+		double sueldo;
+		short tienda;
+		try {
+			fos = new FileInputStream(ruta);
+			dis = new DataInputStream(fos);
+			for (contador = 0; contador < numeroEmpleados; contador++) {
+				dni=dis.readLong();
+				System.out.print(dni+" ");
+				//lee cuenta
+				cuenta="";
+				for(int i=0;i<20;i++){
+					cuenta=cuenta+dis.readChar();
+				}
+				System.out.print(cuenta+" ");
+				//lee sueldo
+				sueldo=dis.readDouble();
+				System.out.print(sueldo+" ");
+				//lee teinda
+				tienda=dis.readShort();
+				System.out.print(tienda+" ");
+				
+				System.out.println();
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (EOFException e) {
+
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+	}
 }
