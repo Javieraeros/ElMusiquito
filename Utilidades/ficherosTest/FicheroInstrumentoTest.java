@@ -10,11 +10,12 @@ public class FicheroInstrumentoTest {
 
 	FicheroInstrumento fi=new  FicheroInstrumento();
 	String ruta="Ficheros//Tests//PruebaGuardaInstrumento.dat";
+	String rutaDesc="Ficheros//Tests//Descripcion.txt";
 	@Test
 	public void testGuardaInstrumento() {
 		
 		InstrumentoImpl generico=new InstrumentoImpl(1400, "Tambor",Marca.Rocio,"Baquetas incluidas","Tronador50", 425);
-		fi.guardaInstrumento(ruta, generico);
+		fi.guardaInstrumento(ruta,rutaDesc, generico);
 	}
 
 	@Test

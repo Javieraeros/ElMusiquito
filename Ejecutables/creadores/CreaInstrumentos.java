@@ -11,6 +11,7 @@ public class CreaInstrumentos {
 		FicheroInstrumento fi=new FicheroInstrumento();
 		Scanner teclado=new Scanner(System.in);
 		String ruta="Ficheros//Tests//PruebaGuardaInstrumentos.dat";
+		String rutaDescripcion="Ficheros//Tests//Decripcion.txt";
 		
 		char continuar,desc;
 		String nombre,modelo;
@@ -64,7 +65,7 @@ public class CreaInstrumentos {
 			
 			InstrumentoImpl generico=new InstrumentoImpl(nombre,Marca.values()[valorMarca], 
 					descripcion, modelo, precio);
-			fi.guardaInstrumento(ruta, generico);
+			fi.guardaInstrumento(ruta,rutaDescripcion, generico);
 			
 			System.out.println("Quiere introducir un instrumento? (s para si,cualquier otra letra,no)");
 			continuar=teclado.nextLine().charAt(0);

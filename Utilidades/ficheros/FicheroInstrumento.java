@@ -25,10 +25,10 @@ public class FicheroInstrumento {
 	 * Entrada:1 instrumento
 	 * Salida:Nada
 	 * Entrada/Salida:Una cadena para la ruta del fichero
+	 * 					Una cadena para la descripcion del fichero
 	 * Postcondiciones:El fichero quedará sobreescrito con el instrumento
 	 */
-	public void guardaInstrumento(String ruta,InstrumentoImpl instrumento){
-		String desc="Ficheros//Descripcion.txt";
+	public void guardaInstrumento(String ruta,String desc,InstrumentoImpl instrumento){
 		File fichero=new File(ruta);
 		RandomAccessFile out=null;
 		String nombre=UtilidadesCompartidas.completaCadena(instrumento.getNombre(), 20);

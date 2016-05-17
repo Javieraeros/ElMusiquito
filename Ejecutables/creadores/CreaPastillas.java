@@ -10,7 +10,7 @@ import ficheros.*;
 public class CreaPastillas {
 
 	public static void main(String[] args) {
-		String ruta = "Ficheros//PastillasPrueba.dat";
+		String ruta = "Ficheros//Pastillas//Pastillas.dat";
 		File fichero = new File(ruta);
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
@@ -31,7 +31,7 @@ public class CreaPastillas {
 			// Crear pastilla
 			
 			do {
-				System.out.println("Introduce el marca(menos de 20 caracteres)");
+				System.out.println("Introduce la marca(menos de 20 caracteres)");
 				marca=teclado.nextLine();
 			} while (marca.length() > 20);
 

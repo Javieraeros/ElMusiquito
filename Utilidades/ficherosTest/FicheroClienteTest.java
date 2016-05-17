@@ -17,6 +17,7 @@ public class FicheroClienteTest {
 	String rutaCliente="Ficheros//Tests//ClientesTests.dat";
 	String rutaCompras="Ficheros//Tests//Compras.dat";
 	String rutaInstrumentos="Ficheros//Tests//Instrumentos.dat";
+	String rutaDesc="Ficheros//Tests//Descripcion.txt";
 	
 	@Test
 	public void testGuardaCliente() {
@@ -26,7 +27,7 @@ public class FicheroClienteTest {
 		PersonaImpl p=new PersonaImpl(47428157, "Javi", "Ruiz", "Rodriguez");
 		ClienteImpl c=new ClienteImpl(p, "pajarruro@gmail.com", "platino 42", v);
 		fp.guardaPersona(rutaPersona,p);
-		fi.guardaInstrumento(rutaInstrumentos, defecto);
+		fi.guardaInstrumento(rutaInstrumentos,rutaDesc, defecto);
 		fc.guardaCliente(rutaCliente,rutaCompras, c);
 		
 	}
