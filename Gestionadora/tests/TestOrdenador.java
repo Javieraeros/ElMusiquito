@@ -8,14 +8,18 @@ public class TestOrdenador {
 		String rutaPersonas="Ficheros//Tests//PruebaOrdenarPersonas.dat";
 		String rutaClientes="Ficheros//Tests//PruebaOrdenarClientes.dat";
 		String rutaEmpleados="Ficheros//Tests//PruebaOrdenarEmpleados.dat";
+		String rutaPastillas="Ficheros//Tests//PruebaOrdenarPastillas.dat";
 		FicheroPersona fp=new FicheroPersona();
 		FicheroCliente fc=new FicheroCliente();
 		FicheroEmpleado fe=new FicheroEmpleado();
+		FicheroPastillas fpas=new FicheroPastillas();
 		Ordenador o=new Ordenador();
 		PersonaImpl p;
 		ClienteImpl c;
 		EmpleadoImpl emp;
+		Pastilla pas;
 		long dni;
+		int id;
 		
 		/*
 		for(int i=0;i<10000;i++){
@@ -42,7 +46,7 @@ public class TestOrdenador {
 		System.out.println("Ta ordenado: \n\n\n");
 		fc.muestraClientes(rutaClientes);
 		*/
-		
+		/*
 		for(int i=0;i<1000;i++){
 			dni=(long) (Math.random()*100000000);
 			p=new PersonaImpl(dni, "Francisco Javier", "Ruiz", "Rodríguez");
@@ -54,6 +58,22 @@ public class TestOrdenador {
 		o.ordenaFicheroEmpleado(rutaEmpleados);
 		System.out.println("Ta ordenado: \n\n\n");
 		fe.muestraEmpleados(rutaEmpleados);
+		*/
+		/*
+		for(int i=0;i<1000;i++){
+			id=(int) (Math.random()*100000000);
+			pas=new Pastilla(id, "Generica", "Generica", 1);
+			fpas.guardaPastilla(rutaPastillas, pas);
+		}
+		
+		fpas.muestraPastillas(rutaPastillas);
+		o.ordenaFicheroPastillas(rutaPastillas);
+		System.out.println("Ordenado: \n");
+		fpas.muestraPastillas(rutaPastillas);
+		System.out.println(fpas.cuentaPastillas(rutaPastillas));
+		*/
+		
+		
 	}
 
 }

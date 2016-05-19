@@ -202,6 +202,7 @@ public class FicheroCliente {
 	 * Entrada/Salida:1 cadena par ala ruta del fichero
 	 * Postcondiciones:El fichero quedará guardado con el dni del cliente y el id del instrumento.
 	 */
+	
 	public void guardaCompras(String rutaCompras,ClienteImpl c,int indice){
 		File ficheroCompras=new File(rutaCompras);
 		FileOutputStream fos = null;
@@ -339,27 +340,31 @@ public class FicheroCliente {
 	
 	/*
 	 * Interfaz 
-	 * Cabecera:public void muestraClientes(String ruta)
-	 * Proceso:Muestra el dni, el correo y la direccion de un cleinte
+	 * Cabecera:public void muestraClientes(String rutaCliente,Stirnt rutaPersona)
+	 * Proceso:Muestra toda la infomación de un cliente
 	 * Precondiciones:Fichero con clientes 
-	 * Entrada:1 cadena con la ruta del fichero 
+	 * Entrada:1 cadena con la ruta del fichero de clientes
+	 * 			1 cadena con la ruta del fichero de personas
 	 * Salida:Nada, pinta en pantalla 
 	 * Entrada/Salida:Nada
 	 * Postcondiciones:Pintará en pantalla todas los clientes
 	 */
 
-	public void muestraClientes(String ruta) {
+	public void muestraClientes(String ruta,String rutaPersona) {
 		PersonaImpl p;
+		ClienteImpl c;
+		FicheroPersona fp=new FicheroPersona();
 		FileInputStream fos = null;
 		DataInputStream dis = null;
-		int contador, numeroPersonas = cuentaClientes(ruta);
+		int contador, numeroClientes = cuentaClientes(ruta);
 		long dni;
 		String correo,direccion;
 		try {
 			fos = new FileInputStream(ruta);
 			dis = new DataInputStream(fos);
-			for (contador = 0; contador < numeroPersonas; contador++) {
+			for (contador = 0; contador < numeroClientes; contador++) {
 				dni=dis.readLong();
+				p=fp.devuelvePersona(rutaPersona, dni);
 				System.out.print(dni+" ");
 				//Lee correo
 				correo="";
@@ -367,15 +372,16 @@ public class FicheroCliente {
 					correo=correo+dis.readChar();
 				}
 				correo=UtilidadesCompartidas.quitaAsterisco(correo);
-				System.out.print(correo+" ");
+				
 				//lee direccion
 				direccion="";
 				for(int i=0;i<20;i++){
 					direccion=direccion+dis.readChar();
 				}
 				direccion=UtilidadesCompartidas.quitaAsterisco(direccion);
-				System.out.print(direccion+" ");
-				System.out.println();
+				c=new ClienteImpl(p, correo, direccion,null);
+				System.out.println(c.toString());
+				
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println(e);

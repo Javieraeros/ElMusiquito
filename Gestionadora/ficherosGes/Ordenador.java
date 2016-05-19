@@ -374,7 +374,7 @@ public class Ordenador {
 	 * Postcondiciones:El fichero quedará guardado en la carpeta indicada por la cadena "original"
 	 */
 	
-	public void mezclaFicheroSecuencia(String original, String fusiona1, String fusiona2, int secuencia) {
+	private void mezclaFicheroSecuencia(String original, String fusiona1, String fusiona2, int secuencia) {
 		File fOriginal = new File(original);
 		File fusiona_l = new File(fusiona1);
 		File fusiona_2 = new File(fusiona2);
@@ -761,7 +761,6 @@ public class Ordenador {
 	 */
 	
 	private void mezclaFicheroClienteSecuencia(String original, String fusiona1, String fusiona2, int secuencia) {
-		File fOriginal = new File(original);
 		File fusiona_l = new File(fusiona1);
 		File fusiona_2 = new File(fusiona2);
 		
@@ -1245,7 +1244,6 @@ public class Ordenador {
 	 */
 	
 	private void mezclaFicheroEmpleadoSecuencia(String original, String fusiona1, String fusiona2, int secuencia) {
-		File fOriginal = new File(original);
 		File fusiona_l = new File(fusiona1);
 		File fusiona_2 = new File(fusiona2);
 		
@@ -1475,6 +1473,70 @@ public class Ordenador {
 					System.out.println(e);
 				}
 			}
+		}
+	}
+	
+	/* 
+	 * Interfaz 
+	 * Cabecera:public void ordenaFicheroPastilla(String ruta)
+	 * Proceso:Ordena un fichero de pastillas.
+	 * Precondiciones:Ninguna
+	 * Entrada:Nada
+	 * Salida:Nada
+	 * Entrada/Salida:El fichero ordenado
+	 * Postcondiciones:El fichero qeudará ordenado según el id de la pastilla.
+	 */
+	
+	public void ordenaFicheroPastillas(String ruta){
+		FicheroPastillas fp=new FicheroPastillas();
+		int numeroPersonas=fp.cuentaPastillas(ruta);
+		Pastilla[] pastillas=new Pastilla[numeroPersonas];
+		Pastilla aux = null;
+		FileInputStream fis = null;
+		ObjectInputStream ois = null;
+		FileOutputStream fos=null;
+		ObjectOutputStream oos=null;
+		
+		//Relleno de array
+		int contador = 0;
+		try {
+			fis = new FileInputStream(ruta);
+			ois = new ObjectInputStream(fis);
+			for (contador=0;contador < numeroPersonas;contador++) {
+				aux = (Pastilla) ois.readObject();
+				pastillas[contador]=aux;
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (ClassNotFoundException e) {
+			System.out.println(e);
+		} catch (EOFException e) {
+
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+		
+		//Ordenacion hibrida
+		int i,j;
+		for(i=1;i<numeroPersonas;i++){
+			for(j=i;j>0 && pastillas[j-1].compareTo(pastillas[j])>0;j--){
+				aux=pastillas[j];
+				pastillas[j]=pastillas[j-1];
+				pastillas[j-1]=aux;
+			}
+		}
+		
+		//Relleno de fichero
+		try {
+			fos=new FileOutputStream(ruta);
+			oos=new ObjectOutputStream(fos);
+			for (contador=0;contador < numeroPersonas;contador++) {
+				oos.writeObject(pastillas[contador]);
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
 		}
 	}
 	

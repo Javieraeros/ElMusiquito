@@ -21,8 +21,8 @@ public class FicheroGuitarra {
 	 * Postcondiciones:El fichero quedará sobreescrito con el instrumento  Guitarra
 	 */
 	
-	public void guardaInstrumentoGuitarra(String ruta,String rutaRelaciones,GuitarraElectricaImpl guitarra){
-		File fichero=new File(ruta);
+	public void guardaInstrumentoGuitarra(String rutaGuitarra,String rutaRelaciones,GuitarraElectricaImpl guitarra){
+		File fichero=new File(rutaGuitarra);
 		RandomAccessFile out=null;
 		String tipo=UtilidadesCompartidas.completaCadena(guitarra.getTipo().toString(), 20);
 		

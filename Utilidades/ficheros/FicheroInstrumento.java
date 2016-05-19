@@ -277,7 +277,7 @@ public class FicheroInstrumento {
 	 */
 	
 	public String descripcionInstrumento(String ruta,int id){
-		String salida="";
+		String salida="",idCadena;
 		FileReader in=null;
 		BufferedReader br=null;
 		int idLeido;
@@ -293,14 +293,25 @@ public class FicheroInstrumento {
 					leido=(char) br.read();
 				}
 				br.readLine();
-				idLeido=Integer.parseInt(br.readLine());
+				idCadena=br.readLine();
+				if(idCadena!=null){
+					idLeido=Integer.parseInt(idCadena);
+				}else{
+					idLeido=-1;
+				}
+				/*try{
+					idLeido=Integer.parseInt(br.readLine());
+				}catch(NumberFormatException e){
+					idLeido=-1;
+				}*/
 				//Volvemos a leer para que no se nso quede con el # anterios
 				leido=(char) br.read();
 			}
-			
-			while(leido!='#'){
-				salida=salida+leido;
-				leido=(char) br.read();
+			if(idLeido==id){
+				while(leido!='#'){
+					salida=salida+leido;
+					leido=(char) br.read();
+				}
 			}
 		}catch(FileNotFoundException e){
 			System.out.println(e);

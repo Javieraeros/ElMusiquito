@@ -21,29 +21,56 @@ public class FicheroPastillas {
 	public void guardaPastilla(String ruta, Pastilla p) {
 		File fichero = new File(ruta);
 		FileOutputStream fos = null;
-		MiOOS oos = null;
-
-		try {
-			fos = new FileOutputStream(fichero, true);
-			oos = new MiOOS(fos);
-			oos.writeObject(p);
-		} catch (FileNotFoundException e) {
-			System.out.println(e);
-		} catch (IOException e) {
-			System.out.println(e);
-		} finally {
-			if (oos != null) {
-				try {
-					oos.close();
-				} catch (IOException e) {
-					System.out.println(e);
+		ObjectOutputStream oos = null;  //Puesto que mioos hereda puedo hacer esto
+		
+		if(fichero.exists()){
+			try {
+				fos = new FileOutputStream(fichero, true);
+				oos = new MiOOS(fos);
+				oos.writeObject(p);
+			} catch (FileNotFoundException e) {
+				System.out.println(e);
+			} catch (IOException e) {
+				System.out.println(e);
+			} finally {
+				if (oos != null) {
+					try {
+						oos.close();
+					} catch (IOException e) {
+						System.out.println(e);
+					}
+				}
+				if (fos != null) {
+					try {
+						fos.close();
+					} catch (IOException e) {
+						System.out.println(e);
+					}
 				}
 			}
-			if (fos != null) {
-				try {
-					fos.close();
-				} catch (IOException e) {
-					System.out.println(e);
+		}else{
+			try {
+				fos = new FileOutputStream(fichero, true);
+				oos = new ObjectOutputStream(fos);
+				oos.writeObject(p);
+			} catch (FileNotFoundException e) {
+				System.out.println(e);
+			} catch (IOException e) {
+				System.out.println(e);
+			} finally {
+				if (oos != null) {
+					try {
+						oos.close();
+					} catch (IOException e) {
+						System.out.println(e);
+					}
+				}
+				if (fos != null) {
+					try {
+						fos.close();
+					} catch (IOException e) {
+						System.out.println(e);
+					}
 				}
 			}
 		}
