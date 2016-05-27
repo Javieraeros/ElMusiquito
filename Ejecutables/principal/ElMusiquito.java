@@ -53,7 +53,7 @@ public class ElMusiquito {
 		System.out.println("8.Realizar Devolución");
 		System.out.println("9.Mostrar Instrumentos");
 		System.out.println("10.Mostrar Menú Clientes");
-		System.out.println("11.Actualiza base de Datos");
+		System.out.println("11.Actualizar base de Datos");
 		System.out.println("12.Muestra Menú Empleados");
 		System.out.println("0.Salir");
 	}
@@ -393,7 +393,9 @@ public class ElMusiquito {
 	public static void main(String[] args) {
 		
 		String rutaPersonas="Ficheros//Personas//Personas.dat";
+		String rutaPersonasTemp="Ficheros//Personas//PersonasTemp.dat";
 		String rutaClientes="Ficheros//Clientes//Clientes.dat";
+		String rutaClientesTemp="Ficheros//Clientes//ClientesTemp.dat";
 		String rutaCompras="Ficheros//Clientes//Compras.dat";
 		String rutaEmpleados="Ficheros//Empleados//Empleados.dat";
 		
@@ -406,6 +408,7 @@ public class ElMusiquito {
 		String rutaGuitarra="Ficheros//Guitarra//Guitarra.dat";
 		String rutaPastillas="Ficheros//Pastillas//Pastillas.dat";
 		String rutaPastillasGuitarras="Ficheros//Guitarra//Relacion.dat";
+		String rutaPastillasGuitarrasTemp="Ficheros//Guitarra//RelacionTemp.dat";
 		String rutaopcional="Ficheros";
 		
 		PersonaImpl persona;
@@ -435,8 +438,10 @@ public class ElMusiquito {
 		FicheroPastillas fPas=new FicheroPastillas();
 		
 		int opcionMenuPrincipal,opcionMenuInstrumentos;
+		long dniGenerico;
 		int idInstrumento,tipoInstrumento;
 		boolean estadoBaseDatos=false;
+		Vector<InstrumentoImpl> v=new Vector<InstrumentoImpl>(0,1);
 
 		do {
 			try {
@@ -450,6 +455,7 @@ public class ElMusiquito {
 		
 		while(opcionMenuPrincipal!=0){
 			switch (opcionMenuPrincipal) {
+			//Añadir instrumento
 			case 1:
 				do{
 					System.out.println("Qué tipo de instrumento quieres guardar?");
@@ -502,7 +508,8 @@ public class ElMusiquito {
 						cuerda=creaCuerda(instrumento);
 						fCuerda.guardaInstrumentoCuerda(rutaCuerda, cuerda);
 						guitarra=creaGuitarraElectrica(cuerda, rutaPastillasGuitarras);
-						fg.guardaInstrumentoGuitarra(rutaGuitarra, rutaPastillasGuitarras, guitarra);
+						fg.guardaInstrumentoGuitarra(rutaGuitarra, guitarra);
+						fg.guardaRelacionPastilla(rutaPastillasGuitarras, guitarra);
 						break;
 					}
 					
@@ -530,7 +537,50 @@ public class ElMusiquito {
 				break;
 			case 3:
 				//Eliminar Instrumento
-				System.out.println("En construccion");
+				do{
+					System.out.println("Introduce el id del instrumento que desea eliminar: ");
+					System.out.println("(0 para no eliminar ninguno)");
+					idInstrumento=Integer.parseInt(teclado.nextLine());
+				}while(idInstrumento<0 );
+				
+				if(!gp.compruebaExistenciaInstrumentoComprado(rutaCompras, idInstrumento)){
+					//Sobreescribimos los datos del instrumento con dicha id
+					instrumento=new InstrumentoImpl(0, "",Marca.Fender, "", "", 0);
+					fi.guardaInstrumento(rutaInstrumentos, rutaDescripcion, instrumento);
+					
+					/*Dependiendo del tipo de instrumento que sea, borramos sus datos de los 
+					diferentes ficheros*/
+					
+					//Viento y Saxofon
+					if(gp.compruebaExistenciaViento(rutaViento, idInstrumento)){
+						viento=new VientoImpl(instrumento, 'b', "",(byte) 0);
+						fv.guardaInstrumentoViento(rutaViento, viento);
+						if(gp.compruebaExistenciaSaxofon(rutaSaxofones, idInstrumento)){
+							saxofon=new SaxofonImpl(viento, FamiliaSaxo.Alto, "", "", Acabado.BronceB);
+							fs.guardaInstrumentoSaxofon(rutaSaxofones, saxofon);
+						}
+					}else{
+						//Cuerda y guitarra
+						if(gp.compruebaExistenciaCuerda(rutaCuerda, idInstrumento)){
+							cuerda=new CuerdaImpl(instrumento, 1, "", (byte) 0);
+							fCuerda.guardaInstrumentoCuerda(rutaCuerda, cuerda);
+							if(gp.compruebaExistenciaGuitarra(rutaGuitarra, idInstrumento)){
+								guitarra=fg.devuelveInstrumentoGuitarra(rutaGuitarra, rutaCuerda, rutaPastillasGuitarras, rutaInstrumentos, idInstrumento);
+								fg.guardaInstrumentoGuitarra(rutaGuitarra,guitarra);
+								fg.guardaRelacionPastilla(rutaPastillasGuitarrasTemp, guitarra);
+								
+							}
+						}else{
+							//Percusion
+							if(gp.compruebaExistenciaPercusion(rutaPercusion, idInstrumento)){
+								percusion=new PercusionImpl(instrumento, 'b', "", false);
+								fPer.guardaInstrumentoPerc(rutaPercusion, percusion);
+							}
+						}
+					}
+				}else{
+					System.out.println("Error, el instrumento ha sido comprado por alguien,no puede eliminarse");
+				}
 				break;
 			case 4:
 				//Añadir Cliente
@@ -542,7 +592,26 @@ public class ElMusiquito {
 				break;
 			case 6:
 				//Eliminar Cliente
-				System.out.println("En construccion");
+				do{
+					System.out.println("Introduzca el dni del cliente que desea eliminar: ");
+					dniGenerico=Long.parseLong(teclado.nextLine());
+				}while(dniGenerico<=0);
+				//Guardamos en PersonaTemp
+				if(dniGenerico!=0 &&
+						gp.compruebaExistenciaPersona(rutaPersonas, dniGenerico) && 
+						!gp.compruebaExistenciaPersona(rutaPersonasTemp, dniGenerico)){
+					
+					persona=new PersonaImpl(dniGenerico,"","","");
+					fp.guardaPersona(rutaPersonasTemp,persona);
+					
+					//Guardamos en ClienteTemp
+					if(gp.compruebaExistenciaCliente(rutaClientes, dniGenerico) && 
+							!gp.compruebaExistenciaCliente(rutaClientesTemp, dniGenerico)){
+						//Guardamos la dirección como # para saber que la vamos a borrar
+						cliente=new ClienteImpl(persona,"generico@generico.com","#",null);
+						fc.guardaClienteSinCompras(rutaClientesTemp,cliente);
+					}
+				}
 				break;
 			case 7:
 				//Realizar Venta
@@ -567,10 +636,11 @@ public class ElMusiquito {
 					System.out.println("Introduce la id: ");
 					idInstrumento=Integer.parseInt(teclado.nextLine());
 					switch (opcionMenuInstrumentos) {
+					
 					case 1:
 						if (gp.compruebaExistenciaViento(rutaViento, idInstrumento)) {
 							System.out.println(fv.devuelveInstrumentoViento(rutaViento, rutaInstrumentos, idInstrumento));
-								System.out.println("Descripcion: "+fi.descripcionInstrumento(rutaDescripcion, idInstrumento));
+							System.out.println("Descripcion: "+fi.descripcionInstrumento(rutaDescripcion, idInstrumento));
 						} else {
 							System.out.println("Error,id inválido!");
 						}
@@ -601,6 +671,11 @@ public class ElMusiquito {
 						}
 						break;
 					case 5:
+						//Modificar para que muestre pastillas
+						//
+						//             !!!!!!!!!!!!!!!!!!!
+						//
+						//
 						if (gp.compruebaExistenciaGuitarra(rutaGuitarra, idInstrumento)) {
 							System.out.println(fg.devuelveInstrumentoGuitarra(rutaGuitarra, rutaCuerda,
 									rutaPastillasGuitarras, rutaInstrumentos, idInstrumento));
@@ -620,12 +695,33 @@ public class ElMusiquito {
 			case 10:
 				//Mostrar Clientes
 				System.out.println();
+				//Si la "base de datos no está actualizada"
 				if(!estadoBaseDatos){
-					System.out.println("Atención,la información de los siguientes clientes no están actualizados");
-					fc.muestraClientes(rutaClientes,rutaCompras);
-					System.out.println();
+					System.out.println("Atención,la información de los siguientes clientes no están actualizada");
+					
+				}else{
+					System.out.println("Los datos están actualizados!");
+				}
+				fc.muestraClientes(rutaClientes,rutaPersonas);
+				System.out.println();
+				do{
 					System.out.println("Si desea ver las compras de un cliente, introduzca el dni del cliente");
-					System.out.println("En caso contrario");
+					System.out.println("En caso contrario,introduzca 0");
+					dniGenerico=Long.parseLong(teclado.nextLine());
+				}while(dniGenerico<0);
+				
+				 v=fc.devuelveCompras(rutaCompras, rutaInstrumentos, dniGenerico);
+				
+				if(dniGenerico!=0 && v.size()>0){
+					for(int i=0;i<v.size();i++){
+						//Muestro el instrumento sin descripción
+						v.get(i).toString();
+						//Muestro la descripción (si existe)
+						if(v.get(i).getDescripcion().equals("s")){
+							v.get(i).setDescripcion(fi.descripcionInstrumento(rutaDescripcion, i));
+							System.out.println(v.get(i).getDescripcion());
+						}
+					}
 				}
 				break;
 			case 11:

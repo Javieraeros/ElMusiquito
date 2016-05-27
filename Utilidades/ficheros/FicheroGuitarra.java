@@ -17,11 +17,10 @@ public class FicheroGuitarra {
 	 * Entrada:1 instrumento Guitarra
 	 * Salida:Nada
 	 * Entrada/Salida:Una cadena para la ruta del fichero guitarra
-	 * 					1 cadena para la tura de la relaciones de las pastillas
 	 * Postcondiciones:El fichero quedará sobreescrito con el instrumento  Guitarra
 	 */
 	
-	public void guardaInstrumentoGuitarra(String rutaGuitarra,String rutaRelaciones,GuitarraElectricaImpl guitarra){
+	public void guardaInstrumentoGuitarra(String rutaGuitarra,GuitarraElectricaImpl guitarra){
 		File fichero=new File(rutaGuitarra);
 		RandomAccessFile out=null;
 		String tipo=UtilidadesCompartidas.completaCadena(guitarra.getTipo().toString(), 20);
@@ -46,8 +45,6 @@ public class FicheroGuitarra {
 				}
 			}
 		}
-		
-		guardaRelacionPastilla(rutaRelaciones, guitarra);
 	}
 	
 	/* 

@@ -318,4 +318,45 @@ public class GestionadoraPrincipal {
 		return resultado;
 	}
 
+	public boolean compruebaExistenciaInstrumentoComprado(String ruta,int id){
+		boolean resultado=false;
+		FileInputStream fis = null;
+		DataInputStream dis = null;
+		
+		int idInstrumento;
+		
+		try {
+			fis = new FileInputStream(ruta);
+			dis = new DataInputStream(fis);
+
+			while (dis.available() > 0 && !resultado) {
+				// Me salto el dni de la persona
+				dis.readLong();
+				idInstrumento = dis.readInt();
+				if(idInstrumento==id){
+					resultado=true;
+				}
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		} finally {
+			if (dis != null) {
+				try {
+					dis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+		return resultado;
+	}
 }

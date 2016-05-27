@@ -7,7 +7,7 @@ public class MuestraPersonas {
 		if(args.length>0){
 			fp.muestraPersonas(args[0]);
 		}else{
-			fp.muestraPersonas("Ficheros//Tests//PersonaTestCliente.dat");
+			fp.muestraPersonas("Ficheros//Personas//Personas.dat");
 			System.out.println("Error,introduce una ruta");
 		}
 	}

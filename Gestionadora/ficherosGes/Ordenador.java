@@ -1,6 +1,8 @@
 package ficherosGes;
 
 import java.io.*;
+import java.util.Vector;
+
 import datos.*;
 import ficheros.*;
 import compartidas.*;
@@ -1538,6 +1540,67 @@ public class Ordenador {
 		} catch (IOException e) {
 			System.out.println(e);
 		}
+	}
+	
+	/* 
+	 * Interfaz 
+	 * Cabecera:public void ordenaFicheroCompras(String ruta)
+	 * Proceso:Ordena un fichero de compras.
+	 * Precondiciones:Ninguna
+	 * Entrada:Nada
+	 * Salida:Nada
+	 * Entrada/Salida:El fichero ordenado
+	 * Postcondiciones:El fichero qeudará ordenado según el dni de la persona.
+	 */
+	
+	public void ordenaFicheroCompras(String ruta){
+		FileInputStream fis=null;
+		DataInputStream dis=null;
+		FileOutputStream fos=null;
+		DataOutputStream dos=null;
+		Vector<Long> dniV=new Vector<Long>(1,1);
+		Vector<Integer> idV=new Vector<Integer>(1, 1);
+		Long aux;
+		Integer auxEntero;
+		//Volcamos en los dos arrays
+		try {
+			fis = new FileInputStream(ruta);
+			dis=new DataInputStream(fis);
+			do{
+				dniV.add(dis.readLong());
+				idV.add(dis.readInt());
+			}while(dis.available()>0);
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+		//Ordenamos
+		int i,j;
+		for(i=1;i<dniV.size();i++){
+			for(j=i;j>0 && dniV.get(j-1)>dniV.get(j);j--){
+				aux=dniV.get(j);
+				auxEntero=idV.get(j);
+				
+				dniV.set(j,dniV.get(j-1));
+				idV.set(j,idV.get(j-1));
+				
+				dniV.set(j-1,aux);
+				idV.set(j-1,auxEntero);
+			}
+		}
+		
+		//Volcamos en los ficheros
+		try {
+			fos=new FileOutputStream(ruta);
+			dos=new DataOutputStream(fos);
+			for(i=0;i<dniV.size();i++){
+				
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		}
+		
 	}
 	
 }

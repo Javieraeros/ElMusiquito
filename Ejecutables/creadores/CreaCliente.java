@@ -15,8 +15,8 @@ import ficheros.*;
 public class CreaCliente {
 
 	public static void main(String[] args) {
-		String rutaCliente = "Ficheros//Clientes.dat";
-		String rutaPersona="Ficheros//Personas.dat";
+		String rutaCliente = "Ficheros//Clientes//Clientes.dat";
+		String rutaPersona="Ficheros//Personas//Personas.dat";
 		File ficheroCliente=new File(rutaCliente);
 		File ficheroPersona = new File(rutaPersona);
 		FileOutputStream fos = null;

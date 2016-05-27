@@ -249,11 +249,12 @@ public class FicheroCliente {
 	 * 			Una cadena para la ruta de los instrumentos
 	 * Salida:Un vector de instrumentos
 	 * Entrada/Salida:
-	 * Postcondiciones:Vector asociado al nombre
+	 * Postcondiciones:Vector asociado al nombre, en caso de no existir compras, devuelve un vector
+	 * con 0 instrumentos
 	 */
 	
 	public Vector<InstrumentoImpl> devuelveCompras(String rutaCompras, String rutaInstrumento, long dni) {
-		Vector<InstrumentoImpl> v = new Vector<InstrumentoImpl>(1, 1);
+		Vector<InstrumentoImpl> v = new Vector<InstrumentoImpl>(0, 1);
 		File ficheroCompras = new File(rutaCompras);
 		FileInputStream fis = null;
 		DataInputStream dis = null;
@@ -365,7 +366,6 @@ public class FicheroCliente {
 			for (contador = 0; contador < numeroClientes; contador++) {
 				dni=dis.readLong();
 				p=fp.devuelvePersona(rutaPersona, dni);
-				System.out.print(dni+" ");
 				//Lee correo
 				correo="";
 				for(int i=0;i<30;i++){
@@ -381,7 +381,6 @@ public class FicheroCliente {
 				direccion=UtilidadesCompartidas.quitaAsterisco(direccion);
 				c=new ClienteImpl(p, correo, direccion,null);
 				System.out.println(c.toString());
-				
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
@@ -391,4 +390,5 @@ public class FicheroCliente {
 			System.out.println(e);
 		}
 	}
+
 }

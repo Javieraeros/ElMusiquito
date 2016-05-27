@@ -1,6 +1,6 @@
 /* Restricciones:
  * Tanto el nombre como los apellidos tendrán de tamaño máximo 20 caracteres
- * El dni no podrá ser 0 o negativo
+ * El dni no podrá ser  negativo o 0
  * 
  * Métodos Añadidios/Heredados:
  * 

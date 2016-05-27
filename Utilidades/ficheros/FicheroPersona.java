@@ -113,7 +113,9 @@ public class FicheroPersona {
 			ois = new ObjectInputStream(fos);
 			for (contador = 0; contador < numeroPersonas; contador++) {
 				p = (PersonaImpl) ois.readObject();
-				System.out.println(p);
+				if(p.getNombre()!=""){ //En caso de que no esté borrada
+					System.out.println(p);
+				}
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
@@ -171,4 +173,5 @@ public class FicheroPersona {
 		}
 		return p;
 	}
+	
 }
