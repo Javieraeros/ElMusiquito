@@ -91,12 +91,12 @@ public class FicheroPastillas {
 	public int cuentaPastillas(String ruta) {
 		int numeroPastillas = 0;
 		Pastilla p;
-		FileInputStream fos = null;
+		FileInputStream fis = null;
 		ObjectInputStream ois = null;
 
 		try {
-			fos = new FileInputStream(ruta);
-			ois = new ObjectInputStream(fos);
+			fis = new FileInputStream(ruta);
+			ois = new ObjectInputStream(fis);
 			p = (Pastilla) ois.readObject();
 			while (p != null) {
 				numeroPastillas++;
@@ -110,6 +110,21 @@ public class FicheroPastillas {
 
 		} catch (IOException e) {
 			System.out.println(e);
+		} finally {
+			if (ois!=null){
+				try {
+					ois.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 		return numeroPastillas;
 	}
@@ -127,13 +142,13 @@ public class FicheroPastillas {
 
 	public void muestraPastillas(String ruta) {
 		Pastilla p;
-		FileInputStream fos = null;
+		FileInputStream fis = null;
 		ObjectInputStream ois = null;
 		int contador, numeroPastillas = cuentaPastillas(ruta);
 
 		try {
-			fos = new FileInputStream(ruta);
-			ois = new ObjectInputStream(fos);
+			fis = new FileInputStream(ruta);
+			ois = new ObjectInputStream(fis);
 			for (contador = 0; contador < numeroPastillas; contador++) {
 				p = (Pastilla) ois.readObject();
 				System.out.println(p);
@@ -146,6 +161,21 @@ public class FicheroPastillas {
 
 		} catch (IOException e) {
 			System.out.println(e);
+		} finally {
+			if (ois!=null){
+				try {
+					ois.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 	}
 
@@ -164,14 +194,14 @@ public class FicheroPastillas {
 	public Pastilla devuelvePastilla(String ruta, int id) {
 		Pastilla aux = null;
 		Pastilla p=null;
-		FileInputStream fos = null;
+		FileInputStream fis = null;
 		ObjectInputStream ois = null;
 		int contador = 0, numeroPersonas = cuentaPastillas(ruta);
 		boolean encontrado = false;
 
 		try {
-			fos = new FileInputStream(ruta);
-			ois = new ObjectInputStream(fos);
+			fis = new FileInputStream(ruta);
+			ois = new ObjectInputStream(fis);
 			while (contador < numeroPersonas && !encontrado) {
 				aux = (Pastilla) ois.readObject();
 				encontrado = aux.getId() == id; // encontrado será true si el
@@ -191,6 +221,21 @@ public class FicheroPastillas {
 
 		} catch (IOException e) {
 			System.out.println(e);
+		} finally {
+			if (ois!=null){
+				try {
+					ois.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 		return p;
 	}

@@ -67,6 +67,21 @@ public class Ordenador {
 
 		} catch (IOException e) {
 			System.out.println(e);
+		} finally {
+			if(ois!=null){
+				try {
+					ois.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 		
 		//Ordenacion hibrida
@@ -1516,6 +1531,21 @@ public class Ordenador {
 
 		} catch (IOException e) {
 			System.out.println(e);
+		} finally {
+			if(ois!=null){
+				try {
+					ois.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 		
 		//Ordenacion hibrida
@@ -1539,6 +1569,21 @@ public class Ordenador {
 			System.out.println(e);
 		} catch (IOException e) {
 			System.out.println(e);
+		} finally {
+			if(oos!=null){
+				try {
+					oos.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fos!=null){
+				try {
+					fos.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 	}
 	
@@ -1574,6 +1619,21 @@ public class Ordenador {
 			System.out.println(e);
 		} catch (IOException e) {
 			System.out.println(e);
+		} finally {
+			if(dis!=null){
+				try {
+					dis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 		//Ordenamos
 		int i,j;
@@ -1599,6 +1659,21 @@ public class Ordenador {
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
+		} finally {
+			if(dos!=null){
+				try {
+					dos.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fos!=null){
+				try {
+					fos.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 		
 	}

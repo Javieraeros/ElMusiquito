@@ -68,12 +68,12 @@ public class FicheroPersona {
 	public int cuentaPersonas(String ruta) {
 		int numeroPersonas = 0;
 		PersonaImpl p;
-		FileInputStream fos = null;
+		FileInputStream fis = null;
 		ObjectInputStream ois = null;
 
 		try {
-			fos = new FileInputStream(ruta);
-			ois = new ObjectInputStream(fos);
+			fis = new FileInputStream(ruta);
+			ois = new ObjectInputStream(fis);
 			p = (PersonaImpl) ois.readObject();
 			while (p != null) {
 				numeroPersonas++;
@@ -87,6 +87,21 @@ public class FicheroPersona {
 
 		} catch (IOException e) {
 			System.out.println(e);
+		} finally {
+			if(ois!=null){
+				try {
+					ois.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 		return numeroPersonas;
 	}
@@ -104,13 +119,13 @@ public class FicheroPersona {
 
 	public void muestraPersonas(String ruta) {
 		PersonaImpl p;
-		FileInputStream fos = null;
+		FileInputStream fis = null;
 		ObjectInputStream ois = null;
 		int contador, numeroPersonas = cuentaPersonas(ruta);
 
 		try {
-			fos = new FileInputStream(ruta);
-			ois = new ObjectInputStream(fos);
+			fis = new FileInputStream(ruta);
+			ois = new ObjectInputStream(fis);
 			for (contador = 0; contador < numeroPersonas; contador++) {
 				p = (PersonaImpl) ois.readObject();
 				if(p.getNombre()!=""){ //En caso de que no esté borrada
@@ -125,6 +140,21 @@ public class FicheroPersona {
 
 		} catch (IOException e) {
 			System.out.println(e);
+		} finally {
+			if(ois!=null){
+				try {
+					ois.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 	}
 

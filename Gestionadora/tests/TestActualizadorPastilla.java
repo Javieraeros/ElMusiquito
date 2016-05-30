@@ -6,22 +6,22 @@ import java.io.*;
 
 import datos.*;
 import ficheros.*;
-public class TestActualizador {
+public class TestActualizadorPastilla {
 
 	public static void main(String[] args) {
 		Actualizador act=new Actualizador();
-		FicheroPersona fp=new FicheroPersona();
+		FicheroPastillas fp=new FicheroPastillas();
 		
-		String rutaPersonas="Ficheros//Tests//Actualizador//Personas.dat";
-		String rutaPersonasTemp="Ficheros//Tests//Actualizador//PersonasTemp.dat";
+		String rutaPastillas="Ficheros//Tests//Actualizador//Pastillas.dat";
+		String rutaPastillasTemp="Ficheros//Tests//Actualizador//PastillasTemp.dat";
 		
-		
-		PersonaImpl p;
+		Pastilla p;
 		FileOutputStream fos=null;
 		ObjectOutputStream oos=null;
+		
 		//Creamos el fichero MAestro
 		try {
-			fos = new FileOutputStream(rutaPersonas);
+			fos = new FileOutputStream(rutaPastillas);
 			oos = new ObjectOutputStream(fos);
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
@@ -44,9 +44,9 @@ public class TestActualizador {
 			}
 		}
 		
-		//Creamos el fichero Temporal
+		//Creamos el fichero temporal
 		try {
-			fos = new FileOutputStream(rutaPersonasTemp);
+			fos = new FileOutputStream(rutaPastillasTemp);
 			oos = new ObjectOutputStream(fos);
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
@@ -69,32 +69,32 @@ public class TestActualizador {
 			}
 		}
 		
-		for(long i=1;i<11;i++){
-			p=new PersonaImpl(i,"Javi","Ruiz","Rodriguez");
-			fp.guardaPersona(rutaPersonas, p);
+		for(int i=1;i<11;i++){
+			p=new Pastilla(i,"Generica","generica",2);
+			fp.guardaPastilla(rutaPastillas, p);
 		}
-		System.out.println("Mostramos toda las personas del fichero:");
-		fp.muestraPersonas(rutaPersonas);
+		System.out.println("Mostramos todas las pastillas del fichero:");
+		fp.muestraPastillas(rutaPastillas);
 		
 		
-		System.out.println("Eliminamos la persona con dni 2");
-		p=new PersonaImpl(2,"","","");
-		fp.guardaPersona(rutaPersonasTemp, p);
+		System.out.println("Eliminamos la pastilla con id 2");
+		p=new Pastilla(2,"","borrada",2);
+		fp.guardaPastilla(rutaPastillasTemp, p);
 		
-		System.out.println("Modificamos a al persona 4");
-		p=new PersonaImpl(4, "Persona", "Modificada", "Por mi");
-		fp.guardaPersona(rutaPersonasTemp, p);
+		System.out.println("Modificamos la pastilla con id 4");
+		p=new Pastilla(4,"Modificada","modi",2);
+		fp.guardaPastilla(rutaPastillasTemp, p);
 		
-		System.out.println("Añadimos uan persona con dni 14");
-		p=new PersonaImpl(14,"Nueva","Personita","en el mundo");
-		fp.guardaPersona(rutaPersonasTemp,p);
+		System.out.println("Añadimos una pastilla con id 14");
+		p=new Pastilla(14,"Nueva","New",2);
+		fp.guardaPastilla(rutaPastillasTemp, p);
 		
 		System.out.println("Mostramos todo lo del temporal:");
-		fp.muestraPersonas(rutaPersonasTemp);
+		fp.muestraPastillas(rutaPastillasTemp);
 		
 		System.out.println("Actualizamos y mostramos el maestro");
-		act.actualizaPersonas(rutaPersonas, rutaPersonasTemp);
-		fp.muestraPersonas(rutaPersonas);
+		act.actualizaPastillas(rutaPastillas, rutaPastillasTemp);
+		fp.muestraPastillas(rutaPastillas);
 	}
 
 }

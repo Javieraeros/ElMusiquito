@@ -1,4 +1,9 @@
 /*
+ * Persona eliminada= nombre vacío
+ * Cliente eliminado= Dirección vacía
+ * Empleado eliminado= Tienda 0
+ * 
+ * 
  * Pseudocódigo:
  * Inicio
  * 	mostarMenoLeerValidadOpcion

@@ -122,6 +122,21 @@ public class FicheroEmpleado {
 				System.out.println(e);
 			} catch (IOException e) {
 				System.out.println(e);
+			} finally{
+				if(dis!=null){
+					try {
+						dis.close();
+					} catch (IOException e) {
+						System.out.println(e);
+					}
+				}
+				if (fis!=null){
+					try {
+						fis.close();
+					} catch (IOException e) {
+						System.out.println(e);
+					}
+				}
 			}
 
 		}
@@ -142,11 +157,11 @@ public class FicheroEmpleado {
 
 	public int cuentaEmpleados(String ruta) {
 		int numeroEmpleados = 0;
-		FileInputStream fos = null;
+		FileInputStream fis = null;
 		DataInputStream dis = null;
 		try {
-			fos = new FileInputStream(ruta);
-			dis = new DataInputStream(fos);
+			fis = new FileInputStream(ruta);
+			dis = new DataInputStream(fis);
 			while (dis.available()>0) {
 				dis.skipBytes(58); //Me salto el número de Bytes que ocupa un cliente 8+60+40
 				numeroEmpleados++;
@@ -157,6 +172,21 @@ public class FicheroEmpleado {
 
 		} catch (IOException e) {
 			System.out.println(e);
+		} finally{
+			if(dis!=null){
+				try {
+					dis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 		return numeroEmpleados;
 	}
@@ -173,7 +203,7 @@ public class FicheroEmpleado {
 	 */
 
 	public void muestraEmpleados(String ruta) {
-		FileInputStream fos = null;
+		FileInputStream fis = null;
 		DataInputStream dis = null;
 		int contador, numeroEmpleados = cuentaEmpleados(ruta);
 		long dni;
@@ -181,8 +211,8 @@ public class FicheroEmpleado {
 		double sueldo;
 		short tienda;
 		try {
-			fos = new FileInputStream(ruta);
-			dis = new DataInputStream(fos);
+			fis = new FileInputStream(ruta);
+			dis = new DataInputStream(fis);
 			for (contador = 0; contador < numeroEmpleados; contador++) {
 				dni=dis.readLong();
 				System.out.print(dni+" ");
@@ -207,6 +237,21 @@ public class FicheroEmpleado {
 
 		} catch (IOException e) {
 			System.out.println(e);
+		} finally{
+			if(dis!=null){
+				try {
+					dis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 	}
 }

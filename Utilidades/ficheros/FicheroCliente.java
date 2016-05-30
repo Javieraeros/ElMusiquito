@@ -185,6 +185,21 @@ public class FicheroCliente {
 				System.out.println(e);
 			} catch (IOException e) {
 				System.out.println(e);
+			} finally {
+				if(dis!=null){
+					try {
+						dis.close();
+					} catch (IOException e) {
+						System.out.println(e);
+					}
+				}
+				if(fis!=null){
+					try {
+						fis.close();
+					} catch (IOException e) {
+						System.out.println(e);
+					}
+				}
 			}
 			
 		}
@@ -320,11 +335,11 @@ public class FicheroCliente {
 
 	public int cuentaClientes(String ruta) {
 		int numeroClientes = 0;
-		FileInputStream fos = null;
+		FileInputStream fis = null;
 		DataInputStream dis = null;
 		try {
-			fos = new FileInputStream(ruta);
-			dis = new DataInputStream(fos);
+			fis = new FileInputStream(ruta);
+			dis = new DataInputStream(fis);
 			while (dis.available()>0) {
 				dis.skipBytes(108); //Me salto el número de Bytes que ocupa un cliente 8+60+40
 				numeroClientes++;
@@ -335,6 +350,21 @@ public class FicheroCliente {
 
 		} catch (IOException e) {
 			System.out.println(e);
+		} finally {
+			if(dis!=null){
+				try {
+					dis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 		return numeroClientes;
 	}
@@ -355,14 +385,14 @@ public class FicheroCliente {
 		PersonaImpl p;
 		ClienteImpl c;
 		FicheroPersona fp=new FicheroPersona();
-		FileInputStream fos = null;
+		FileInputStream fis = null;
 		DataInputStream dis = null;
 		int contador, numeroClientes = cuentaClientes(ruta);
 		long dni;
 		String correo,direccion;
 		try {
-			fos = new FileInputStream(ruta);
-			dis = new DataInputStream(fos);
+			fis = new FileInputStream(ruta);
+			dis = new DataInputStream(fis);
 			for (contador = 0; contador < numeroClientes; contador++) {
 				dni=dis.readLong();
 				p=fp.devuelvePersona(rutaPersona, dni);
@@ -388,7 +418,68 @@ public class FicheroCliente {
 
 		} catch (IOException e) {
 			System.out.println(e);
+		} finally {
+			if(dis!=null){
+				try {
+					dis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 	}
 
+	/*
+	 * Interfaz 
+	 * Cabecera:public int cuentaCompras(String ruta) 
+	 * Proceso:Cuenta el numero de compras que hay en un fichero.
+	 * Precondiciones:Ninguna 
+	 * Entrada:1 cadena para el fichero 
+	 * Salida:1 entero con el número de compras
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Entero asociado al nombre
+	 */
+
+	public int cuentaCompras(String ruta) {
+		int numeroClientes = 0;
+		FileInputStream fis = null;
+		DataInputStream dis = null;
+		try {
+			fis = new FileInputStream(ruta);
+			dis = new DataInputStream(fis);
+			while (dis.available()>0) {
+				dis.skipBytes(108); //Me salto el número de Bytes que ocupa un cliente 8+60+40
+				numeroClientes++;
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (EOFException e) {
+
+		} catch (IOException e) {
+			System.out.println(e);
+		} finally {
+			if(dis!=null){
+				try {
+					dis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+		return numeroClientes;
+	}
 }
