@@ -448,15 +448,15 @@ public class FicheroCliente {
 	 */
 
 	public int cuentaCompras(String ruta) {
-		int numeroClientes = 0;
+		int numeroCompras = 0;
 		FileInputStream fis = null;
 		DataInputStream dis = null;
 		try {
 			fis = new FileInputStream(ruta);
 			dis = new DataInputStream(fis);
 			while (dis.available()>0) {
-				dis.skipBytes(108); //Me salto el número de Bytes que ocupa un cliente 8+60+40
-				numeroClientes++;
+				dis.skipBytes(12); //Me salto el número de Bytes que ocupa una compra
+				numeroCompras++;
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
@@ -480,6 +480,59 @@ public class FicheroCliente {
 				}
 			}
 		}
-		return numeroClientes;
+		return numeroCompras;
+	}
+
+	/*
+	 * Interfaz 
+	 * Cabecera:public void muestraCompras(String ruta)
+	 * Proceso:Muestra la información de todas las compras
+	 * Precondiciones:Fichero con compras 
+	 * Entrada:1 cadena con la ruta del fichero de compras
+	 * Salida:Nada, pinta en pantalla 
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Pintará en pantalla todas las compras
+	 */
+
+	public void muestraCompras(String ruta) {
+		PersonaImpl p;
+		ClienteImpl c;
+		FicheroPersona fp=new FicheroPersona();
+		FileInputStream fis = null;
+		DataInputStream dis = null;
+		int contador, numeroCompras=cuentaCompras(ruta);
+		long dni;
+		int id;
+		System.out.println("Dni      Id   ");
+		try {
+			fis = new FileInputStream(ruta);
+			dis = new DataInputStream(fis);
+			for (contador = 0; contador < numeroCompras; contador++) {
+				dni=dis.readLong();
+				id=dis.readInt();
+				System.out.println(dni+" "+id);
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (EOFException e) {
+
+		} catch (IOException e) {
+			System.out.println(e);
+		} finally {
+			if(dis!=null){
+				try {
+					dis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
 	}
 }

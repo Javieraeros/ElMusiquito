@@ -831,12 +831,156 @@ public class Actualizador {
 			fosMactu=new FileOutputStream(maestroAct);
 			dosMactu=new DataOutputStream(fosMactu);
 			
-			registrosMaestro=fc.cuentaCompras();
+			registrosMaestro=fc.cuentaCompras(maestro);
+			registrosTemp=fc.cuentaCompras(temporal);
+			//Lectura anticipada
+			dniMaestro=disMaestro.readLong();
+			idMaestro=disMaestro.readInt();
 			
+			dniAct=disTemp.readLong();
+			idAct=disTemp.readInt();
 			
+			while (registrosMaestro > 0 && registrosTemp > 0) {
+				if(dniMaestro == dniAct){
+					if(idMaestro < idAct){
+						//Sobreescritura
+						dosMactu.writeLong(dniMaestro);
+						dosMactu.writeInt(idMaestro);
+						registrosMaestro--;
+
+						if(registrosMaestro > 0){
+							dniMaestro = disMaestro.readLong();
+							idMaestro = disMaestro.readInt();
+						}
+					}else{
+						//Alta
+						if(idMaestro > idAct){
+							dosMactu.writeLong(dniAct);
+							dosMactu.writeInt(idAct);
+							registrosTemp--;
+
+							if(registrosTemp > 0){
+								dniAct = disTemp.readLong();
+								idAct = disTemp.readInt();
+							}
+							//Borrado
+						}else{
+							registrosMaestro--;
+							if(registrosMaestro > 0){
+								dniMaestro = disMaestro.readLong();
+								idMaestro = disMaestro.readInt();
+							}
+							registrosTemp--;
+							if(registrosTemp > 0){
+								dniAct = disTemp.readLong();
+								idAct = disTemp.readInt();
+							}
+						}
+
+					}
+
+				} else {
+					if (dniMaestro < dniAct) {
+						//Sobreescritura
+						dosMactu.writeLong(dniMaestro);
+						dosMactu.writeInt(idMaestro);
+						registrosMaestro--;
+
+						if(registrosMaestro > 0){
+							dniMaestro = disMaestro.readLong();
+							idMaestro = disMaestro.readInt();
+						}
+					} else {
+						//Alta
+						dosMactu.writeLong(dniAct);
+						dosMactu.writeInt(idAct);
+						registrosTemp--;
+
+						if(registrosTemp > 0){
+							dniAct = disTemp.readLong();
+							idAct = disTemp.readInt();
+						}
+					}
+				}
+			}
+			if (registrosMaestro == 0) {
+				while (registrosTemp > 0) {
+					//Alta
+					dosMactu.writeLong(dniAct);
+					dosMactu.writeInt(idAct);
+					registrosTemp--;
+
+					if(registrosTemp > 0){
+						dniAct = disTemp.readLong();
+						idAct = disTemp.readInt();
+					}
+				}
+			}
+			if (registrosTemp == 0) {
+				while (registrosMaestro > 0) {
+					//Sobreescritura
+					dosMactu.writeLong(dniMaestro);
+					dosMactu.writeInt(idMaestro);
+					registrosMaestro--;
+
+					if(registrosMaestro > 0){
+						dniMaestro = disMaestro.readLong();
+						idMaestro = disMaestro.readInt();
+					}
+				}
+			}
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		} finally {
+			if (disMaestro != null) {
+				try {
+					disMaestro.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (fisMaestro != null) {
+				try {
+					fisMaestro.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (disTemp != null) {
+				try {
+					disTemp.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (fisTemp != null) {
+				try {
+					fisTemp.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (dosMactu != null) {
+				try {
+					dosMactu.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (fosMactu != null) {
+				try {
+					fosMactu.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			maestroF.delete();
+			tempF.delete();
+			maestroAct.renameTo(maestroF);
 		}
-		
+
 	}
+
 }

@@ -1638,7 +1638,7 @@ public class Ordenador {
 		//Ordenamos
 		int i,j;
 		for(i=1;i<dniV.size();i++){
-			for(j=i;j>0 && dniV.get(j-1)>dniV.get(j);j--){
+			for(j=i;j>0 && (dniV.get(j-1)>dniV.get(j) || (dniV.get(j-1)==dniV.get(j) && idV.get(j-1)>idV.get(j)));j--){
 				aux=dniV.get(j);
 				auxEntero=idV.get(j);
 				
@@ -1655,9 +1655,12 @@ public class Ordenador {
 			fos=new FileOutputStream(ruta);
 			dos=new DataOutputStream(fos);
 			for(i=0;i<dniV.size();i++){
-				
+				dos.writeLong(dniV.get(i));
+				dos.writeInt(idV.get(i));
 			}
 		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
 			System.out.println(e);
 		} finally {
 			if(dos!=null){

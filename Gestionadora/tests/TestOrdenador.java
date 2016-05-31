@@ -1,7 +1,9 @@
 package tests;
 import ficheros.*;
 import datos.*;
+import enums.Marca;
 import ficherosGes.*;
+import java.util.*;
 public class TestOrdenador {
 
 	public static void main(String[] args) {
@@ -9,6 +11,7 @@ public class TestOrdenador {
 		String rutaClientes="Ficheros//Tests//PruebaOrdenarClientes.dat";
 		String rutaEmpleados="Ficheros//Tests//PruebaOrdenarEmpleados.dat";
 		String rutaPastillas="Ficheros//Tests//PruebaOrdenarPastillas.dat";
+		String rutaCompras="Ficheros//Tests//PruebaOrdenarCompras.dat";
 		FicheroPersona fp=new FicheroPersona();
 		FicheroCliente fc=new FicheroCliente();
 		FicheroEmpleado fe=new FicheroEmpleado();
@@ -73,7 +76,25 @@ public class TestOrdenador {
 		System.out.println(fpas.cuentaPastillas(rutaPastillas));
 		*/
 		
+		Vector<InstrumentoImpl> v;
+		InstrumentoImpl ins1;
+		InstrumentoImpl ins2;
+		for(long i=1;i<11;i++){
+			ins1=new InstrumentoImpl((int) (Math.random()*100), "Genérico",Marca.Fender,"n","Genérico",100);
+			ins2=new InstrumentoImpl((int) (Math.random()*100), "Genérico",Marca.Fender,"n","Genérico",100);
+			v=new Vector<InstrumentoImpl>(2,1);
+			v.add(ins1);
+			v.add(ins2);
+			
+			c=new ClienteImpl(i*(long) (Math.random()*100),"Javi","Ruiz","Rodriguez","javi@javi.com","Mi casa",v);
+			fc.guardaCompras(rutaCompras, c, 0);
+			fc.guardaCompras(rutaCompras, c, 1);
+		}
 		
+		fc.muestraCompras(rutaCompras);
+		o.ordenaFicheroCompras(rutaCompras);
+		System.out.println("Fichero de Compras ya ordenado: ");
+		fc.muestraCompras(rutaCompras);
 	}
 
 }
