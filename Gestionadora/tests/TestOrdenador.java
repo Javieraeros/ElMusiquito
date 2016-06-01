@@ -79,7 +79,7 @@ public class TestOrdenador {
 		Vector<InstrumentoImpl> v;
 		InstrumentoImpl ins1;
 		InstrumentoImpl ins2;
-		for(long i=1;i<11;i++){
+		for(long i=1;i<101;i++){
 			ins1=new InstrumentoImpl((int) (Math.random()*100), "Genérico",Marca.Fender,"n","Genérico",100);
 			ins2=new InstrumentoImpl((int) (Math.random()*100), "Genérico",Marca.Fender,"n","Genérico",100);
 			v=new Vector<InstrumentoImpl>(2,1);

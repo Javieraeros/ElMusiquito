@@ -344,17 +344,17 @@ public class ElMusiquito {
 		GuitarraElectricaImpl guitarra;
 		FicheroPastillas fp=new FicheroPastillas();
 		//Tipo
-				cantidadTipo=Tipo.values().length;
-				do {
-					//Muestra la familia con un número
-					for (int i = 0; i < cantidadTipo; i++) {
-						System.out.print(i + " ");
-						System.out.println(Tipo.values()[i]);
-					}
+		cantidadTipo=Tipo.values().length;
+		do {
+			//Muestra la familia con un número
+			for (int i = 0; i < cantidadTipo; i++) {
+				System.out.print(i + " ");
+				System.out.println(Tipo.values()[i]);
+			}
 
-					System.out.println("Introduce el número del tipo");
-					valorTipo = Integer.parseInt(teclado.nextLine());
-				} while (valorTipo > cantidadTipo || valorTipo < 0);
+			System.out.println("Introduce el número del tipo");
+			valorTipo = Integer.parseInt(teclado.nextLine());
+		} while (valorTipo > cantidadTipo || valorTipo < 0);
 		
 		//Pastillas
 		//Pedimos el número de pastillas que va a tener la guitarra
@@ -395,6 +395,44 @@ public class ElMusiquito {
 		return guitarra;
 	}
 	
+	/* 
+	 * Interfaz 
+	 * Cabecera:public static Pastilla creaPastilla()
+	 * Proceso:Método que lee de teclado los datos de uan pastilla y la crea
+	 * Precondiciones:Ninguna
+	 * Entrada:Nada
+	 * Salida:1 pastilla
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Método para facilitar la legibilidad!
+	 */
+	
+	public static Pastilla creaPastilla(){
+		Pastilla pas=null;
+		String marca,modelo;
+		int bobinas;
+		
+		//Marca
+		do{
+			System.out.println("Introduce la marca (menos de 20 caracteres)");
+			marca=teclado.nextLine();
+		}while(marca.length()>20);
+		
+		//Modelo
+		do{
+			System.out.println("Introduce el modelo (menos de 20 caracteres)");
+			modelo=teclado.nextLine();
+		}while(modelo.length()>20);
+		
+		//Bobinas
+		do{
+			System.out.println("Introduce el número de bobinas(de 1 a 3)");
+			bobinas=Integer.parseInt(teclado.nextLine());
+		}while(bobinas<1 || bobinas>3);
+		
+		pas=new Pastilla(marca, modelo, bobinas);
+		return pas;
+	}
+	
 	public static void main(String[] args) {
 		
 		String rutaPersonas="Ficheros//Personas//Personas.dat";
@@ -427,6 +465,7 @@ public class ElMusiquito {
 		SaxofonImpl saxofon;
 		GuitarraElectricaImpl guitarra;
 		Vector<InstrumentoImpl> vector;
+		Pastilla pas;
 		
 		GestionadoraPrincipal gp=new GestionadoraPrincipal();
 		
@@ -470,6 +509,7 @@ public class ElMusiquito {
 					System.out.println("4.Cuerda");
 					System.out.println("5.Saxofon");
 					System.out.println("6.Guitarra Electrica");
+					System.out.println("7.Pastilla guitarra");
 					System.out.println("0.Salir");
 					try{
 						tipoInstrumento=Integer.parseInt(teclado.nextLine());
@@ -477,7 +517,7 @@ public class ElMusiquito {
 						System.out.println("Introduzca un número, por favor");
 						tipoInstrumento=0;
 					}
-				}while(tipoInstrumento<0 || tipoInstrumento>6);
+				}while(tipoInstrumento<0 || tipoInstrumento>7);
 				
 				while(tipoInstrumento!=0){
 					instrumento=creaInstrumento();
@@ -515,6 +555,12 @@ public class ElMusiquito {
 						guitarra=creaGuitarraElectrica(cuerda, rutaPastillasGuitarras);
 						fg.guardaInstrumentoGuitarra(rutaGuitarra, guitarra);
 						fg.guardaRelacionPastilla(rutaPastillasGuitarras, guitarra);
+						break;
+					case 7:
+						//Pastilla
+						pas=creaPastilla();
+						fPas.guardaPastilla(rutaPastillasGuitarrasTemp, pas);
+						
 						break;
 					}
 					

@@ -1638,7 +1638,7 @@ public class Ordenador {
 		//Ordenamos
 		int i,j;
 		for(i=1;i<dniV.size();i++){
-			for(j=i;j>0 && (dniV.get(j-1)>dniV.get(j) || (dniV.get(j-1)==dniV.get(j) && idV.get(j-1)>idV.get(j)));j--){
+			for(j=i;j>0 && (dniV.get(j-1)>dniV.get(j) || (dniV.get(j-1).equals(dniV.get(j)) && idV.get(j-1)>idV.get(j)));j--){
 				aux=dniV.get(j);
 				auxEntero=idV.get(j);
 				
