@@ -73,6 +73,30 @@ public class ElMusiquito {
 		System.out.println("0.Salir");
 	}
 	
+	public static void guardaInstrumentoMenu(){
+		System.out.println("Qué tipo de instrumento quieres guardar?");
+		System.out.println("1.Genérico");
+		System.out.println("2.Viento");
+		System.out.println("3.Percusion");
+		System.out.println("4.Cuerda");
+		System.out.println("5.Saxofon");
+		System.out.println("6.Guitarra Electrica");
+		System.out.println("7.Pastilla Guitarra");
+		System.out.println("0.Salir");
+	}
+	
+	public static void modificaInstrumentoMenu(){
+		System.out.println("Qué tipo de instrumento quieres modificar?");
+		System.out.println("1.Genérico");
+		System.out.println("2.Viento");
+		System.out.println("3.Percusion");
+		System.out.println("4.Cuerda");
+		System.out.println("5.Saxofon");
+		System.out.println("6.Guitarra Electrica");
+		System.out.println("7.Pastilla Guitarra");
+		System.out.println("0.Salir");
+	}
+	
 	/*
 	 * Por cuestión de legibilidad creo este método que crea un isntrumento.
 	 * No tiene ninguna entrada, y como salida un instrumento
@@ -93,7 +117,7 @@ public class ElMusiquito {
 		String descripcion = ""; // La inicializo a nada por si no quiero
 									// escribir descripcion
 		int cantidadMarca = Marca.values().length;
-		int valorMarca=-1;
+		int valorMarca;
 		double precio=-1.00;
 
 		// Nombre
@@ -115,6 +139,7 @@ public class ElMusiquito {
 				valorMarca = Integer.parseInt(teclado.nextLine());
 			}catch(NumberFormatException e){
 				System.out.println("Introduce un número!");
+				valorMarca=-1;
 			}
 		} while (valorMarca >= cantidadMarca || valorMarca < 0);
 
@@ -132,7 +157,7 @@ public class ElMusiquito {
 		do {
 			System.out.println("Introduce el modelo (menos de 20 caracteres)");
 			modelo = teclado.nextLine();
-		} while (nombre.length() > 20);
+		} while (modelo.length() > 20);
 
 		// Precio
 		do {
@@ -433,6 +458,104 @@ public class ElMusiquito {
 		return pas;
 	}
 	
+	/* 
+	 * Interfaz 
+	 * Cabecera:public static void modificaInstrumento(IsntrumentoImpl modificar)
+	 * Proceso:Método que modifica algúno de los datos de un instrumento
+	 * Precondiciones:Ninguna
+	 * Entrada:Nada
+	 * Salida:Nada
+	 * Entrada/Salida:1 Instrumento
+	 * Postcondiciones:Método para facilitar la legibilidad!, el instrumento quedará modificado
+	 */
+	
+	public static void modificaInstrumento(InstrumentoImpl modificar){
+		int opcion,cantidadMarca,valorMarca;
+		String nombre,descripcion,modelo;
+		char desc;
+		double precio;
+		do{	
+			System.out.println("¿Qué desea modificar?");
+			System.out.println("1.Nombre");
+			System.out.println("2.Marca");
+			System.out.println("3.Descripcion");
+			System.out.println("4.Modelo");
+			System.out.println("5.Precio de Venta");
+			System.out.println("0.Salir");
+			try{
+				opcion=Integer.parseInt(teclado.nextLine());
+			}catch(NumberFormatException e){
+				System.out.println("Introduce un número, por favor");
+				opcion=-1;
+			}
+		}while(opcion<0 || opcion>5);
+		switch (opcion){
+		case 1:
+			// Nombre
+			do {
+				System.out.println("Introduce el nombre (menos de 20 caracteres)");
+				nombre = teclado.nextLine();
+			} while (nombre.length() > 20);
+			
+			modificar.setNombre(nombre);
+			break;
+		case 2:
+			// Marca
+			cantidadMarca=Marca.values().length;
+			do {
+				// Muestra las marcas con un número
+				for (int i = 0; i < cantidadMarca; i++) {
+					System.out.print(i + " ");
+					System.out.println(Marca.values()[i]);
+				}
+
+				System.out.println("Introduce el número de la marca");
+				try{
+					valorMarca = Integer.parseInt(teclado.nextLine());
+				}catch(NumberFormatException e){
+					System.out.println("Introduce un número!");
+					valorMarca=-1;
+				}
+			} while (valorMarca >= cantidadMarca || valorMarca < 0);
+			modificar.setMarca(Marca.values()[valorMarca]);
+			break;
+		case 3:
+			// Descripcion
+			descripcion="";
+			System.out.println("Quiere introducir una descripción? (s para si, cualquier otra letra para no)");
+			desc = teclado.nextLine().charAt(0);
+			while (desc == 's') {
+				System.out.println("Escriba su descripcion: ");
+				descripcion = descripcion + teclado.nextLine();
+				System.out.println("Desea escribir algo más en la descripcion?");
+				desc = teclado.nextLine().charAt(0);
+			}
+			modificar.setDescripcion(descripcion);
+			break;
+		case 4:
+			// Modelo
+			do {
+				System.out.println("Introduce el modelo (menos de 20 caracteres)");
+				modelo = teclado.nextLine();
+			} while (modelo.length() > 20);
+			modificar.setModelo(modelo);
+			break;
+		case 5:
+			// Precio
+			do {
+				System.out.println("Introduce el precio de venta(mayor que 0)");
+				try {
+					precio = Double.parseDouble(teclado.nextLine());
+				} catch (NumberFormatException e) {
+					System.out.println("Introduce un número!");
+					precio=-1;
+				}
+			} while (precio <= 0);
+			modificar.setPrecioVenta(precio);
+			break;
+		}
+	}
+	
 	public static void main(String[] args) {
 		
 		String rutaPersonas="Ficheros//Personas//Personas.dat";
@@ -440,7 +563,9 @@ public class ElMusiquito {
 		String rutaClientes="Ficheros//Clientes//Clientes.dat";
 		String rutaClientesTemp="Ficheros//Clientes//ClientesTemp.dat";
 		String rutaCompras="Ficheros//Clientes//Compras.dat";
+		String rutaComprasTemp="Ficheros//Clientes//ComprasTemp.dat";
 		String rutaEmpleados="Ficheros//Empleados//Empleados.dat";
+		String rutaEmpleadosTemp="Ficheros//Empleados//EmpleadosTemp.dat";
 		
 		String rutaInstrumentos="Ficheros//Instrumentos//Instrumentos.dat";
 		String rutaDescripcion="Ficheros//Instrumentos//Descripcion.txt";
@@ -450,6 +575,7 @@ public class ElMusiquito {
 		String rutaCuerda="Ficheros//Cuerda//Cuerda.dat";
 		String rutaGuitarra="Ficheros//Guitarra//Guitarra.dat";
 		String rutaPastillas="Ficheros//Pastillas//Pastillas.dat";
+		String rutaPastillasTemp="Ficheros//Pastillas//PastillasTemp.dat";
 		String rutaPastillasGuitarras="Ficheros//Guitarra//Relacion.dat";
 		String rutaPastillasGuitarrasTemp="Ficheros//Guitarra//RelacionTemp.dat";
 		String rutaopcional="Ficheros";
@@ -502,15 +628,7 @@ public class ElMusiquito {
 			//Añadir instrumento
 			case 1:
 				do{
-					System.out.println("Qué tipo de instrumento quieres guardar?");
-					System.out.println("1.Genérico");
-					System.out.println("2.Viento");
-					System.out.println("3.Percusion");
-					System.out.println("4.Cuerda");
-					System.out.println("5.Saxofon");
-					System.out.println("6.Guitarra Electrica");
-					System.out.println("7.Pastilla guitarra");
-					System.out.println("0.Salir");
+					guardaInstrumentoMenu();
 					try{
 						tipoInstrumento=Integer.parseInt(teclado.nextLine());
 					}catch(NumberFormatException e){
@@ -559,32 +677,77 @@ public class ElMusiquito {
 					case 7:
 						//Pastilla
 						pas=creaPastilla();
-						fPas.guardaPastilla(rutaPastillasGuitarrasTemp, pas);
+						fPas.guardaPastilla(rutaPastillasTemp, pas);
 						
 						break;
 					}
 					
 					do{
-						System.out.println("Qué tipo de instrumento quieres guardar?");
-						System.out.println("1.Genérico");
-						System.out.println("2.Viento");
-						System.out.println("3.Percusion");
-						System.out.println("4.Cuerda");
-						System.out.println("5.Saxofon");
-						System.out.println("6.Guitarra Electrica");
-						System.out.println("0.Salir");
+						guardaInstrumentoMenu();
 						try{
 							tipoInstrumento=Integer.parseInt(teclado.nextLine());
 						}catch(NumberFormatException e){
 							System.out.println("Introduzca un número, por favor");
 							tipoInstrumento=0;
 						}
-					}while(tipoInstrumento<0 || tipoInstrumento>6);
+					}while(tipoInstrumento<0 || tipoInstrumento>7);
 				}
 				break;
 			case 2:
 				//Modificar Instrumento
-				System.out.println("En construccion");
+				do{
+					modificaInstrumentoMenu();
+					try{
+						tipoInstrumento=Integer.parseInt(teclado.nextLine());
+					}catch(NumberFormatException e){
+						System.out.println("Introduzca un número, por favor");
+						tipoInstrumento=0;
+					}
+				}while(tipoInstrumento<0 || tipoInstrumento>7);
+				while (tipoInstrumento != 0) {
+					switch (tipoInstrumento) {
+					case 1:
+						do{
+							fi.muestraInstrumentos(rutaInstrumentos);
+							System.out.println("Introduzca el id del instrumento que quiera modificar");
+							try{
+							idInstrumento=Integer.parseInt(teclado.nextLine());
+						}while(!gp.compruebaExistenciaInstrumento(rutaInstrumentos, idInstrumento));
+						break;
+					case 2:
+						
+						break;
+					case 3:
+
+						break;
+
+					case 4:
+
+						break;
+
+					case 5:
+
+						break;
+
+					case 6:
+
+						break;
+
+					case 7:
+
+						break;
+					}
+					
+					do{
+						modificaInstrumentoMenu();
+						try{
+							tipoInstrumento=Integer.parseInt(teclado.nextLine());
+						}catch(NumberFormatException e){
+							System.out.println("Introduzca un número, por favor");
+							tipoInstrumento=0;
+						}
+					}while(tipoInstrumento<0 || tipoInstrumento>7);
+				}
 				break;
 			case 3:
 				//Eliminar Instrumento
