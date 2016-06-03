@@ -221,4 +221,100 @@ public class FicheroGuitarra {
 			
 		return devolver;
 	}
+	
+	/*
+	 * Interfaz 
+	 * Cabecera:public void muestraRelaciones(String ruta)
+	 * Proceso:Muestra todas las relaciones de guitarras con pastillas
+	 * Precondiciones:Fichero con relaciones (2 entero)
+	 * Entrada:1 cadena con la ruta del fichero de relaciones
+	 * Salida:Nada, pinta en pantalla 
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Pintará en pantalla todas las relaciones (id de la guitarra   id de la pastilla)
+	 */
+
+	public void muestraCompras(String ruta) {
+		FileInputStream fis = null;
+		DataInputStream dis = null;
+		int idGuitarra,idPastilla;
+		System.out.println("IdGuitarra \tIdPastilla");
+		try {
+			fis = new FileInputStream(ruta);
+			dis = new DataInputStream(fis);
+			while(dis.available()>0) {
+				idGuitarra=dis.readInt();
+				idPastilla=dis.readInt();
+				System.out.println(idGuitarra+" \t"+idPastilla);
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (EOFException e) {
+
+		} catch (IOException e) {
+			System.out.println(e);
+		} finally {
+			if(dis!=null){
+				try {
+					dis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+	}
+
+	/*
+	 * Interfaz 
+	 * Cabecera:public int cuentaRelaciones(String ruta) 
+	 * Proceso:Cuenta el numero de relaciones que hay en un fichero.
+	 * Precondiciones:Ninguna 
+	 * Entrada:1 cadena para el fichero 
+	 * Salida:1 entero con el número de relaciones
+	 * Entrada/Salida:Nada
+	 * Postcondiciones:Entero asociado al nombre
+	 */
+
+	public int cuentaRelaciones(String ruta) {
+		int numeroRelaciones = 0;
+		FileInputStream fis = null;
+		DataInputStream dis = null;
+		try {
+			fis = new FileInputStream(ruta);
+			dis = new DataInputStream(fis);
+			while (dis.available()>0) {
+				dis.skipBytes(8); //Me salto el número de Bytes que ocupa una relacion
+				numeroRelaciones++;
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (EOFException e) {
+
+		} catch (IOException e) {
+			System.out.println(e);
+		} finally {
+			if(dis!=null){
+				try {
+					dis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+		return numeroRelaciones;
+	}
+
 }

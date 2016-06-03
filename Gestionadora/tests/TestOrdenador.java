@@ -2,6 +2,7 @@ package tests;
 import ficheros.*;
 import datos.*;
 import enums.Marca;
+import enums.Tipo;
 import ficherosGes.*;
 import java.util.*;
 public class TestOrdenador {
@@ -12,10 +13,12 @@ public class TestOrdenador {
 		String rutaEmpleados="Ficheros//Tests//PruebaOrdenarEmpleados.dat";
 		String rutaPastillas="Ficheros//Tests//PruebaOrdenarPastillas.dat";
 		String rutaCompras="Ficheros//Tests//PruebaOrdenarCompras.dat";
+		String rutaRelaciones="Ficheros//Tests//PruebaOrdenarRelaciones.dat";
 		FicheroPersona fp=new FicheroPersona();
 		FicheroCliente fc=new FicheroCliente();
 		FicheroEmpleado fe=new FicheroEmpleado();
 		FicheroPastillas fpas=new FicheroPastillas();
+		FicheroGuitarra fg=new FicheroGuitarra();
 		Ordenador o=new Ordenador();
 		PersonaImpl p;
 		ClienteImpl c;
@@ -75,7 +78,7 @@ public class TestOrdenador {
 		fpas.muestraPastillas(rutaPastillas);
 		System.out.println(fpas.cuentaPastillas(rutaPastillas));
 		*/
-		
+		/*
 		Vector<InstrumentoImpl> v;
 		InstrumentoImpl ins1;
 		InstrumentoImpl ins2;
@@ -95,6 +98,25 @@ public class TestOrdenador {
 		o.ordenaFicheroCompras(rutaCompras);
 		System.out.println("Fichero de Compras ya ordenado: ");
 		fc.muestraCompras(rutaCompras);
+		*/
+		InstrumentoImpl ins;
+		CuerdaImpl cuerda;
+		GuitarraElectricaImpl g;
+		for(int i=1;i<101;i++){
+			ins=new InstrumentoImpl((int) (Math.random()*1000+1), "Genérico",Marca.Fender,"s","Genérico", 100);
+			cuerda=new CuerdaImpl(ins, 4, "genérico",(byte) 0);
+			int[] pastillas=new int[]{(int) (i*Math.random()*10),
+									  (int) (i*Math.random()*10),
+									  (int) (i*Math.random()*10)};
+			g=new GuitarraElectricaImpl(cuerda, Tipo.ES, pastillas,false,3);
+			fg.guardaRelacionPastilla(rutaRelaciones, g);
+		}
+		fg.muestraCompras(rutaRelaciones);
+		
+		System.out.println("Ya ordenado:  ");
+		o.ordenaFicheroRelaciones(rutaRelaciones);
+		fg.muestraCompras(rutaRelaciones);
+		
 	}
 
 }

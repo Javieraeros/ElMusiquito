@@ -1595,7 +1595,7 @@ public class Ordenador {
 	 * Entrada:Nada
 	 * Salida:Nada
 	 * Entrada/Salida:El fichero ordenado
-	 * Postcondiciones:El fichero qeudará ordenado según el dni de la persona.
+	 * Postcondiciones:El fichero qeudará ordenado según el dni de la persona y el id del instrumento.
 	 */
 	
 	public void ordenaFicheroCompras(String ruta){
@@ -1657,6 +1657,100 @@ public class Ordenador {
 			for(i=0;i<dniV.size();i++){
 				dos.writeLong(dniV.get(i));
 				dos.writeInt(idV.get(i));
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		} finally {
+			if(dos!=null){
+				try {
+					dos.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fos!=null){
+				try {
+					fos.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+		
+	}
+	
+	/* 
+	 * Interfaz 
+	 * Cabecera:public void ordenaFicheroRelaciones(String ruta)
+	 * Proceso:Ordena un fichero de relaciones de guitarras y pastillas
+	 * Precondiciones:Ninguna
+	 * Entrada:Nada
+	 * Salida:Nada
+	 * Entrada/Salida:El fichero ordenado
+	 * Postcondiciones:El fichero qeudará ordenado según el id de la guitarra, y el id de pastilla
+	 */
+	
+	public void ordenaFicheroRelaciones(String ruta){
+		FileInputStream fis=null;
+		DataInputStream dis=null;
+		FileOutputStream fos=null;
+		DataOutputStream dos=null;
+		Vector<Integer> idGuitarra=new Vector<Integer>(1,1);
+		Vector<Integer> idPastillas=new Vector<Integer>(1, 1);
+		Integer aux;
+		Integer auxEntero;
+		//Volcamos en los dos arrays
+		try {
+			fis = new FileInputStream(ruta);
+			dis=new DataInputStream(fis);
+			do{
+				idGuitarra.add(dis.readInt());
+				idPastillas.add(dis.readInt());
+			}while(dis.available()>0);
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		} finally {
+			if(dis!=null){
+				try {
+					dis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+		//Ordenamos
+		int i,j;
+		for(i=1;i<idGuitarra.size();i++){
+			for(j=i;j>0 && (idGuitarra.get(j-1)>idGuitarra.get(j) || (idGuitarra.get(j-1).equals(idGuitarra.get(j)) && idPastillas.get(j-1)>idPastillas.get(j)));j--){
+				aux=idGuitarra.get(j);
+				auxEntero=idPastillas.get(j);
+				
+				idGuitarra.set(j,idGuitarra.get(j-1));
+				idPastillas.set(j,idPastillas.get(j-1));
+				
+				idGuitarra.set(j-1,aux);
+				idPastillas.set(j-1,auxEntero);
+			}
+		}
+		
+		//Volcamos en los ficheros
+		try {
+			fos=new FileOutputStream(ruta);
+			dos=new DataOutputStream(fos);
+			for(i=0;i<idGuitarra.size();i++){
+				dos.writeInt(idGuitarra.get(i));
+				dos.writeInt(idPastillas.get(i));
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println(e);

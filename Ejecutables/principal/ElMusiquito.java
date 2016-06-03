@@ -96,13 +96,7 @@ public class ElMusiquito {
 		System.out.println("7.Pastilla Guitarra");
 		System.out.println("0.Salir");
 	}
-	
-	/*
-	 * Por cuestión de legibilidad creo este método que crea un isntrumento.
-	 * No tiene ninguna entrada, y como salida un instrumento
-	 * Se que no es lo más correcto, pero es por legibilidad
-	 */
-	
+
 	public static void menuClientes(){
 		System.out.println("Seleccione una opción: ");
 		System.out.println("1.Muestra la información de todos los clientes");
@@ -110,6 +104,12 @@ public class ElMusiquito {
 		System.out.println("3.Muestra las compras de un cliente(insertando dni)");
 		System.out.println("0.Salir");
 	}
+	
+	/*
+	 * Por cuestión de legibilidad creo este método que crea un isntrumento.
+	 * No tiene ninguna entrada, y como salida un instrumento
+	 * Se que no es lo más correcto, pero es por legibilidad
+	 */
 	
 	public static InstrumentoImpl creaInstrumento() {
 		char desc;
@@ -325,7 +325,7 @@ public class ElMusiquito {
 
 		//material
 		do {
-			System.out.println("Introduce el material (0 para Madera, 1 para Metal)");
+			System.out.println("Introduce el material (máximo 20 caracteres)");
 			material = teclado.nextLine();
 		} while (material.length() > 20);
 
@@ -411,7 +411,7 @@ public class ElMusiquito {
 			
 		//controles
 		do{
-			System.out.println("Introduce la boquilla (0 para Madera, 1 para Metal)");
+			System.out.println("Introduce el número de controles(1/4)");
 			controles=Integer.parseInt(teclado.nextLine());
 		}while(controles<1 || controles>4);
 			
@@ -552,6 +552,448 @@ public class ElMusiquito {
 				}
 			} while (precio <= 0);
 			modificar.setPrecioVenta(precio);
+			break;
+		}
+	}
+	
+	/* 
+	 * Interfaz 
+	 * Cabecera:public static void modificaViento(VientoImpl viento)
+	 * Proceso:Método que modifica algúno de los datos de un instrumento de viento
+	 * Precondiciones:Ninguna
+	 * Entrada:Nada
+	 * Salida:Nada
+	 * Entrada/Salida:1 Instrumento de viento
+	 * Postcondiciones:Método para facilitar la legibilidad!, el instrumento quedará modificado
+	 */
+	
+	public static void modificaViento(VientoImpl modificar){
+		int opcion;
+		char afinacion;
+		String tesitura;
+		byte boquilla;
+		
+		do{	
+			System.out.println("¿Qué desea modificar?");
+			System.out.println("1.Afinación");
+			System.out.println("2.Tesitura");
+			System.out.println("3.Boquilla");
+			System.out.println("0.Salir");
+			try{
+				opcion=Integer.parseInt(teclado.nextLine());
+			}catch(NumberFormatException e){
+				System.out.println("Introduce un número, por favor");
+				opcion=-1;
+			}
+		}while(opcion<0 || opcion>3);
+		switch (opcion){
+		case 1:
+			//Afinación
+			do{
+				System.out.println("Introduce la afinacion: ");
+				afinacion=teclado.nextLine().charAt(0);
+			}while((int) afinacion < 65 || (int) afinacion > 71 && (int) afinacion < 97 || (int) afinacion > 103);
+			
+			modificar.setAfinacion(afinacion);
+			break;
+		case 2:
+			//Tesitura
+			do{
+				System.out.println("Introduce la tesitura (menos de 20 caracteres)");
+				tesitura=teclado.nextLine();
+			}while(tesitura.length()>20);
+			
+			modificar.setTesitura(tesitura);
+			break;
+		case 3:
+			///boquilla
+			do{
+				System.out.println("Introduce la boquilla (0 para Madera, 1 para Metal)");
+				try{
+					boquilla=Byte.parseByte(teclado.nextLine());
+				}catch(NumberFormatException e){
+					System.out.println("Introduce 0 ó 1, por favor");
+					boquilla=(short) -1;
+				}
+			}while(boquilla<0 || boquilla>1);
+			
+			modificar.setBoquilla(boquilla);
+			break;
+		}
+	}
+	
+	/* 
+	 * Interfaz 
+	 * Cabecera:public static void modificaPercusion(PercusionImpl percusion)
+	 * Proceso:Método que modifica algúno de los datos de un instrumento de percusion
+	 * Precondiciones:Ninguna
+	 * Entrada:Nada
+	 * Salida:Nada
+	 * Entrada/Salida:1 Instrumento de percusion
+	 * Postcondiciones:Método para facilitar la legibilidad!, el instrumento quedará modificado
+	 */
+	
+	public static void modificaPercusion(PercusionImpl modificar){
+		int opcion;
+		char afinacion;
+		String material;
+		boolean accesorio;
+		char acces;
+		
+		do{	
+			System.out.println("¿Qué desea modificar?");
+			System.out.println("1.Afinación");
+			System.out.println("2.Material");
+			System.out.println("3.Accesorios");
+			System.out.println("0.Salir");
+			try{
+				opcion=Integer.parseInt(teclado.nextLine());
+			}catch(NumberFormatException e){
+				System.out.println("Introduce un número, por favor");
+				opcion=-1;
+			}
+		}while(opcion<0 || opcion>3);
+		switch (opcion){
+		case 1:
+			//Afinación
+			do{
+				System.out.println("Introduce la afinacion: ");
+				afinacion=teclado.nextLine().charAt(0);
+			}while((int) afinacion < 65 || (int) afinacion > 71 && (int) afinacion < 97 || (int) afinacion > 103);
+			
+			modificar.setAfinacion(afinacion);
+			break;
+		case 2:
+			//material
+			do{
+				System.out.println("Introduce el material (menos de 20 caracteres)");
+				material=teclado.nextLine();
+			}while(material.length()>20);
+			
+			
+			modificar.setMaterial(material);
+			break;
+		case 3:
+			//Accesorios
+			do{
+				System.out.println("Introduce si tiene accesorio (s para si, n para no)");
+				acces=teclado.nextLine().charAt(0);
+			}while(acces!='s' && acces!='n');
+				accesorio=acces=='s';
+			
+			modificar.setAccesorios(accesorio);
+			break;
+		}
+	}
+
+	/* 
+	 * Interfaz 
+	 * Cabecera:public static void modificaCuerda(CuerdaImpl modificar)
+	 * Proceso:Método que modifica algúno de los datos de un instrumento de cuerda
+	 * Precondiciones:Ninguna
+	 * Entrada:Nada
+	 * Salida:Nada
+	 * Entrada/Salida:1 Instrumento de cuerda
+	 * Postcondiciones:Método para facilitar la legibilidad!, el instrumento quedará modificado
+	 */
+	
+	public static void modificaCuerda(CuerdaImpl modificar){
+		int opcion;
+		int numeroCuerdas;
+		String registro;
+		byte tipoCuerda;
+		
+		do{	
+			System.out.println("¿Qué desea modificar?");
+			System.out.println("1.Número de Cuerdas");
+			System.out.println("2.Registro");
+			System.out.println("3.Tipo de Cuerda");
+			System.out.println("0.Salir");
+			try{
+				opcion=Integer.parseInt(teclado.nextLine());
+			}catch(NumberFormatException e){
+				System.out.println("Introduce un número, por favor");
+				opcion=-1;
+			}
+		}while(opcion<0 || opcion>3);
+		switch (opcion){
+		case 1:
+			//Numero de cuerdas
+			do{
+				System.out.println("Introduce el número de cuerdas: ");
+				numeroCuerdas=Integer.parseInt(teclado.nextLine());
+			}while(numeroCuerdas<1);
+			System.out.println("Buena condicion");
+			
+			modificar.setCuerdas(numeroCuerdas);
+			break;
+		case 2:
+			//Registro
+			do{
+				System.out.println("Introduce el registro (menos de 20 caracteres)");
+				registro=teclado.nextLine();
+			}while(registro.length()>20);
+			
+			modificar.setRegistro(registro);
+			break;
+		case 3:
+			//Tipo de cuerda
+			do{
+				System.out.println("Introduce el tipo de cuerda (0 para cuerda Frotada, 1 para Cuerda Percutida)");
+				tipoCuerda=Byte.parseByte(teclado.nextLine());
+			}while(tipoCuerda<0 || tipoCuerda>1);
+			
+			
+			modificar.setTipoCuerda(tipoCuerda);
+			break;
+		}
+	}
+	
+	/* 
+	 * Interfaz 
+	 * Cabecera:public static void modificaSaxo(SaxofonImpl modificar)
+	 * Proceso:Método que modifica algúno de los datos de un saxofon
+	 * Precondiciones:Ninguna
+	 * Entrada:Nada
+	 * Salida:Nada
+	 * Entrada/Salida:1 saxofon
+	 * Postcondiciones:Método para facilitar la legibilidad!, el instrumento quedará modificado
+	 */
+	
+	public static void modificaSaxo(SaxofonImpl modificar){
+		int opcion;
+		String boquillaSaxo, material;
+		int cantidadFamilia, cantidadAcabado;
+		int valorFamilia, valorAcabado;
+		
+		do{	
+			System.out.println("¿Qué desea modificar?");
+			System.out.println("1.Familia");
+			System.out.println("2.Boquilla Saxo");
+			System.out.println("3.Material");
+			System.out.println("4.Acabado");
+			System.out.println("0.Salir");
+			try{
+				opcion=Integer.parseInt(teclado.nextLine());
+			}catch(NumberFormatException e){
+				System.out.println("Introduce un número, por favor");
+				opcion=-1;
+			}
+		}while(opcion<0 || opcion>4);
+		switch (opcion){
+		case 1:
+			//Familia
+			cantidadFamilia=FamiliaSaxo.values().length;
+			do {
+				//Muestra la familia con un número
+				for (int i = 0; i < cantidadFamilia; i++) {
+					System.out.print(i + " ");
+					System.out.println(FamiliaSaxo.values()[i]);
+				}
+
+				System.out.println("Introduce el número de la familia");
+				valorFamilia = Integer.parseInt(teclado.nextLine());
+			} while (valorFamilia > cantidadFamilia || valorFamilia < 0);
+			
+			modificar.setFamilia(FamiliaSaxo.values()[valorFamilia]);
+			break;
+		case 2:
+			//Boquilla saxo
+			do {
+				System.out.println("Introduce la boquilla del saxo (menos de 20 caracteres)");
+				boquillaSaxo = teclado.nextLine();
+			} while (boquillaSaxo.length() > 20);
+			
+			modificar.setBoquillaSaxo(boquillaSaxo);
+			break;
+		case 3:
+			//material
+			do {
+				System.out.println("Introduce el material (máximo 20 caracteres)");
+				material = teclado.nextLine();
+			} while (material.length() > 20);
+			
+			modificar.setMaterial(material);
+			break;
+		case 4:
+			//Acabado
+			cantidadAcabado=Acabado.values().length;
+			do {
+				// Muestra los acabados con un número
+				for (int i = 0; i < cantidadAcabado; i++) {
+					System.out.print(i + " ");
+					System.out.println(Acabado.values()[i]);
+				}
+
+				System.out.println("Introduce el número del acabado");
+				valorAcabado = Integer.parseInt(teclado.nextLine());
+			} while (valorAcabado > cantidadAcabado || valorAcabado < 0);
+			
+			modificar.setAcabado(Acabado.values()[valorAcabado]);
+			break;
+		}
+	}
+	
+	/* 
+	 * Interfaz 
+	 * Cabecera:public static boolean modificaguitarra(GuitarraelectricaImpl modificar,String rutaPastillas)
+	 * Proceso:Método que modifica algúno de los datos de una guitarra
+	 * Precondiciones:Las pastillas que queremos añadir deben de estar en el fichero de pastillas
+	 * Entrada:1 cadena para la ruta de las pastillas
+	 * Salida:1 boolean para saber si las pastillas han sido modificadas
+	 * Entrada/Salida:1 guitarra
+	 * Postcondiciones:Método para facilitar la legibilidad!, la guitarra quedará modificada.
+	 * El booleano (asociado al nombre) nos indicará si tenenmos que guardar las pastillas en el fichero
+	 * correspondiente
+	 */
+	
+	public static boolean modificaGuitarra(GuitarraElectricaImpl modificar,String rutaPastillas){
+		int opcion;
+		int cantidadTipo,valorTipo,numPastillas,controles,idPastilla;
+		char puenteC;
+		boolean puente,pastillasModificadas=false;
+		int[] arrayPastillas;
+		
+		FicheroPastillas fp=new FicheroPastillas();
+		GestionadoraPrincipal gp=new GestionadoraPrincipal();
+			
+		do{	
+			System.out.println("¿Qué desea modificar?");
+			System.out.println("1.Tipo");
+			System.out.println("2.Pastillas");
+			System.out.println("3.Puente");
+			System.out.println("4.Controles");
+			System.out.println("0.Salir");
+			try{
+				opcion=Integer.parseInt(teclado.nextLine());
+			}catch(NumberFormatException e){
+				System.out.println("Introduce un número, por favor");
+				opcion=-1;
+			}
+		}while(opcion<0 || opcion>4);
+		switch (opcion){
+		case 1:
+			//Tipo
+			cantidadTipo=Tipo.values().length;
+			do {
+				//Muestra la familia con un número
+				for (int i = 0; i < cantidadTipo; i++) {
+					System.out.print(i + " ");
+					System.out.println(Tipo.values()[i]);
+				}
+
+				System.out.println("Introduce el número del tipo");
+				valorTipo = Integer.parseInt(teclado.nextLine());
+			} while (valorTipo > cantidadTipo || valorTipo < 0);
+			
+			modificar.setTipo(Tipo.values()[valorTipo]);
+			break;
+		case 2:
+			//Pastillas
+			//Pedimos el número de pastillas que va a tener la guitarra
+			do{
+				System.out.println("Introduce el número de Pastillas (entre 1 y 3)");
+				numPastillas=Integer.parseInt(teclado.nextLine());
+			}while(numPastillas<1 || numPastillas>3);
+			arrayPastillas=new int[numPastillas];
+			
+			//Pedimos los id de las pastillas
+			for(int i=0;i<numPastillas;i++){
+				fp.muestraPastillas(rutaPastillas);
+				do{
+					System.out.println("Introduce el id de la Pastilla");
+					idPastilla=Integer.parseInt(teclado.nextLine());
+					//Comprobamos la existencia de la pastilla:
+					if(!gp.compruebaExistenciaPastilla(rutaPastillas, idPastilla)){
+						System.out.println("Error, introduce un id válido");
+					}
+				}while(!gp.compruebaExistenciaPastilla(rutaPastillas, idPastilla));
+				arrayPastillas[i]=idPastilla;
+			}
+			
+			pastillasModificadas=true;
+			modificar.setIdPastillas(arrayPastillas);
+			break;
+		case 3:
+			//puente
+			do{
+				System.out.println("Introduce si tiene puente flotante (s para si, n para no)");
+				puenteC=teclado.nextLine().charAt(0);
+			}while(puenteC!='s' && puenteC!='n');
+			puente=puenteC=='s';
+			
+			modificar.setPuenteFlotante(puente);;
+			break;
+		case 4:
+			//controles
+			do{
+				System.out.println("Introduce el número de controles(1/4)");
+				controles=Integer.parseInt(teclado.nextLine());
+			}while(controles<1 || controles>4);
+			
+			modificar.setControles(controles);;
+			break;
+		}
+		return pastillasModificadas;
+	}
+	
+	/* 
+	 * Interfaz 
+	 * Cabecera:public static void modificaPastilla(Pastilla modificar)
+	 * Proceso:Método que modifica algúno de los datos de una pastilla
+	 * Precondiciones:
+	 * Entrada:Nada
+	 * Salida:Nada
+	 * Entrada/Salida:1 Pastilla
+	 * Postcondiciones:Método para facilitar la legibilidad!, el instrumento quedará modificado
+	 */
+	
+	public static void modificaPastilla(Pastilla modificar){
+		int opcion;
+		Pastilla pas=null;
+		String marca,modelo;
+		int bobinas;
+		
+		do{	
+			System.out.println("¿Qué desea modificar?");
+			System.out.println("1.Marca");
+			System.out.println("2.Modelo");
+			System.out.println("3.Bobinas");
+			System.out.println("0.Salir");
+			try{
+				opcion=Integer.parseInt(teclado.nextLine());
+			}catch(NumberFormatException e){
+				System.out.println("Introduce un número, por favor");
+				opcion=-1;
+			}
+		}while(opcion<0 || opcion>3);
+		switch (opcion){
+		case 1:
+			//Marca
+			do{
+				System.out.println("Introduce la marca (menos de 20 caracteres)");
+				marca=teclado.nextLine();
+			}while(marca.length()>20);
+			
+			modificar.setMarca(marca);;
+			break;
+		case 2:
+			//Modelo
+			do{
+				System.out.println("Introduce el modelo (menos de 20 caracteres)");
+				modelo=teclado.nextLine();
+			}while(modelo.length()>20);
+			
+			modificar.setModelo(modelo);
+			break;
+		case 3:
+			//Bobinas
+			do{
+				System.out.println("Introduce el número de bobinas(de 1 a 3)");
+				bobinas=Integer.parseInt(teclado.nextLine());
+			}while(bobinas<1 || bobinas>3);
+				
+			modificar.setBobinas(bobinas);
 			break;
 		}
 	}
@@ -707,34 +1149,62 @@ public class ElMusiquito {
 				while (tipoInstrumento != 0) {
 					switch (tipoInstrumento) {
 					case 1:
+						//Genérico
 						do{
 							fi.muestraInstrumentos(rutaInstrumentos);
 							System.out.println("Introduzca el id del instrumento que quiera modificar");
 							try{
 							idInstrumento=Integer.parseInt(teclado.nextLine());
+							}catch(NumberFormatException e){
+								System.out.println(e);
+								idInstrumento=-1;
+							}
 						}while(!gp.compruebaExistenciaInstrumento(rutaInstrumentos, idInstrumento));
+						//Recuperamos el instrumento
+						instrumento=fi.devuelveInstrumento(rutaInstrumentos, idInstrumento);
+						modificaInstrumento(instrumento);
+						fi.guardaInstrumento(rutaInstrumentos, rutaDescripcion, instrumento);
 						break;
 					case 2:
+						//Viento
+						do{
+							fi.muestraInstrumentos(rutaInstrumentos);
+							System.out.println("Introduzca el id del instrumento que quiera modificar");
+							try{
+							idInstrumento=Integer.parseInt(teclado.nextLine());
+							}catch(NumberFormatException e){
+								System.out.println(e);
+								idInstrumento=-1;
+							}
+						}while(!gp.compruebaExistenciaInstrumento(rutaInstrumentos, idInstrumento));
+						//Recuperamos el instrumento
+						instrumento=fi.devuelveInstrumento(rutaInstrumentos, idInstrumento);
+						modificaInstrumento(instrumento);
+						fi.guardaInstrumento(rutaInstrumentos, rutaDescripcion, instrumento);
+						
+						viento=fv.devuelveInstrumentoViento(rutaViento, rutaInstrumentos, idInstrumento);
+						modificaViento(viento);
+						fv.guardaInstrumentoViento(rutaViento, viento);
 						
 						break;
 					case 3:
-
+						//Percusion
 						break;
 
 					case 4:
-
+						//Cuerda
 						break;
 
 					case 5:
-
+						//Saxofon
 						break;
 
 					case 6:
-
+						//Guitarra
 						break;
 
 					case 7:
-
+						//Pastilla
 						break;
 					}
 					

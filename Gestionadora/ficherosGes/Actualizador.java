@@ -983,4 +983,201 @@ public class Actualizador {
 
 	}
 
+	/* 
+	 * Interfaz 
+	 * Cabecera:public void actualizaRelaciones(String maestro,String temporal)
+	 * Proceso:Actualiza un fichero maestro con otro de actualización.
+	 * 			-Si el registro se encuentra en el maestro y no en el actualizado, nada
+	 * 			-Si el registro se encuentra en el maestro y en el actualizado, eliminación
+	 * 			-Si el registro no se encuentra en el maestro y si en el actualizado, alta
+	 * Precondiciones:LOS FICHEROS DEBEN ESTAR ORDENADOS
+	 * Entrada:Nada
+	 * Salida:Nada
+	 * Entrada/Salida:1 cadena para la ruta del fichero maestro
+	 * 					1 cadena para la ruta del fichero temporal
+	 * Postcondiciones:el maestro quedará sobreescrito con todos los cambios
+	 * 					el temporal quedará borrado.
+	 */
+	
+	public void actualizaRelaciones(String maestro,String temporal){
+		File maestroF=new File(maestro);
+		File tempF=new File(temporal);
+		File maestroAct=new File(maestro+"act");
+		FicheroGuitarra fg=new FicheroGuitarra();
+		
+		FileInputStream fisMaestro=null;
+		DataInputStream disMaestro=null;
+		
+		FileInputStream fisTemp=null;
+		DataInputStream disTemp=null;
+		
+		FileOutputStream fosMactu=null;
+		DataOutputStream dosMactu=null;
+		
+		int registrosMaestro,registrosTemp;
+		int idGuitarra,idGuitarraAct;
+		int idPastilla,idPastillaAct;
+		
+		try {
+			fisMaestro=new FileInputStream(maestroF);
+			disMaestro=new DataInputStream(fisMaestro);
+			
+			fisTemp=new FileInputStream(tempF);
+			disTemp=new DataInputStream(fisTemp);
+			
+			fosMactu=new FileOutputStream(maestroAct);
+			dosMactu=new DataOutputStream(fosMactu);
+			
+			registrosMaestro=fg.cuentaRelaciones(maestro);
+			registrosTemp=fg.cuentaRelaciones(temporal);
+			//Lectura anticipada
+			idGuitarra=disMaestro.readInt();
+			idPastilla=disMaestro.readInt();
+			
+			idGuitarraAct=disTemp.readInt();
+			idPastillaAct=disTemp.readInt();
+			
+			while (registrosMaestro > 0 && registrosTemp > 0) {
+				if(idGuitarra == idGuitarraAct){
+					if(idPastilla < idPastillaAct){
+						//Sobreescritura
+						dosMactu.writeInt(idGuitarra);
+						dosMactu.writeInt(idPastilla);
+						registrosMaestro--;
+
+						if(registrosMaestro > 0){
+							idGuitarra = disMaestro.readInt();
+							idPastilla = disMaestro.readInt();
+						}
+					}else{
+						//Alta
+						if(idPastilla > idPastillaAct){
+							dosMactu.writeInt(idGuitarraAct);
+							dosMactu.writeInt(idPastillaAct);
+							registrosTemp--;
+
+							if(registrosTemp > 0){
+								idGuitarraAct = disTemp.readInt();
+								idPastillaAct = disTemp.readInt();
+							}
+							//Borrado
+						}else{
+							registrosMaestro--;
+							if(registrosMaestro > 0){
+								idGuitarra = disMaestro.readInt();
+								idPastilla = disMaestro.readInt();
+							}
+							registrosTemp--;
+							if(registrosTemp > 0){
+								idGuitarraAct = disTemp.readInt();
+								idPastillaAct = disTemp.readInt();
+							}
+						}
+
+					}
+
+				} else {
+					if (idGuitarra < idGuitarraAct) {
+						//Sobreescritura
+						dosMactu.writeInt(idGuitarra);
+						dosMactu.writeInt(idPastilla);
+						registrosMaestro--;
+
+						if(registrosMaestro > 0){
+							idGuitarra = disMaestro.readInt();
+							idPastilla = disMaestro.readInt();
+						}
+					} else {
+						//Alta
+						dosMactu.writeInt(idGuitarraAct);
+						dosMactu.writeInt(idPastillaAct);
+						registrosTemp--;
+
+						if(registrosTemp > 0){
+							idGuitarraAct = disTemp.readInt();
+							idPastillaAct = disTemp.readInt();
+						}
+					}
+				}
+			}
+			if (registrosMaestro == 0) {
+				while (registrosTemp > 0) {
+					//Alta
+					dosMactu.writeInt(idGuitarraAct);
+					dosMactu.writeInt(idPastillaAct);
+					registrosTemp--;
+
+					if(registrosTemp > 0){
+						idGuitarraAct = disTemp.readInt();
+						idPastillaAct = disTemp.readInt();
+					}
+				}
+			}
+			if (registrosTemp == 0) {
+				while (registrosMaestro > 0) {
+					//Sobreescritura
+					dosMactu.writeInt(idGuitarra);
+					dosMactu.writeInt(idPastilla);
+					registrosMaestro--;
+
+					if(registrosMaestro > 0){
+						idGuitarra = disMaestro.readInt();
+						idPastilla = disMaestro.readInt();
+					}
+				}
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		} finally {
+			if (disMaestro != null) {
+				try {
+					disMaestro.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (fisMaestro != null) {
+				try {
+					fisMaestro.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (disTemp != null) {
+				try {
+					disTemp.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (fisTemp != null) {
+				try {
+					fisTemp.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (dosMactu != null) {
+				try {
+					dosMactu.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if (fosMactu != null) {
+				try {
+					fosMactu.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			maestroF.delete();
+			tempF.delete();
+			maestroAct.renameTo(maestroF);
+		}
+
+	}
+	
 }
