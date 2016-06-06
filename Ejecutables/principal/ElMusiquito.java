@@ -836,25 +836,24 @@ public class ElMusiquito {
 	
 	/* 
 	 * Interfaz 
-	 * Cabecera:public static boolean modificaguitarra(GuitarraelectricaImpl modificar,String rutaPastillas)
+	 * Cabecera:public static void modificaguitarra(GuitarraelectricaImpl modificar,String rutaPastillas)
 	 * Proceso:Método que modifica algúno de los datos de una guitarra
 	 * Precondiciones:Las pastillas que queremos añadir deben de estar en el fichero de pastillas
 	 * Entrada:1 cadena para la ruta de las pastillas
-	 * Salida:1 boolean para saber si las pastillas han sido modificadas
+	 * Salida:Nada
 	 * Entrada/Salida:1 guitarra
 	 * Postcondiciones:Método para facilitar la legibilidad!, la guitarra quedará modificada.
-	 * El booleano (asociado al nombre) nos indicará si tenenmos que guardar las pastillas en el fichero
-	 * correspondiente
 	 */
 	
-	public static boolean modificaGuitarra(GuitarraElectricaImpl modificar,String rutaPastillas){
+	public static void modificaGuitarra(GuitarraElectricaImpl modificar,String rutaPastillas){
 		int opcion;
 		int cantidadTipo,valorTipo,numPastillas,controles,idPastilla;
 		char puenteC;
-		boolean puente,pastillasModificadas=false;
+		boolean puente;
 		int[] arrayPastillas;
 		
 		FicheroPastillas fp=new FicheroPastillas();
+		FicheroGuitarra fg=new FicheroGuitarra();
 		GestionadoraPrincipal gp=new GestionadoraPrincipal();
 			
 		do{	
@@ -910,8 +909,6 @@ public class ElMusiquito {
 				}while(!gp.compruebaExistenciaPastilla(rutaPastillas, idPastilla));
 				arrayPastillas[i]=idPastilla;
 			}
-			
-			pastillasModificadas=true;
 			modificar.setIdPastillas(arrayPastillas);
 			break;
 		case 3:
@@ -934,7 +931,6 @@ public class ElMusiquito {
 			modificar.setControles(controles);;
 			break;
 		}
-		return pastillasModificadas;
 	}
 	
 	/* 
@@ -950,7 +946,6 @@ public class ElMusiquito {
 	
 	public static void modificaPastilla(Pastilla modificar){
 		int opcion;
-		Pastilla pas=null;
 		String marca,modelo;
 		int bobinas;
 		
@@ -998,6 +993,7 @@ public class ElMusiquito {
 		}
 	}
 	
+	
 	public static void main(String[] args) {
 		
 		String rutaPersonas="Ficheros//Personas//Personas.dat";
@@ -1006,8 +1002,6 @@ public class ElMusiquito {
 		String rutaClientesTemp="Ficheros//Clientes//ClientesTemp.dat";
 		String rutaCompras="Ficheros//Clientes//Compras.dat";
 		String rutaComprasTemp="Ficheros//Clientes//ComprasTemp.dat";
-		String rutaEmpleados="Ficheros//Empleados//Empleados.dat";
-		String rutaEmpleadosTemp="Ficheros//Empleados//EmpleadosTemp.dat";
 		
 		String rutaInstrumentos="Ficheros//Instrumentos//Instrumentos.dat";
 		String rutaDescripcion="Ficheros//Instrumentos//Descripcion.txt";
@@ -1024,7 +1018,6 @@ public class ElMusiquito {
 		
 		PersonaImpl persona;
 		ClienteImpl cliente;
-		EmpleadoImpl empleado;
 		
 		InstrumentoImpl instrumento;
 		VientoImpl viento;
@@ -1051,8 +1044,10 @@ public class ElMusiquito {
 		
 		int opcionMenuPrincipal,opcionMenuInstrumentos;
 		long dniGenerico;
-		int idInstrumento,tipoInstrumento;
+		int idInstrumento,tipoInstrumento,idPastilla;
 		boolean estadoBaseDatos=false;
+		long dni;
+		String nombre, apellido1, apellido2,correoe,direccion;
 		Vector<InstrumentoImpl> v=new Vector<InstrumentoImpl>(0,1);
 
 		do {
@@ -1080,29 +1075,37 @@ public class ElMusiquito {
 				}while(tipoInstrumento<0 || tipoInstrumento>7);
 				
 				while(tipoInstrumento!=0){
-					instrumento=creaInstrumento();
-					fi.guardaInstrumento(rutaInstrumentos,rutaDescripcion,instrumento);
 					//No hay forma de no repetir la creación de cuerda y/o viento. Explicar!
 					switch (tipoInstrumento){
 					case 1:
+						instrumento=creaInstrumento();
+						fi.guardaInstrumento(rutaInstrumentos,rutaDescripcion,instrumento);
 						break;
 					case 2:
 						//Viento
+						instrumento=creaInstrumento();
+						fi.guardaInstrumento(rutaInstrumentos,rutaDescripcion,instrumento);
 						viento=creaViento(instrumento);
 						fv.guardaInstrumentoViento(rutaViento, viento);
 						break;
 					case 3:
 						//Percusion
+						instrumento=creaInstrumento();
+						fi.guardaInstrumento(rutaInstrumentos,rutaDescripcion,instrumento);
 						percusion=creaPercusion(instrumento);
 						fPer.guardaInstrumentoPerc(rutaPercusion, percusion);
 						break;
 					case 4:
 						//Cuerda
+						instrumento=creaInstrumento();
+						fi.guardaInstrumento(rutaInstrumentos,rutaDescripcion,instrumento);
 						cuerda=creaCuerda(instrumento);
 						fCuerda.guardaInstrumentoCuerda(rutaCuerda, cuerda);
 						break;
 					case 5:
 						//Saxofon
+						instrumento=creaInstrumento();
+						fi.guardaInstrumento(rutaInstrumentos,rutaDescripcion,instrumento);
 						viento=creaViento(instrumento);
 						fv.guardaInstrumentoViento(rutaViento, viento);
 						saxofon=creaSaxofon(viento);
@@ -1110,6 +1113,8 @@ public class ElMusiquito {
 						break;
 					case 6:
 						//Guitarra
+						instrumento=creaInstrumento();
+						fi.guardaInstrumento(rutaInstrumentos,rutaDescripcion,instrumento);
 						cuerda=creaCuerda(instrumento);
 						fCuerda.guardaInstrumentoCuerda(rutaCuerda, cuerda);
 						guitarra=creaGuitarraElectrica(cuerda, rutaPastillasGuitarras);
@@ -1169,14 +1174,88 @@ public class ElMusiquito {
 						//Viento
 						do{
 							fi.muestraInstrumentos(rutaInstrumentos);
-							System.out.println("Introduzca el id del instrumento que quiera modificar");
+							System.out.println("Introduzca el id del instrumento de viento que quiera modificar");
 							try{
 							idInstrumento=Integer.parseInt(teclado.nextLine());
 							}catch(NumberFormatException e){
 								System.out.println(e);
 								idInstrumento=-1;
 							}
-						}while(!gp.compruebaExistenciaInstrumento(rutaInstrumentos, idInstrumento));
+						}while(!gp.compruebaExistenciaInstrumento(rutaInstrumentos, idInstrumento) &&
+								!gp.compruebaExistenciaViento(rutaViento, idInstrumento));
+						//Recuperamos el instrumento
+						instrumento=fi.devuelveInstrumento(rutaInstrumentos, idInstrumento);
+						modificaInstrumento(instrumento);
+						fi.guardaInstrumento(rutaInstrumentos, rutaDescripcion, instrumento);
+						
+						viento=fv.devuelveInstrumentoViento(rutaViento, rutaInstrumentos, idInstrumento);
+						modificaViento(viento);
+						fv.guardaInstrumentoViento(rutaViento, viento);
+						System.out.println("Cambios guardados con éxito");
+						
+						break;
+					case 3:
+						//Percusion
+						do{
+							fi.muestraInstrumentos(rutaInstrumentos);
+							System.out.println("Introduzca el id del instrumento de percuisón que quiera modificar");
+							try{
+							idInstrumento=Integer.parseInt(teclado.nextLine());
+							}catch(NumberFormatException e){
+								System.out.println(e);
+								idInstrumento=-1;
+							}
+						}while(!gp.compruebaExistenciaInstrumento(rutaInstrumentos, idInstrumento) &&
+								!gp.compruebaExistenciaPercusion(rutaPercusion, idInstrumento));
+						//Recuperamos el instrumento
+						instrumento=fi.devuelveInstrumento(rutaInstrumentos, idInstrumento);
+						modificaInstrumento(instrumento);
+						fi.guardaInstrumento(rutaInstrumentos, rutaDescripcion, instrumento);
+						
+						percusion=fPer.devuelveInstrumentoPercusion(rutaPercusion, rutaInstrumentos, idInstrumento);
+						modificaPercusion(percusion);
+						fPer.guardaInstrumentoPerc(rutaPercusion, percusion);
+						System.out.println("Cambios guardados con éxito");
+						break;
+
+					case 4:
+						//Cuerda
+						do{
+							fi.muestraInstrumentos(rutaInstrumentos);
+							System.out.println("Introduzca el id del instrumento de cuerda que quiera modificar");
+							try{
+							idInstrumento=Integer.parseInt(teclado.nextLine());
+							}catch(NumberFormatException e){
+								System.out.println(e);
+								idInstrumento=-1;
+							}
+						}while(!gp.compruebaExistenciaInstrumento(rutaInstrumentos, idInstrumento) &&
+								!gp.compruebaExistenciaCuerda(rutaCuerda,idInstrumento));
+						//Recuperamos el instrumento
+						instrumento=fi.devuelveInstrumento(rutaInstrumentos, idInstrumento);
+						modificaInstrumento(instrumento);
+						fi.guardaInstrumento(rutaInstrumentos, rutaDescripcion, instrumento);
+						
+						cuerda=fCuerda.devuelveInstrumentoCuerda(rutaCuerda, rutaInstrumentos, idInstrumento);
+						modificaCuerda(cuerda);
+						fCuerda.guardaInstrumentoCuerda(rutaCuerda, cuerda);
+						System.out.println("Cambios guardados con éxito");
+						break;
+
+					case 5:
+						//Saxofon
+						do{
+							fi.muestraInstrumentos(rutaInstrumentos);
+							System.out.println("Introduzca el id del instrumento de viento que quiera modificar");
+							try{
+							idInstrumento=Integer.parseInt(teclado.nextLine());
+							}catch(NumberFormatException e){
+								System.out.println(e);
+								idInstrumento=-1;
+							}
+						}while(!gp.compruebaExistenciaInstrumento(rutaInstrumentos, idInstrumento) &&
+								!gp.compruebaExistenciaViento(rutaViento, idInstrumento) &&
+								!gp.compruebaExistenciaSaxofon(rutaSaxofones, idInstrumento));
 						//Recuperamos el instrumento
 						instrumento=fi.devuelveInstrumento(rutaInstrumentos, idInstrumento);
 						modificaInstrumento(instrumento);
@@ -1186,25 +1265,73 @@ public class ElMusiquito {
 						modificaViento(viento);
 						fv.guardaInstrumentoViento(rutaViento, viento);
 						
-						break;
-					case 3:
-						//Percusion
-						break;
-
-					case 4:
-						//Cuerda
-						break;
-
-					case 5:
-						//Saxofon
+						saxofon=fs.devuelveInstrumentoSaxofon(rutaSaxofones, rutaViento, rutaInstrumentos, idInstrumento);
+						modificaSaxo(saxofon);
+						fs.guardaInstrumentoSaxofon(rutaSaxofones, saxofon);
+						System.out.println("Cambios guardados con éxito");
 						break;
 
 					case 6:
 						//Guitarra
+						do{
+							fi.muestraInstrumentos(rutaInstrumentos);
+							System.out.println("Introduzca el id del instrumento de cuerda que quiera modificar");
+							try{
+							idInstrumento=Integer.parseInt(teclado.nextLine());
+							}catch(NumberFormatException e){
+								System.out.println(e);
+								idInstrumento=-1;
+							}
+						}while(!gp.compruebaExistenciaInstrumento(rutaInstrumentos, idInstrumento) &&
+								!gp.compruebaExistenciaCuerda(rutaCuerda,idInstrumento));
+						//Recuperamos el instrumento
+						instrumento=fi.devuelveInstrumento(rutaInstrumentos, idInstrumento);
+						modificaInstrumento(instrumento);
+						fi.guardaInstrumento(rutaInstrumentos, rutaDescripcion, instrumento);
+						
+						cuerda=fCuerda.devuelveInstrumentoCuerda(rutaCuerda, rutaInstrumentos, idInstrumento);
+						modificaCuerda(cuerda);
+						fCuerda.guardaInstrumentoCuerda(rutaCuerda, cuerda);
+						
+						guitarra=fg.devuelveInstrumentoGuitarra(rutaGuitarra, rutaCuerda, 
+																rutaPastillasGuitarras, rutaInstrumentos, idInstrumento);
+						/*
+						 * Puesto que no sabemos si las pastillas van a ser modificadas (o no), guardamos las pastillas
+						 * en el fichero temporal( por si van a ser eliminadas) y después volvemos a escribirlas.
+						 * No es la mejor solución, pero a día de hoy no se me ocurre otra
+						 */
+						fg.guardaRelacionPastilla(rutaPastillasGuitarrasTemp, guitarra);
+						
+						modificaGuitarra(guitarra, rutaPastillasGuitarras);
+						
+						//Guardamos lso cambios
+						fg.guardaInstrumentoGuitarra(rutaGuitarra, guitarra);
+						fg.guardaRelacionPastilla(rutaPastillasGuitarrasTemp, guitarra);
+						
+						System.out.println("Cambios guardados con éxito");
 						break;
 
 					case 7:
 						//Pastilla
+						do{
+							fPas.muestraPastillas(rutaPastillas);
+							System.out.println("Introduce el id de la pastilla que quieres modificar");
+							try{
+								idPastilla=Integer.parseInt(teclado.nextLine());
+							}catch(NumberFormatException e){
+								System.out.println("Introduce un número, por favor");
+								idPastilla=-1;
+							}
+							if(gp.compruebaExistenciaPastilla(rutaPastillasTemp, idPastilla)){
+								System.out.println("Error, la pastilla ya ha sido modificada, actualice, por favor");
+							}
+						}while(!gp.compruebaExistenciaPastilla(rutaPastillas, idPastilla) &&
+								gp.compruebaExistenciaPastilla(rutaPastillasTemp, idPastilla));
+						
+						pas=fPas.devuelvePastilla(rutaPastillas, idPastilla);
+						modificaPastilla(pas);
+						fPas.guardaPastilla(rutaPastillasTemp, pas);
+						System.out.println("Pastilla guardada con éxito");
 						break;
 					}
 					
@@ -1249,7 +1376,9 @@ public class ElMusiquito {
 							cuerda=new CuerdaImpl(instrumento, 1, "", (byte) 0);
 							fCuerda.guardaInstrumentoCuerda(rutaCuerda, cuerda);
 							if(gp.compruebaExistenciaGuitarra(rutaGuitarra, idInstrumento)){
-								guitarra=fg.devuelveInstrumentoGuitarra(rutaGuitarra, rutaCuerda, rutaPastillasGuitarras, rutaInstrumentos, idInstrumento);
+								//Recupero las pastillas
+								int[] pastillas=fg.devuelveRelacionesPastillas(rutaPastillasGuitarras, idInstrumento);
+								guitarra=new GuitarraElectricaImpl(cuerda, Tipo.ES, pastillas, false, 3);
 								fg.guardaInstrumentoGuitarra(rutaGuitarra,guitarra);
 								fg.guardaRelacionPastilla(rutaPastillasGuitarrasTemp, guitarra);
 								
@@ -1268,7 +1397,43 @@ public class ElMusiquito {
 				break;
 			case 4:
 				//Añadir Cliente
-				System.out.println("En construccion");
+				do {
+					System.out.println("Introduce el dni(sin letra)");
+					dni = Long.parseLong(teclado.nextLine());
+					if(gp.compruebaExistenciaCliente(rutaClientes, dni)){
+						System.out.println("Error, el cliente ya se encuentra en la base de datos");
+					}
+				} while (dni < 0 || dni > 99999999 && gp.compruebaExistenciaCliente(rutaClientes, dni));
+					
+				do {
+					System.out.println("Introduce el nombre(menos de 20 caracteres)");
+					nombre=teclado.nextLine();
+				} while (nombre.length() > 20);
+
+				do {
+					System.out.println("Introduce el primer apellido(menos de 20 caracteres)");
+					apellido1=teclado.nextLine();
+				} while (apellido1.length() > 20);
+
+				do {
+					System.out.println("Introduce el segundo apellido(menos de 20 caracteres)");
+					apellido2=teclado.nextLine();
+				} while (apellido2.length() > 20);
+
+				do {
+					System.out.println("Introduce el correo-e(menos de 30 caracteres)");
+					correoe=teclado.nextLine();
+				} while (correoe.length() > 30);
+				
+				do {
+					System.out.println("Introduce la direccion(menos de 20 caracteres)");
+					direccion=teclado.nextLine();
+				} while (direccion.length() > 20);
+				
+				persona=new PersonaImpl(dni, nombre, apellido1, apellido2);
+				fp.guardaPersona(rutaPersonasTemp, persona);
+				cliente=new ClienteImpl(persona,correoe,direccion,v);
+				fc.guardaClienteSinCompras(rutaClientesTemp, cliente);
 				break;
 			case 5:
 				//Modificar Cliente
