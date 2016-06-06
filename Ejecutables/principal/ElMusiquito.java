@@ -41,6 +41,7 @@ import java.util.*;
 import datos.*;
 import enums.*;
 import ficheros.*;
+import ficherosGes.*;
 
 public class ElMusiquito {
 
@@ -70,6 +71,7 @@ public class ElMusiquito {
 		System.out.println("3.Ver instrumento de cuerda");
 		System.out.println("4.Ver saxofon");
 		System.out.println("5.Ver guitarra electrica");
+		System.out.println("6.Ver Pastillas");
 		System.out.println("0.Salir");
 	}
 	
@@ -489,70 +491,87 @@ public class ElMusiquito {
 				opcion=-1;
 			}
 		}while(opcion<0 || opcion>5);
-		switch (opcion){
-		case 1:
-			// Nombre
-			do {
-				System.out.println("Introduce el nombre (menos de 20 caracteres)");
-				nombre = teclado.nextLine();
-			} while (nombre.length() > 20);
-			
-			modificar.setNombre(nombre);
-			break;
-		case 2:
-			// Marca
-			cantidadMarca=Marca.values().length;
-			do {
-				// Muestra las marcas con un número
-				for (int i = 0; i < cantidadMarca; i++) {
-					System.out.print(i + " ");
-					System.out.println(Marca.values()[i]);
-				}
-
-				System.out.println("Introduce el número de la marca");
-				try{
-					valorMarca = Integer.parseInt(teclado.nextLine());
-				}catch(NumberFormatException e){
-					System.out.println("Introduce un número!");
-					valorMarca=-1;
-				}
-			} while (valorMarca >= cantidadMarca || valorMarca < 0);
-			modificar.setMarca(Marca.values()[valorMarca]);
-			break;
-		case 3:
-			// Descripcion
-			descripcion="";
-			System.out.println("Quiere introducir una descripción? (s para si, cualquier otra letra para no)");
-			desc = teclado.nextLine().charAt(0);
-			while (desc == 's') {
-				System.out.println("Escriba su descripcion: ");
-				descripcion = descripcion + teclado.nextLine();
-				System.out.println("Desea escribir algo más en la descripcion?");
+		while(opcion!=0){
+			switch (opcion){
+			case 1:
+				// Nombre
+				do {
+					System.out.println("Introduce el nombre (menos de 20 caracteres)");
+					nombre = teclado.nextLine();
+				} while (nombre.length() > 20);
+				
+				modificar.setNombre(nombre);
+				break;
+			case 2:
+				// Marca
+				cantidadMarca=Marca.values().length;
+				do {
+					// Muestra las marcas con un número
+					for (int i = 0; i < cantidadMarca; i++) {
+						System.out.print(i + " ");
+						System.out.println(Marca.values()[i]);
+					}
+	
+					System.out.println("Introduce el número de la marca");
+					try{
+						valorMarca = Integer.parseInt(teclado.nextLine());
+					}catch(NumberFormatException e){
+						System.out.println("Introduce un número!");
+						valorMarca=-1;
+					}
+				} while (valorMarca >= cantidadMarca || valorMarca < 0);
+				modificar.setMarca(Marca.values()[valorMarca]);
+				break;
+			case 3:
+				// Descripcion
+				descripcion="";
+				System.out.println("Quiere introducir una descripción? (s para si, cualquier otra letra para no)");
 				desc = teclado.nextLine().charAt(0);
-			}
-			modificar.setDescripcion(descripcion);
-			break;
-		case 4:
-			// Modelo
-			do {
-				System.out.println("Introduce el modelo (menos de 20 caracteres)");
-				modelo = teclado.nextLine();
-			} while (modelo.length() > 20);
-			modificar.setModelo(modelo);
-			break;
-		case 5:
-			// Precio
-			do {
-				System.out.println("Introduce el precio de venta(mayor que 0)");
-				try {
-					precio = Double.parseDouble(teclado.nextLine());
-				} catch (NumberFormatException e) {
-					System.out.println("Introduce un número!");
-					precio=-1;
+				while (desc == 's') {
+					System.out.println("Escriba su descripcion: ");
+					descripcion = descripcion + teclado.nextLine();
+					System.out.println("Desea escribir algo más en la descripcion?");
+					desc = teclado.nextLine().charAt(0);
 				}
-			} while (precio <= 0);
-			modificar.setPrecioVenta(precio);
-			break;
+				modificar.setDescripcion(descripcion);
+				break;
+			case 4:
+				// Modelo
+				do {
+					System.out.println("Introduce el modelo (menos de 20 caracteres)");
+					modelo = teclado.nextLine();
+				} while (modelo.length() > 20);
+				modificar.setModelo(modelo);
+				break;
+			case 5:
+				// Precio
+				do {
+					System.out.println("Introduce el precio de venta(mayor que 0)");
+					try {
+						precio = Double.parseDouble(teclado.nextLine());
+					} catch (NumberFormatException e) {
+						System.out.println("Introduce un número!");
+						precio=-1;
+					}
+				} while (precio <= 0);
+				modificar.setPrecioVenta(precio);
+				break;
+			}
+			do{	
+				System.out.println("¿Qué desea modificar?");
+				System.out.println("1.Nombre");
+				System.out.println("2.Marca");
+				System.out.println("3.Descripcion");
+				System.out.println("4.Modelo");
+				System.out.println("5.Precio de Venta");
+				System.out.println("0.Salir");
+				try{
+					opcion=Integer.parseInt(teclado.nextLine());
+				}catch(NumberFormatException e){
+					System.out.println("Introduce un número, por favor");
+					opcion=-1;
+				}
+			}while(opcion<0 || opcion>5);
 		}
 	}
 	
@@ -586,39 +605,55 @@ public class ElMusiquito {
 				opcion=-1;
 			}
 		}while(opcion<0 || opcion>3);
-		switch (opcion){
-		case 1:
-			//Afinación
-			do{
-				System.out.println("Introduce la afinacion: ");
-				afinacion=teclado.nextLine().charAt(0);
-			}while((int) afinacion < 65 || (int) afinacion > 71 && (int) afinacion < 97 || (int) afinacion > 103);
-			
-			modificar.setAfinacion(afinacion);
-			break;
-		case 2:
-			//Tesitura
-			do{
-				System.out.println("Introduce la tesitura (menos de 20 caracteres)");
-				tesitura=teclado.nextLine();
-			}while(tesitura.length()>20);
-			
-			modificar.setTesitura(tesitura);
-			break;
-		case 3:
-			///boquilla
-			do{
-				System.out.println("Introduce la boquilla (0 para Madera, 1 para Metal)");
+		
+		while(opcion!=0){
+			switch (opcion){
+			case 1:
+				//Afinación
+				do{
+					System.out.println("Introduce la afinacion: ");
+					afinacion=teclado.nextLine().charAt(0);
+				}while((int) afinacion < 65 || (int) afinacion > 71 && (int) afinacion < 97 || (int) afinacion > 103);
+				
+				modificar.setAfinacion(afinacion);
+				break;
+			case 2:
+				//Tesitura
+				do{
+					System.out.println("Introduce la tesitura (menos de 20 caracteres)");
+					tesitura=teclado.nextLine();
+				}while(tesitura.length()>20);
+				
+				modificar.setTesitura(tesitura);
+				break;
+			case 3:
+				///boquilla
+				do{
+					System.out.println("Introduce la boquilla (0 para Madera, 1 para Metal)");
+					try{
+						boquilla=Byte.parseByte(teclado.nextLine());
+					}catch(NumberFormatException e){
+						System.out.println("Introduce 0 ó 1, por favor");
+						boquilla=(short) -1;
+					}
+				}while(boquilla<0 || boquilla>1);
+				
+				modificar.setBoquilla(boquilla);
+				break;
+			}
+			do{	
+				System.out.println("¿Qué desea modificar?");
+				System.out.println("1.Afinación");
+				System.out.println("2.Tesitura");
+				System.out.println("3.Boquilla");
+				System.out.println("0.Salir");
 				try{
-					boquilla=Byte.parseByte(teclado.nextLine());
+					opcion=Integer.parseInt(teclado.nextLine());
 				}catch(NumberFormatException e){
-					System.out.println("Introduce 0 ó 1, por favor");
-					boquilla=(short) -1;
+					System.out.println("Introduce un número, por favor");
+					opcion=-1;
 				}
-			}while(boquilla<0 || boquilla>1);
-			
-			modificar.setBoquilla(boquilla);
-			break;
+			}while(opcion<0 || opcion>3);
 		}
 	}
 	
@@ -653,36 +688,52 @@ public class ElMusiquito {
 				opcion=-1;
 			}
 		}while(opcion<0 || opcion>3);
-		switch (opcion){
-		case 1:
-			//Afinación
-			do{
-				System.out.println("Introduce la afinacion: ");
-				afinacion=teclado.nextLine().charAt(0);
-			}while((int) afinacion < 65 || (int) afinacion > 71 && (int) afinacion < 97 || (int) afinacion > 103);
-			
-			modificar.setAfinacion(afinacion);
-			break;
-		case 2:
-			//material
-			do{
-				System.out.println("Introduce el material (menos de 20 caracteres)");
-				material=teclado.nextLine();
-			}while(material.length()>20);
-			
-			
-			modificar.setMaterial(material);
-			break;
-		case 3:
-			//Accesorios
-			do{
-				System.out.println("Introduce si tiene accesorio (s para si, n para no)");
-				acces=teclado.nextLine().charAt(0);
-			}while(acces!='s' && acces!='n');
-				accesorio=acces=='s';
-			
-			modificar.setAccesorios(accesorio);
-			break;
+		
+		while(opcion!=0){
+			switch (opcion){
+			case 1:
+				//Afinación
+				do{
+					System.out.println("Introduce la afinacion: ");
+					afinacion=teclado.nextLine().charAt(0);
+				}while((int) afinacion < 65 || (int) afinacion > 71 && (int) afinacion < 97 || (int) afinacion > 103);
+				
+				modificar.setAfinacion(afinacion);
+				break;
+			case 2:
+				//material
+				do{
+					System.out.println("Introduce el material (menos de 20 caracteres)");
+					material=teclado.nextLine();
+				}while(material.length()>20);
+				
+				
+				modificar.setMaterial(material);
+				break;
+			case 3:
+				//Accesorios
+				do{
+					System.out.println("Introduce si tiene accesorio (s para si, n para no)");
+					acces=teclado.nextLine().charAt(0);
+				}while(acces!='s' && acces!='n');
+					accesorio=acces=='s';
+				
+				modificar.setAccesorios(accesorio);
+				break;
+			}
+			do{	
+				System.out.println("¿Qué desea modificar?");
+				System.out.println("1.Afinación");
+				System.out.println("2.Material");
+				System.out.println("3.Accesorios");
+				System.out.println("0.Salir");
+				try{
+					opcion=Integer.parseInt(teclado.nextLine());
+				}catch(NumberFormatException e){
+					System.out.println("Introduce un número, por favor");
+					opcion=-1;
+				}
+			}while(opcion<0 || opcion>3);
 		}
 	}
 
@@ -716,36 +767,51 @@ public class ElMusiquito {
 				opcion=-1;
 			}
 		}while(opcion<0 || opcion>3);
-		switch (opcion){
-		case 1:
-			//Numero de cuerdas
-			do{
-				System.out.println("Introduce el número de cuerdas: ");
-				numeroCuerdas=Integer.parseInt(teclado.nextLine());
-			}while(numeroCuerdas<1);
-			System.out.println("Buena condicion");
-			
-			modificar.setCuerdas(numeroCuerdas);
-			break;
-		case 2:
-			//Registro
-			do{
-				System.out.println("Introduce el registro (menos de 20 caracteres)");
-				registro=teclado.nextLine();
-			}while(registro.length()>20);
-			
-			modificar.setRegistro(registro);
-			break;
-		case 3:
-			//Tipo de cuerda
-			do{
-				System.out.println("Introduce el tipo de cuerda (0 para cuerda Frotada, 1 para Cuerda Percutida)");
-				tipoCuerda=Byte.parseByte(teclado.nextLine());
-			}while(tipoCuerda<0 || tipoCuerda>1);
-			
-			
-			modificar.setTipoCuerda(tipoCuerda);
-			break;
+		while(opcion!=0){
+			switch (opcion){
+			case 1:
+				//Numero de cuerdas
+				do{
+					System.out.println("Introduce el número de cuerdas: ");
+					numeroCuerdas=Integer.parseInt(teclado.nextLine());
+				}while(numeroCuerdas<1);
+				System.out.println("Buena condicion");
+				
+				modificar.setCuerdas(numeroCuerdas);
+				break;
+			case 2:
+				//Registro
+				do{
+					System.out.println("Introduce el registro (menos de 20 caracteres)");
+					registro=teclado.nextLine();
+				}while(registro.length()>20);
+				
+				modificar.setRegistro(registro);
+				break;
+			case 3:
+				//Tipo de cuerda
+				do{
+					System.out.println("Introduce el tipo de cuerda (0 para cuerda Frotada, 1 para Cuerda Percutida)");
+					tipoCuerda=Byte.parseByte(teclado.nextLine());
+				}while(tipoCuerda<0 || tipoCuerda>1);
+				
+				
+				modificar.setTipoCuerda(tipoCuerda);
+				break;
+			}
+			do{	
+				System.out.println("¿Qué desea modificar?");
+				System.out.println("1.Número de Cuerdas");
+				System.out.println("2.Registro");
+				System.out.println("3.Tipo de Cuerda");
+				System.out.println("0.Salir");
+				try{
+					opcion=Integer.parseInt(teclado.nextLine());
+				}catch(NumberFormatException e){
+					System.out.println("Introduce un número, por favor");
+					opcion=-1;
+				}
+			}while(opcion<0 || opcion>3);
 		}
 	}
 	
@@ -780,57 +846,74 @@ public class ElMusiquito {
 				opcion=-1;
 			}
 		}while(opcion<0 || opcion>4);
-		switch (opcion){
-		case 1:
-			//Familia
-			cantidadFamilia=FamiliaSaxo.values().length;
-			do {
-				//Muestra la familia con un número
-				for (int i = 0; i < cantidadFamilia; i++) {
-					System.out.print(i + " ");
-					System.out.println(FamiliaSaxo.values()[i]);
+		while(opcion!=0){
+			switch (opcion){
+			case 1:
+				//Familia
+				cantidadFamilia=FamiliaSaxo.values().length;
+				do {
+					//Muestra la familia con un número
+					for (int i = 0; i < cantidadFamilia; i++) {
+						System.out.print(i + " ");
+						System.out.println(FamiliaSaxo.values()[i]);
+					}
+	
+					System.out.println("Introduce el número de la familia");
+					valorFamilia = Integer.parseInt(teclado.nextLine());
+				} while (valorFamilia > cantidadFamilia || valorFamilia < 0);
+				
+				modificar.setFamilia(FamiliaSaxo.values()[valorFamilia]);
+				break;
+			case 2:
+				//Boquilla saxo
+				do {
+					System.out.println("Introduce la boquilla del saxo (menos de 20 caracteres)");
+					boquillaSaxo = teclado.nextLine();
+				} while (boquillaSaxo.length() > 20);
+				
+				modificar.setBoquillaSaxo(boquillaSaxo);
+				break;
+			case 3:
+				//material
+				do {
+					System.out.println("Introduce el material (máximo 20 caracteres)");
+					material = teclado.nextLine();
+				} while (material.length() > 20);
+				
+				modificar.setMaterial(material);
+				break;
+			case 4:
+				//Acabado
+				cantidadAcabado=Acabado.values().length;
+				do {
+					// Muestra los acabados con un número
+					for (int i = 0; i < cantidadAcabado; i++) {
+						System.out.print(i + " ");
+						System.out.println(Acabado.values()[i]);
+					}
+	
+					System.out.println("Introduce el número del acabado");
+					valorAcabado = Integer.parseInt(teclado.nextLine());
+				} while (valorAcabado > cantidadAcabado || valorAcabado < 0);
+				
+				modificar.setAcabado(Acabado.values()[valorAcabado]);
+				break;
+			}
+	
+			do{	
+				System.out.println("¿Qué desea modificar?");
+				System.out.println("1.Familia");
+				System.out.println("2.Boquilla Saxo");
+				System.out.println("3.Material");
+				System.out.println("4.Acabado");
+				System.out.println("0.Salir");
+				try{
+					opcion=Integer.parseInt(teclado.nextLine());
+				}catch(NumberFormatException e){
+					System.out.println("Introduce un número, por favor");
+					opcion=-1;
 				}
-
-				System.out.println("Introduce el número de la familia");
-				valorFamilia = Integer.parseInt(teclado.nextLine());
-			} while (valorFamilia > cantidadFamilia || valorFamilia < 0);
-			
-			modificar.setFamilia(FamiliaSaxo.values()[valorFamilia]);
-			break;
-		case 2:
-			//Boquilla saxo
-			do {
-				System.out.println("Introduce la boquilla del saxo (menos de 20 caracteres)");
-				boquillaSaxo = teclado.nextLine();
-			} while (boquillaSaxo.length() > 20);
-			
-			modificar.setBoquillaSaxo(boquillaSaxo);
-			break;
-		case 3:
-			//material
-			do {
-				System.out.println("Introduce el material (máximo 20 caracteres)");
-				material = teclado.nextLine();
-			} while (material.length() > 20);
-			
-			modificar.setMaterial(material);
-			break;
-		case 4:
-			//Acabado
-			cantidadAcabado=Acabado.values().length;
-			do {
-				// Muestra los acabados con un número
-				for (int i = 0; i < cantidadAcabado; i++) {
-					System.out.print(i + " ");
-					System.out.println(Acabado.values()[i]);
-				}
-
-				System.out.println("Introduce el número del acabado");
-				valorAcabado = Integer.parseInt(teclado.nextLine());
-			} while (valorAcabado > cantidadAcabado || valorAcabado < 0);
-			
-			modificar.setAcabado(Acabado.values()[valorAcabado]);
-			break;
+			}while(opcion<0 || opcion>4);
 		}
 	}
 	
@@ -845,91 +928,108 @@ public class ElMusiquito {
 	 * Postcondiciones:Método para facilitar la legibilidad!, la guitarra quedará modificada.
 	 */
 	
-	public static void modificaGuitarra(GuitarraElectricaImpl modificar,String rutaPastillas){
+	public static void modificaGuitarra(GuitarraElectricaImpl modificar, String rutaPastillas) {
 		int opcion;
-		int cantidadTipo,valorTipo,numPastillas,controles,idPastilla;
+		int cantidadTipo, valorTipo, numPastillas, controles, idPastilla;
 		char puenteC;
 		boolean puente;
 		int[] arrayPastillas;
-		
-		FicheroPastillas fp=new FicheroPastillas();
-		FicheroGuitarra fg=new FicheroGuitarra();
-		GestionadoraPrincipal gp=new GestionadoraPrincipal();
-			
-		do{	
+
+		FicheroPastillas fp = new FicheroPastillas();
+		GestionadoraPrincipal gp = new GestionadoraPrincipal();
+
+		do {
 			System.out.println("¿Qué desea modificar?");
 			System.out.println("1.Tipo");
 			System.out.println("2.Pastillas");
 			System.out.println("3.Puente");
 			System.out.println("4.Controles");
 			System.out.println("0.Salir");
-			try{
-				opcion=Integer.parseInt(teclado.nextLine());
-			}catch(NumberFormatException e){
+			try {
+				opcion = Integer.parseInt(teclado.nextLine());
+			} catch (NumberFormatException e) {
 				System.out.println("Introduce un número, por favor");
-				opcion=-1;
+				opcion = -1;
 			}
-		}while(opcion<0 || opcion>4);
-		switch (opcion){
-		case 1:
-			//Tipo
-			cantidadTipo=Tipo.values().length;
-			do {
-				//Muestra la familia con un número
-				for (int i = 0; i < cantidadTipo; i++) {
-					System.out.print(i + " ");
-					System.out.println(Tipo.values()[i]);
-				}
-
-				System.out.println("Introduce el número del tipo");
-				valorTipo = Integer.parseInt(teclado.nextLine());
-			} while (valorTipo > cantidadTipo || valorTipo < 0);
-			
-			modificar.setTipo(Tipo.values()[valorTipo]);
-			break;
-		case 2:
-			//Pastillas
-			//Pedimos el número de pastillas que va a tener la guitarra
-			do{
-				System.out.println("Introduce el número de Pastillas (entre 1 y 3)");
-				numPastillas=Integer.parseInt(teclado.nextLine());
-			}while(numPastillas<1 || numPastillas>3);
-			arrayPastillas=new int[numPastillas];
-			
-			//Pedimos los id de las pastillas
-			for(int i=0;i<numPastillas;i++){
-				fp.muestraPastillas(rutaPastillas);
-				do{
-					System.out.println("Introduce el id de la Pastilla");
-					idPastilla=Integer.parseInt(teclado.nextLine());
-					//Comprobamos la existencia de la pastilla:
-					if(!gp.compruebaExistenciaPastilla(rutaPastillas, idPastilla)){
-						System.out.println("Error, introduce un id válido");
+		} while (opcion < 0 || opcion > 4);
+		while (opcion != 0) {
+			switch (opcion) {
+			case 1:
+				// Tipo
+				cantidadTipo = Tipo.values().length;
+				do {
+					// Muestra la familia con un número
+					for (int i = 0; i < cantidadTipo; i++) {
+						System.out.print(i + " ");
+						System.out.println(Tipo.values()[i]);
 					}
-				}while(!gp.compruebaExistenciaPastilla(rutaPastillas, idPastilla));
-				arrayPastillas[i]=idPastilla;
+
+					System.out.println("Introduce el número del tipo");
+					valorTipo = Integer.parseInt(teclado.nextLine());
+				} while (valorTipo > cantidadTipo || valorTipo < 0);
+
+				modificar.setTipo(Tipo.values()[valorTipo]);
+				break;
+			case 2:
+				// Pastillas
+				// Pedimos el número de pastillas que va a tener la guitarra
+				do {
+					System.out.println("Introduce el número de Pastillas (entre 1 y 3)");
+					numPastillas = Integer.parseInt(teclado.nextLine());
+				} while (numPastillas < 1 || numPastillas > 3);
+				arrayPastillas = new int[numPastillas];
+
+				// Pedimos los id de las pastillas
+				for (int i = 0; i < numPastillas; i++) {
+					fp.muestraPastillas(rutaPastillas);
+					do {
+						System.out.println("Introduce el id de la Pastilla");
+						idPastilla = Integer.parseInt(teclado.nextLine());
+						// Comprobamos la existencia de la pastilla:
+						if (!gp.compruebaExistenciaPastilla(rutaPastillas, idPastilla)) {
+							System.out.println("Error, introduce un id válido");
+						}
+					} while (!gp.compruebaExistenciaPastilla(rutaPastillas, idPastilla));
+					arrayPastillas[i] = idPastilla;
+				}
+				modificar.setIdPastillas(arrayPastillas);
+				break;
+			case 3:
+				// puente
+				do {
+					System.out.println("Introduce si tiene puente flotante (s para si, n para no)");
+					puenteC = teclado.nextLine().charAt(0);
+				} while (puenteC != 's' && puenteC != 'n');
+				puente = puenteC == 's';
+
+				modificar.setPuenteFlotante(puente);
+				;
+				break;
+			case 4:
+				// controles
+				do {
+					System.out.println("Introduce el número de controles(1/4)");
+					controles = Integer.parseInt(teclado.nextLine());
+				} while (controles < 1 || controles > 4);
+
+				modificar.setControles(controles);
+				;
+				break;
 			}
-			modificar.setIdPastillas(arrayPastillas);
-			break;
-		case 3:
-			//puente
-			do{
-				System.out.println("Introduce si tiene puente flotante (s para si, n para no)");
-				puenteC=teclado.nextLine().charAt(0);
-			}while(puenteC!='s' && puenteC!='n');
-			puente=puenteC=='s';
-			
-			modificar.setPuenteFlotante(puente);;
-			break;
-		case 4:
-			//controles
-			do{
-				System.out.println("Introduce el número de controles(1/4)");
-				controles=Integer.parseInt(teclado.nextLine());
-			}while(controles<1 || controles>4);
-			
-			modificar.setControles(controles);;
-			break;
+			do {
+				System.out.println("¿Qué desea modificar?");
+				System.out.println("1.Tipo");
+				System.out.println("2.Pastillas");
+				System.out.println("3.Puente");
+				System.out.println("4.Controles");
+				System.out.println("0.Salir");
+				try {
+					opcion = Integer.parseInt(teclado.nextLine());
+				} catch (NumberFormatException e) {
+					System.out.println("Introduce un número, por favor");
+					opcion = -1;
+				}
+			} while (opcion < 0 || opcion > 4);
 		}
 	}
 	
@@ -994,6 +1094,106 @@ public class ElMusiquito {
 	}
 	
 	
+	/* 
+	 * Interfaz 
+	 * Cabecera:public static void modificaCliente(ClienteImpl modificar)
+	 * Proceso:Método que modifica algúno de los datos de un cliente
+	 * Precondiciones:
+	 * Entrada:Nada
+	 * Salida:Nada
+	 * Entrada/Salida:1 Cliente
+	 * Postcondiciones:Método para facilitar la legibilidad!, el cliente quedará modificado
+	 */
+	
+	public static void modificaCliente(ClienteImpl modificar){
+		int opcion;
+		String nombre,apellido1,apellido2,correoe,direccion;
+		
+		do{	
+			System.out.println("¿Qué desea modificar?");
+			System.out.println("1.Nombre");
+			System.out.println("2.Primer Apellido");
+			System.out.println("3.Segundo apellido");
+			System.out.println("4.Correo electrónico");
+			System.out.println("5.Dirección");
+			System.out.println("0.Salir");
+			try{
+				opcion=Integer.parseInt(teclado.nextLine());
+			}catch(NumberFormatException e){
+				System.out.println("Introduce un número, por favor");
+				opcion=-1;
+			}
+		}while(opcion<0 || opcion>5);
+		while(opcion!=0){
+			switch (opcion){
+			case 1:
+				//Nombre
+				do {
+					System.out.println("Introduce el nombre(menos de 20 caracteres)");
+					nombre=teclado.nextLine();
+				} while (nombre.length() > 20);
+				
+				modificar.setNombre(nombre);
+				break;
+			case 2:
+				//Apellido1
+				do {
+					System.out.println("Introduce el primer apellido(menos de 20 caracteres)");
+					apellido1=teclado.nextLine();
+				} while (apellido1.length() > 20);
+				
+				modificar.setApellido1(apellido1);
+				break;
+			case 3:
+				//Apellido2
+				do {
+					System.out.println("Introduce el segundo apellido(menos de 20 caracteres)");
+					apellido2=teclado.nextLine();
+				} while (apellido2.length() > 20);
+					
+				modificar.setApellido2(apellido2);
+				break;
+			case 4:
+				//Correoe
+				do {
+					System.out.println("Introduce el correo-e(menos de 30 caracteres)");
+					correoe=teclado.nextLine();
+					if(!modificar.correoeValido(correoe)){
+						System.out.println("Error, el correo debe ser: ***@***.**");
+					}
+				} while (correoe.length() > 30 && !modificar.correoeValido(correoe));
+				
+				modificar.setCorreoe(correoe);
+				break;
+			case 5:
+				//Direccion
+				do {
+					System.out.println("Introduce la direccion(menos de 20 caracteres)");
+					direccion=teclado.nextLine();
+				} while (direccion.length() > 20);
+				
+				modificar.setDireccion(direccion);
+				break;
+			}
+			do{	
+				System.out.println("¿Qué desea modificar?");
+				System.out.println("1.Nombre");
+				System.out.println("2.Primer Apellido");
+				System.out.println("3.Segundo apellido");
+				System.out.println("4.Correo electrónico");
+				System.out.println("5.Dirección");
+				System.out.println("0.Salir");
+				try{
+					opcion=Integer.parseInt(teclado.nextLine());
+				}catch(NumberFormatException e){
+					System.out.println("Introduce un número, por favor");
+					opcion=-1;
+				}
+			}while(opcion<0 || opcion>5);	
+		}
+	}
+
+	
 	public static void main(String[] args) {
 		
 		String rutaPersonas="Ficheros//Personas//Personas.dat";
@@ -1014,7 +1214,6 @@ public class ElMusiquito {
 		String rutaPastillasTemp="Ficheros//Pastillas//PastillasTemp.dat";
 		String rutaPastillasGuitarras="Ficheros//Guitarra//Relacion.dat";
 		String rutaPastillasGuitarrasTemp="Ficheros//Guitarra//RelacionTemp.dat";
-		String rutaopcional="Ficheros";
 		
 		PersonaImpl persona;
 		ClienteImpl cliente;
@@ -1025,10 +1224,11 @@ public class ElMusiquito {
 		CuerdaImpl cuerda;
 		SaxofonImpl saxofon;
 		GuitarraElectricaImpl guitarra;
-		Vector<InstrumentoImpl> vector;
 		Pastilla pas;
 		
 		GestionadoraPrincipal gp=new GestionadoraPrincipal();
+		Ordenador ord=new Ordenador();
+		Actualizador act=new Actualizador();
 		
 		FicheroPersona fp=new FicheroPersona();
 		FicheroCliente fc=new FicheroCliente();
@@ -1064,6 +1264,7 @@ public class ElMusiquito {
 			switch (opcionMenuPrincipal) {
 			//Añadir instrumento
 			case 1:
+				estadoBaseDatos=false;
 				do{
 					guardaInstrumentoMenu();
 					try{
@@ -1141,6 +1342,7 @@ public class ElMusiquito {
 				}
 				break;
 			case 2:
+				estadoBaseDatos=false;
 				//Modificar Instrumento
 				do{
 					modificaInstrumentoMenu();
@@ -1348,6 +1550,7 @@ public class ElMusiquito {
 				break;
 			case 3:
 				//Eliminar Instrumento
+				estadoBaseDatos=false;
 				do{
 					System.out.println("Introduce el id del instrumento que desea eliminar: ");
 					System.out.println("(0 para no eliminar ninguno)");
@@ -1397,13 +1600,15 @@ public class ElMusiquito {
 				break;
 			case 4:
 				//Añadir Cliente
+				estadoBaseDatos=false;
 				do {
 					System.out.println("Introduce el dni(sin letra)");
 					dni = Long.parseLong(teclado.nextLine());
-					if(gp.compruebaExistenciaCliente(rutaClientes, dni)){
+					if(gp.compruebaExistenciaCliente(rutaClientes, dni) || gp.compruebaExistenciaCliente(rutaClientesTemp, dni)){
 						System.out.println("Error, el cliente ya se encuentra en la base de datos");
 					}
-				} while (dni < 0 || dni > 99999999 && gp.compruebaExistenciaCliente(rutaClientes, dni));
+				} while (dni < 0 || dni > 99999999 && gp.compruebaExistenciaCliente(rutaClientes, dni) &&
+						gp.compruebaExistenciaCliente(rutaClientesTemp, dni));
 					
 				do {
 					System.out.println("Introduce el nombre(menos de 20 caracteres)");
@@ -1437,10 +1642,27 @@ public class ElMusiquito {
 				break;
 			case 5:
 				//Modificar Cliente
-				System.out.println("En construccion");
+				estadoBaseDatos=false;
+				do {
+					System.out.println("Introduce el dni(sin letra)");
+					dni = Long.parseLong(teclado.nextLine());
+					if(!gp.compruebaExistenciaCliente(rutaClientes, dni) ){
+						System.out.println("Error, el cliente no existe");
+					}else{
+						if(gp.compruebaExistenciaCliente(rutaClientesTemp, dni)){
+							System.out.println("Error, los datos del cliente no están actualizados");
+						}
+					}
+				} while (dni < 0 || dni > 99999999 && !gp.compruebaExistenciaCliente(rutaClientes, dni) &&
+						gp.compruebaExistenciaCliente(rutaClientesTemp, dni));
+				cliente=fc.devuelveCliente(rutaClientes, rutaPersonas, dni, rutaInstrumentos, rutaCompras);
+				modificaCliente(cliente);
+				fc.guardaCliente(rutaClientesTemp, rutaComprasTemp, cliente);
+				System.out.println("Cliente guardado con éxito");
 				break;
 			case 6:
 				//Eliminar Cliente
+				estadoBaseDatos=false;
 				do{
 					System.out.println("Introduzca el dni del cliente que desea eliminar: ");
 					dniGenerico=Long.parseLong(teclado.nextLine());
@@ -1464,11 +1686,70 @@ public class ElMusiquito {
 				break;
 			case 7:
 				//Realizar Venta
-				System.out.println("En construccion");
+				estadoBaseDatos=false;
+				//Recuperamos el instrumento
+				do{
+					System.out.println("Introduzca el id del instrumento que quieras vender: ");
+					try{
+						idInstrumento=Integer.parseInt(teclado.nextLine());
+					}catch(NumberFormatException e){
+						System.out.println("Introduzca un número por favor");
+						idInstrumento=-1;
+					}
+				}while(!gp.compruebaExistenciaInstrumento(rutaInstrumentos, idInstrumento));
+				instrumento=fi.devuelveInstrumento(rutaInstrumentos, idInstrumento);
+				
+				//Recuperamos al cliente
+				do{
+					System.out.println("Introduzca el dni de la persona que lo va a comprar:(sin letra) ");
+					try{
+						dni=Long.parseLong(teclado.nextLine());
+					}catch(NumberFormatException e){
+						System.out.println("Introduzca un número por favor");
+						dni=-1;
+					}
+				}while(!gp.compruebaExistenciaCliente(rutaClientes, dni));
+				cliente=fc.devuelveCliente(rutaClientes, rutaPersonas, dni, rutaInstrumentos, rutaCompras);
+				//añadimos la compra
+				v=cliente.getCompras();
+				v.add(instrumento);
+				cliente.setCompras(v);
+				
+				//Guardamos en fichero
+				fc.guardaCompras(rutaComprasTemp, cliente,v.size()-1);
 				break;
 			case 8:
 				//Realizar Devolución
-				System.out.println("En construccion");
+				estadoBaseDatos=false;
+				do{
+					System.out.println("Introduzca el dni de la persona que va a devolver la compra:(sin letra) ");
+					try{
+						dni=Long.parseLong(teclado.nextLine());
+					}catch(NumberFormatException e){
+						System.out.println("Introduzca un número por favor");
+						dni=-1;
+					}
+				}while(!gp.compruebaExistenciaCliente(rutaClientes, dni));
+				cliente=fc.devuelveCliente(rutaClientes, rutaPersonas, dni, rutaInstrumentos, rutaCompras);
+				v=cliente.getCompras();
+				
+				do{
+					System.out.println("Isntrumentos vendidos: ");
+					for(int i=0;i<v.size();i++){
+						System.out.println(v.elementAt(i));
+					}
+					System.out.println("Introduce el id del instrumento que quieres devolver: ");
+					try{
+						idInstrumento=Integer.parseInt(teclado.nextLine());
+						instrumento=fi.devuelveInstrumento(rutaInstrumentos, idInstrumento);
+					}catch(NumberFormatException e){
+						System.out.println("Introduce un número, por favor");
+						idInstrumento=-1;
+						instrumento=new InstrumentoImpl(idInstrumento,"no",Marca.Fender,"","",10);
+					}
+				}while(!v.contains(instrumento));
+				fc.guardaCompras(rutaComprasTemp, cliente, v.indexOf(instrumento));
+				System.out.println("Devolución realizada con éxito");
 				break;
 			case 9:
 				//Muestra Instrumentos
@@ -1479,66 +1760,79 @@ public class ElMusiquito {
 				do{
 					menuInstrumentos();
 					opcionMenuInstrumentos=Integer.parseInt(teclado.nextLine());
-				}while(opcionMenuInstrumentos<0 || opcionMenuInstrumentos>5);
+				}while(opcionMenuInstrumentos<0 || opcionMenuInstrumentos>6);
 				
 				while(opcionMenuInstrumentos!=0){
-					System.out.println("Introduce la id: ");
-					idInstrumento=Integer.parseInt(teclado.nextLine());
+					if(opcionMenuInstrumentos!=6){
+						System.out.println("Introduce la id: ");
+						idInstrumento=Integer.parseInt(teclado.nextLine());
+					}else{
+						idInstrumento=-1;
+					}
 					switch (opcionMenuInstrumentos) {
 					
 					case 1:
 						if (gp.compruebaExistenciaViento(rutaViento, idInstrumento)) {
-							System.out.println(fv.devuelveInstrumentoViento(rutaViento, rutaInstrumentos, idInstrumento));
-							System.out.println("Descripcion: "+fi.descripcionInstrumento(rutaDescripcion, idInstrumento));
+							System.out.println(viento=fv.devuelveInstrumentoViento(rutaViento, rutaInstrumentos, idInstrumento));
+							if(viento.getDescripcion().equals("s")){
+								System.out.println("Descripcion: "+fi.descripcionInstrumento(rutaDescripcion, idInstrumento));
+							}
 						} else {
 							System.out.println("Error,id inválido!");
 						}
 						break;
 					case 2:
 						if (gp.compruebaExistenciaPercusion(rutaPercusion, idInstrumento)) {
-							System.out.println(fPer.devuelveInstrumentoPercusion(rutaPercusion, rutaInstrumentos, idInstrumento));
-							System.out.println("Descripcion: "+fi.descripcionInstrumento(rutaDescripcion, idInstrumento));
+							System.out.println(percusion=fPer.devuelveInstrumentoPercusion(rutaPercusion, rutaInstrumentos, idInstrumento));
+							if(percusion.getDescripcion().equals("s"))
+								System.out.println("Descripcion: "+fi.descripcionInstrumento(rutaDescripcion, idInstrumento));
 						} else {
 							System.out.println("Error,id inválido!");
 						}
 						break;
 					case 3:
 						if (gp.compruebaExistenciaCuerda(rutaCuerda, idInstrumento)) {
-							System.out.println(fCuerda.devuelveInstrumentoCuerda(rutaCuerda, rutaInstrumentos, idInstrumento));
-							System.out.println("Descripcion: "+fi.descripcionInstrumento(rutaDescripcion, idInstrumento));
+							System.out.println(cuerda=fCuerda.devuelveInstrumentoCuerda(rutaCuerda, rutaInstrumentos, idInstrumento));
+							if(cuerda.getDescripcion().equals("s"))
+								System.out.println("Descripcion: "+fi.descripcionInstrumento(rutaDescripcion, idInstrumento));
 						} else {
 							System.out.println("Error,id inválido!");
 						}
 						break;
 					case 4:
 						if (gp.compruebaExistenciaSaxofon(rutaSaxofones, idInstrumento)) {
-							System.out.println(fs.devuelveInstrumentoSaxofon(rutaSaxofones, rutaViento,
+							System.out.println(saxofon=fs.devuelveInstrumentoSaxofon(rutaSaxofones, rutaViento,
 									rutaInstrumentos, idInstrumento));
-							System.out.println("Descripcion: "+fi.descripcionInstrumento(rutaDescripcion, idInstrumento));
+							if(saxofon.getDescripcion().equals("s"))
+								System.out.println("Descripcion: "+fi.descripcionInstrumento(rutaDescripcion, idInstrumento));
 						} else {
 							System.out.println("Error,id inválido!");
 						}
 						break;
 					case 5:
-						//Modificar para que muestre pastillas
-						//
-						//             !!!!!!!!!!!!!!!!!!!
-						//
-						//
 						if (gp.compruebaExistenciaGuitarra(rutaGuitarra, idInstrumento)) {
-							System.out.println(fg.devuelveInstrumentoGuitarra(rutaGuitarra, rutaCuerda,
+							System.out.println(guitarra=fg.devuelveInstrumentoGuitarra(rutaGuitarra, rutaCuerda,
 									rutaPastillasGuitarras, rutaInstrumentos, idInstrumento));
-							System.out.println("Descripcion: "+fi.descripcionInstrumento(rutaDescripcion, idInstrumento));
+							System.out.println("Pastillas de la guitarra: ");
+							for(int i=0;i<guitarra.getIdPastillas().length;i++){
+								System.out.println(fPas.devuelvePastilla(rutaPastillas, guitarra.getIdPastillas()[i]));
+							}
+							if(guitarra.getDescripcion().equals("s")){
+								System.out.println("Descripcion: "+fi.descripcionInstrumento(rutaDescripcion, idInstrumento));
+							}
 						} else {
 							System.out.println("Error,id inválido!");
 						}
+						break;
+					case 6:
+						fPas.muestraPastillas(rutaPastillas);
 						break;
 					}
 					//Muestra menú instrumentos
 					do{
 						menuInstrumentos();
 						opcionMenuInstrumentos=Integer.parseInt(teclado.nextLine());
-					}while(opcionMenuInstrumentos<0 || opcionMenuInstrumentos>5);
+					}while(opcionMenuInstrumentos<0 || opcionMenuInstrumentos>6);
 				}
 				break;
 			case 10:
@@ -1575,7 +1869,27 @@ public class ElMusiquito {
 				break;
 			case 11:
 				//Actualizar Base de datos
-				System.out.println("En construcción");
+				System.out.println("Atención, este proceso puede durar varios minutos...");
+				ord.ordenaFicheroPersona(rutaPersonas);
+				ord.ordenaFicheroPersona(rutaPersonasTemp);
+				ord.ordenaFicheroCliente(rutaClientes);
+				ord.ordenaFicheroCliente(rutaClientesTemp);
+				
+				ord.ordenaFicheroCompras(rutaCompras);
+				ord.ordenaFicheroCompras(rutaComprasTemp);
+				
+				ord.ordenaFicheroPastillas(rutaPastillas);
+				ord.ordenaFicheroPastillas(rutaPastillasTemp);
+				
+				ord.ordenaFicheroRelaciones(rutaPastillasGuitarras);
+				ord.ordenaFicheroRelaciones(rutaPastillasGuitarrasTemp);
+				
+				act.actualizaPersonas(rutaPersonas, rutaPersonasTemp);
+				act.actualizaClientes(rutaClientes, rutaClientes);
+				act.actualizaCompras(rutaCompras, rutaComprasTemp);
+				act.actualizaPastillas(rutaPastillas, rutaPastillasTemp);
+				act.actualizaRelaciones(rutaPastillasGuitarras, rutaPastillasGuitarrasTemp);
+				estadoBaseDatos=true;
 				break;
 			case 12:
 				//Mostrar Menú Empleados

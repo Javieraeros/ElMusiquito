@@ -1,8 +1,8 @@
 /*
  * Restricciones:
  * El correoe será del tipo:
- * 			******@******.***
- * 
+ * 			******@******.***   (máximo 30 caracteres)
+ * Dirección máximo 20 caracteres
  * Métodos Añadidos/Heredados:
  * 
  * boolean correoeValido(String correoe);

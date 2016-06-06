@@ -22,7 +22,7 @@ public class Ordenador {
 	
 	public void ordenaFicheroPersona(String ruta){
 		File fichero=new File(ruta);
-		if(fichero.length()>1){
+		if(fichero.length()>10000000){
 			ordenaPersonaExterna(ruta);
 		}else{
 			ordenaPersonaHibrido(ruta);
@@ -666,7 +666,6 @@ public class Ordenador {
 		}
 		fAux1.delete();
 		fAux2.delete();
-		System.out.println("Ordenado externamente");
 	}
 	
 	/* 
@@ -1155,7 +1154,6 @@ public class Ordenador {
 		}
 		fAux1.delete();
 		fAux2.delete();
-		System.out.println("Ordenado externamente");
 	}
 	
 	/* 

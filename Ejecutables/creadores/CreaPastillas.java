@@ -10,7 +10,7 @@ import ficheros.*;
 public class CreaPastillas {
 
 	public static void main(String[] args) {
-		String ruta = "Ficheros//Tests//PruebaOrdenarPastillas.dat";
+		String ruta = "Ficheros//Pastillas//PastillasTemp.dat";
 		File fichero = new File(ruta);
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
