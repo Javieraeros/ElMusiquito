@@ -1559,8 +1559,8 @@ public class ElMusiquito {
 				
 				if(!gp.compruebaExistenciaInstrumentoComprado(rutaCompras, idInstrumento)){
 					//Sobreescribimos los datos del instrumento con dicha id
-					instrumento=new InstrumentoImpl(0, "",Marca.Fender, "", "", 0);
-					fi.guardaInstrumento(rutaInstrumentos, rutaDescripcion, instrumento);
+					instrumento=new InstrumentoImpl(idInstrumento, "",Marca.Fender, "", "", 0);
+					fi.borraInstrumento(rutaInstrumentos, rutaDescripcion, instrumento);
 					
 					/*Dependiendo del tipo de instrumento que sea, borramos sus datos de los 
 					diferentes ficheros*/

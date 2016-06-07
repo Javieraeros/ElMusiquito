@@ -135,4 +135,46 @@ public class FicheroSaxofon {
 		}
 		return devolver;
 	}
+	
+	/* 
+	 * Interfaz 
+	 * Cabecera:public void borraInstrumentoSaxofon(String ruta,SaxofonImpl Saxofon)
+	 * Proceso:Borra un isntrumento Saxofon en el fichero indicado
+	 * Precondiciones:Ninguna
+	 * Entrada:1 instrumento Saxofon
+	 * Salida:Nada
+	 * Entrada/Salida:Una cadena para la ruta del fichero
+	 * Postcondiciones:El fichero quedará sobreescrito con el instrumento  Saxofon
+	 */
+	
+	public void borraInstrumentoSaxofon(String ruta,SaxofonImpl saxofon){
+		File fichero=new File(ruta);
+		RandomAccessFile out=null;
+		String familia=UtilidadesCompartidas.completaCadena(saxofon.getFamilia().toString(), 20);
+		String boquilla=UtilidadesCompartidas.completaCadena(saxofon.getBoquillaSaxo(), 20);
+		String material=UtilidadesCompartidas.completaCadena(saxofon.getMaterial(), 20);
+		String acabado=UtilidadesCompartidas.completaCadena(saxofon.getAcabado().toString(), 20);
+		
+		try{
+			out=new RandomAccessFile(fichero, "rw");
+			out.seek(saxofon.getId()*164);
+			out.writeInt(0);
+			out.writeChars(familia);
+			out.writeChars(boquilla);
+			out.writeChars(material);
+			out.writeChars(acabado);
+		}catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}finally{
+			if(out!=null){
+				try {
+					out.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+	}
 }

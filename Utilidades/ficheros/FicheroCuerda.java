@@ -112,4 +112,42 @@ public class FicheroCuerda {
 		}
 		return devolver;
 	}
+
+	/* 
+	 * Interfaz 
+	 * Cabecera:public void borraInstrumentoCuerda(String ruta,CuerdaImpl cuerda)
+	 * Proceso:Borra un isntrumento de cuerda en el fichero indicado
+	 * Precondiciones:Ninguna
+	 * Entrada:1 instrumento de cuerda
+	 * Salida:Nada
+	 * Entrada/Salida:Una cadena para la ruta del fichero
+	 * Postcondiciones:El fichero quedará sobreescrito con el instrumento de cuerda
+	 */
+	
+	public void borraInstrumentoCuerda(String ruta,CuerdaImpl cuerda){
+		File fichero=new File(ruta);
+		RandomAccessFile out=null;
+		String registro=UtilidadesCompartidas.completaCadena(cuerda.getRegistro(), 20);
+		
+		try{
+			out=new RandomAccessFile(fichero, "rw");
+			out.seek(cuerda.getId()*49);
+			out.writeInt(0);
+			out.writeInt(cuerda.getCuerdas());
+			out.writeChars(registro);
+			out.writeByte(cuerda.getTipoCuerda());
+		}catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}finally{
+			if(out!=null){
+				try {
+					out.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+	}
 }

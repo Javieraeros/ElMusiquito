@@ -111,4 +111,42 @@ public class FicheroPercusion {
 		}
 		return devolver;
 	}
+
+	/* 
+	 * Interfaz 
+	 * Cabecera:public void borraInstrumentoperc(String ruta,PercusionImpl viento)
+	 * Proceso:Borra un isntrumento de percusion en el fichero indicado
+	 * Precondiciones:Ninguna
+	 * Entrada:1 instrumento de percusion
+	 * Salida:Nada
+	 * Entrada/Salida:Una cadena para la ruta del fichero
+	 * Postcondiciones:El fichero quedará sobreescrito con el instrumento de percusion
+	 */
+	
+	public void borraInstrumentoPerc(String ruta,PercusionImpl perc){
+		File fichero=new File(ruta);
+		RandomAccessFile out=null;
+		String material=UtilidadesCompartidas.completaCadena(perc.getMaterial(), 20);
+		
+		try{
+			out=new RandomAccessFile(fichero, "rw");
+			out.seek(perc.getId()*47);
+			out.writeInt(0);
+			out.writeChar(perc.getAfinacion());
+			out.writeChars(material);
+			out.writeBoolean(perc.getAccesorios());
+		}catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}finally{
+			if(out!=null){
+				try {
+					out.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+	}
 }

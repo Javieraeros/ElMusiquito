@@ -317,4 +317,41 @@ public class FicheroGuitarra {
 		return numeroRelaciones;
 	}
 
+	/* 
+	 * Interfaz 
+	 * Cabecera:public void borraInstrumentoGuitarra(String rutaGuitarra,GuitarraImpl Guitarra)
+	 * Proceso:Borra un isntrumento Guitarra del fichero indicado
+	 * Precondiciones:Ninguna
+	 * Entrada:1 instrumento Guitarra
+	 * Salida:Nada
+	 * Entrada/Salida:Una cadena para la ruta del fichero guitarra
+	 * Postcondiciones:El fichero quedará sin la guitarra
+	 */
+	
+	public void borraInstrumentoGuitarra(String rutaGuitarra,GuitarraElectricaImpl guitarra){
+		File fichero=new File(rutaGuitarra);
+		RandomAccessFile out=null;
+		String tipo=UtilidadesCompartidas.completaCadena(guitarra.getTipo().toString(), 20);
+		
+		try{
+			out=new RandomAccessFile(fichero, "rw");
+			out.seek(guitarra.getId()*49);
+			out.writeInt(0);
+			out.writeChars(tipo);
+			out.writeBoolean(guitarra.getPuenteFlotante());
+			out.writeInt(guitarra.getControles());
+		}catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}finally{
+			if(out!=null){
+				try {
+					out.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+	}
 }

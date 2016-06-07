@@ -113,4 +113,42 @@ public class FicheroViento {
 		}
 		return devolver;
 	}
+
+	/* 
+	 * Interfaz 
+	 * Cabecera:public void borraInstrumentoViento(String ruta,VientoImpl viento)
+	 * Proceso:Borra un isntrumento de viento en el fichero indicado
+	 * Precondiciones:Ninguna
+	 * Entrada:1 instrumento de viento
+	 * Salida:Nada
+	 * Entrada/Salida:Una cadena para la ruta del fichero
+	 * Postcondiciones:El fichero quedará sobreescrito con el instrumento de viento
+	 */
+	
+	public void borraInstrumentoViento(String ruta,VientoImpl viento){
+		File fichero=new File(ruta);
+		RandomAccessFile out=null;
+		String tesitura=UtilidadesCompartidas.completaCadena(viento.getTesitura(), 20);
+		
+		try{
+			out=new RandomAccessFile(fichero, "rw");
+			out.seek(viento.getId()*47);
+			out.writeInt(0);
+			out.writeChar(viento.getAfinacion());
+			out.writeChars(tesitura);
+			out.writeByte(viento.getBoquilla());
+		}catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}finally{
+			if(out!=null){
+				try {
+					out.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+	}
 }

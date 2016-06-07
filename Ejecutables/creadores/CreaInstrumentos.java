@@ -10,8 +10,8 @@ public class CreaInstrumentos {
 	public static void main(String[] args) {
 		FicheroInstrumento fi=new FicheroInstrumento();
 		Scanner teclado=new Scanner(System.in);
-		String ruta="Ficheros//Tests//PruebaGuardaInstrumentos.dat";
-		String rutaDescripcion="Ficheros//Tests//Decripcion.txt";
+		String ruta="Ficheros//Instrumentos//Isntrumentos.dat";
+		String rutaDescripcion="Ficheros//Instrumentos//Descripcion.txt";
 		
 		char continuar,desc;
 		String nombre,modelo;

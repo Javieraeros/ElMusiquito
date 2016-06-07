@@ -69,8 +69,25 @@ public class GestionadoraPrincipal {
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
+		} catch(EOFException e){
+			
 		} catch (IOException e) {
 			System.out.println(e);
+		} finally{
+			if (dis!=null){
+				try {
+					dis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 
 		return resultado;
@@ -97,8 +114,25 @@ public class GestionadoraPrincipal {
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
-		} catch (IOException e) {
+		} catch(EOFException e){
+			
+		}catch (IOException e) {
 			System.out.println(e);
+		} finally{
+			if(dis!=null){
+				try {
+					dis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fis!=null){
+				try {
+					fis.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 
 		return resultado;
@@ -120,7 +154,9 @@ public class GestionadoraPrincipal {
 
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
-		} catch (IOException e) {
+		} catch(EOFException e){
+			
+		}catch (IOException e) {
 			System.out.println(e);
 		} finally {
 			if (in != null) {
@@ -151,7 +187,9 @@ public class GestionadoraPrincipal {
 
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
-		} catch (IOException e) {
+		} catch(EOFException e){
+			
+		}catch (IOException e) {
 			System.out.println(e);
 		} finally {
 			if (in != null) {
@@ -182,7 +220,9 @@ public class GestionadoraPrincipal {
 
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
-		} catch (IOException e) {
+		} catch(EOFException e){
+			
+		}catch (IOException e) {
 			System.out.println(e);
 		} finally {
 			if (in != null) {
@@ -213,7 +253,9 @@ public class GestionadoraPrincipal {
 
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
-		} catch (IOException e) {
+		} catch(EOFException e){
+			
+		}catch (IOException e) {
 			System.out.println(e);
 		} finally {
 			if (in != null) {
@@ -244,7 +286,9 @@ public class GestionadoraPrincipal {
 
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
-		} catch (IOException e) {
+		} catch(EOFException e){
+			
+		}catch (IOException e) {
 			System.out.println(e);
 		} finally {
 			if (in != null) {
@@ -275,7 +319,9 @@ public class GestionadoraPrincipal {
 
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
-		} catch (IOException e) {
+		} catch(EOFException e){
+			
+		}catch (IOException e) {
 			System.out.println(e);
 		} finally {
 			if (in != null) {
@@ -313,6 +359,21 @@ public class GestionadoraPrincipal {
 
 		} catch (IOException e) {
 			System.out.println(e);
+		} finally{
+			if (ois!=null){
+				try {
+					ois.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			if(fos!=null){
+				try {
+					fos.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
 		}
 		
 		return resultado;
@@ -339,7 +400,9 @@ public class GestionadoraPrincipal {
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
-		} catch (IOException e) {
+		} catch(EOFException e){
+			
+		}catch (IOException e) {
 			System.out.println(e);
 		} finally {
 			if (dis != null) {

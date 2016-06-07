@@ -131,6 +131,8 @@ public class FicheroInstrumento {
 			
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
+		} catch(EOFException e) {
+			
 		} catch (IOException e) {
 			System.out.println(e);
 		}finally{
@@ -337,4 +339,48 @@ public class FicheroInstrumento {
 		return salida;
 	}
 	
+	/* 
+	 * Interfaz 
+	 * Cabecera:public void borraInstrumento(String ruta,String desc,InstrumentoImpl instrumento)
+	 * Proceso:Borra un isntrumento en el fichero indicado
+	 * Precondiciones:Ninguna
+	 * Entrada:1 instrumento
+	 * Salida:Nada
+	 * Entrada/Salida:Una cadena para la ruta del fichero
+	 * 					Una cadena para la descripcion del fichero
+	 * Postcondiciones:El instrumento quedará borrado por marca
+	 */
+	public void borraInstrumento(String ruta,String desc,InstrumentoImpl instrumento){
+		File fichero=new File(ruta);
+		RandomAccessFile out=null;
+		String nombre=UtilidadesCompartidas.completaCadena(instrumento.getNombre(), 20);
+		
+		//Pasamos la marca de tipo Marca a tipo String
+		String marca=UtilidadesCompartidas.completaCadena(instrumento.getMarca().toString(),20);
+		
+		String modelo=UtilidadesCompartidas.completaCadena(instrumento.getModelo(), 20);
+		
+		try{
+			out=new RandomAccessFile(fichero, "rw");
+			out.seek(instrumento.getId()*134);
+			out.writeInt(0);
+			out.writeChars(nombre);
+			out.writeChars(marca);
+			out.writeChar('n');
+			out.writeChars(modelo);
+			out.writeDouble(instrumento.getPrecioVenta());
+		}catch (FileNotFoundException e) {
+			System.out.println(e);
+		} catch (IOException e) {
+			System.out.println(e);
+		}finally{
+			if(out!=null){
+				try {
+					out.close();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+		}
+	}
 }
