@@ -1565,6 +1565,8 @@ public class Ordenador {
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println(e);
+		} catch(EOFException e){
+			
 		} catch (IOException e) {
 			System.out.println(e);
 		} finally {

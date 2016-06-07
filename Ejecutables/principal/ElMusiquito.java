@@ -1738,7 +1738,7 @@ public class ElMusiquito {
 				v=cliente.getCompras();
 				
 				do{
-					System.out.println("Isntrumentos vendidos: ");
+					System.out.println("Instrumentos vendidos: ");
 					for(int i=0;i<v.size();i++){
 						System.out.println(v.elementAt(i));
 					}
