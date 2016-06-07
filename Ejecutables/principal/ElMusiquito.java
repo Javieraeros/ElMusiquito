@@ -71,7 +71,8 @@ public class ElMusiquito {
 		System.out.println("3.Ver instrumento de cuerda");
 		System.out.println("4.Ver saxofon");
 		System.out.println("5.Ver guitarra electrica");
-		System.out.println("6.Ver Pastillas");
+		System.out.println("6.Ver descripción genérico");
+		System.out.println("7.Ver Pastillas");
 		System.out.println("0.Salir");
 	}
 	
@@ -153,6 +154,9 @@ public class ElMusiquito {
 			descripcion = descripcion + teclado.nextLine();
 			System.out.println("Desea escribir algo más en la descripcion?");
 			desc = teclado.nextLine().charAt(0);
+			if(desc=='s'){
+				descripcion=descripcion+"\n";
+			}
 		}
 
 		// Modelo
@@ -1318,7 +1322,7 @@ public class ElMusiquito {
 						fi.guardaInstrumento(rutaInstrumentos,rutaDescripcion,instrumento);
 						cuerda=creaCuerda(instrumento);
 						fCuerda.guardaInstrumentoCuerda(rutaCuerda, cuerda);
-						guitarra=creaGuitarraElectrica(cuerda, rutaPastillasGuitarras);
+						guitarra=creaGuitarraElectrica(cuerda, rutaPastillas);
 						fg.guardaInstrumentoGuitarra(rutaGuitarra, guitarra);
 						fg.guardaRelacionPastilla(rutaPastillasGuitarras, guitarra);
 						break;
@@ -1760,10 +1764,10 @@ public class ElMusiquito {
 				do{
 					menuInstrumentos();
 					opcionMenuInstrumentos=Integer.parseInt(teclado.nextLine());
-				}while(opcionMenuInstrumentos<0 || opcionMenuInstrumentos>6);
+				}while(opcionMenuInstrumentos<0 || opcionMenuInstrumentos>7);
 				
 				while(opcionMenuInstrumentos!=0){
-					if(opcionMenuInstrumentos!=6){
+					if(opcionMenuInstrumentos!=7){
 						System.out.println("Introduce la id: ");
 						idInstrumento=Integer.parseInt(teclado.nextLine());
 					}else{
@@ -1825,6 +1829,13 @@ public class ElMusiquito {
 						}
 						break;
 					case 6:
+						instrumento=fi.devuelveInstrumento(rutaInstrumentos, idInstrumento);
+						if(instrumento.getDescripcion().equals("s")){
+							instrumento.setDescripcion(fi.descripcionInstrumento(rutaDescripcion, idInstrumento));
+							System.out.println(instrumento.getDescripcion());
+						}
+						break;
+					case 7:
 						fPas.muestraPastillas(rutaPastillas);
 						break;
 					}
@@ -1832,7 +1843,7 @@ public class ElMusiquito {
 					do{
 						menuInstrumentos();
 						opcionMenuInstrumentos=Integer.parseInt(teclado.nextLine());
-					}while(opcionMenuInstrumentos<0 || opcionMenuInstrumentos>6);
+					}while(opcionMenuInstrumentos<0 || opcionMenuInstrumentos>7);
 				}
 				break;
 			case 10:
