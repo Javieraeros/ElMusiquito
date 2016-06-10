@@ -453,13 +453,14 @@ public class Ordenador {
 				if (cont1 < secuencia) {
 					while (a != null && cont1 < secuencia) {
 						out.writeObject(a);
+						numRegistro1--;
 						if (numRegistro1 > 0) {
 							a = (PersonaImpl) in1.readObject();
 						} else {
 							a = null;
 						}
 						cont1++;
-						numRegistro1--;
+						
 					}
 				} else {
 					while (b != null && cont2 < secuencia) {
